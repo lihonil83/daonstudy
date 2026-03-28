@@ -100,6 +100,14 @@ npm run smoke:browser:prod
 npm run build
 ```
 
+한 번에 릴리스용 산출물까지 만들고 싶다면:
+
+```bash
+npm run release:prep
+```
+
+이 명령은 검증을 모두 마친 뒤 운영 빌드 기준 `release/` 폴더를 만들어 줍니다.
+
 확인할 것:
 
 - 홈, 수학, 영어, 복습, 기록 화면이 뜨는지
@@ -115,9 +123,20 @@ npm run build
 - production 브라우저 검증 통과
 - 사용자용 문구가 개발자 문구로 남아 있지 않은지 확인
 
-## 9. 문제 발생 시 먼저 볼 곳
+## 9. release 산출물
 
-- 문서 정합성 문제: [REPOSITORY-HARNESS.md](/Users/jihun/daonstudy/daonstudy/REPOSITORY-HARNESS.md)
-- 작업 단위 기준: [WORK-UNIT-TEMPLATE.md](/Users/jihun/daonstudy/daonstudy/docs/ops/WORK-UNIT-TEMPLATE.md)
-- 미해결 기록: [HANDOVER.md](/Users/jihun/daonstudy/daonstudy/docs/ops/HANDOVER.md)
-- 브라우저 검증 스크립트: [browser-smoke.mjs](/Users/jihun/daonstudy/daonstudy/scripts/browser-smoke.mjs)
+`npm run release:prep`가 성공하면 `release/` 아래에 다음이 생성됩니다.
+
+- `daonstudy-v0.1.0-.../dist/`
+- `daonstudy-v0.1.0-.../manifest.json`
+- `daonstudy-v0.1.0-.../README.txt`
+- `release/LATEST.txt`
+
+`README.txt`에는 실제 사용자가 `dist/index.html`을 어떻게 열면 되는지 적혀 있습니다.
+
+## 10. 문제 발생 시 먼저 볼 곳
+
+- 문서 정합성 문제: [Repository Harness](/Users/jihun/daonstudy/daonstudy/REPOSITORY-HARNESS.md)
+- 작업 단위 기준: [Work Unit Template](/Users/jihun/daonstudy/daonstudy/docs/ops/WORK-UNIT-TEMPLATE.md)
+- 미해결 기록: [Handover](/Users/jihun/daonstudy/daonstudy/docs/ops/HANDOVER.md)
+- 브라우저 검증 스크립트: [browser-smoke script](/Users/jihun/daonstudy/daonstudy/scripts/browser-smoke.mjs)
