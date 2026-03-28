@@ -205,7 +205,17 @@ export default function Progress() {
             </div>
           ) : (
             <div className={styles.emptyState}>
-              첫 퀴즈를 풀면 최근 기록이 여기부터 차곡차곡 쌓여요.
+              <p className={styles.emptyCopy}>
+                첫 퀴즈를 풀면 최근 기록이 여기부터 차곡차곡 쌓여요.
+              </p>
+              <div className={styles.emptyActions}>
+                <Link className={styles.emptyLink} to="/math/addition-up-to-20">
+                  추천 수학 시작하기
+                </Link>
+                <Link className={styles.emptyLink} to="/english/alphabet-upper">
+                  추천 영어 시작하기
+                </Link>
+              </div>
             </div>
           )}
         </section>

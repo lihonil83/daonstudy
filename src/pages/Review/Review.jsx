@@ -141,7 +141,17 @@ export default function Review({
           </>
         ) : (
           <div className={styles.emptyState}>
-            ✨ 미복습 문제가 없어요. 지금까지 나온 문제는 잘 정리되고 있어요.
+            <p className={styles.emptyCopy}>
+              ✨ 미복습 문제가 없어요. 지금까지 나온 문제는 잘 정리되고 있어요.
+            </p>
+            <div className={styles.emptyActions}>
+              <a className={styles.emptyLink} href="#/math">
+                수학 시작하기
+              </a>
+              <a className={styles.emptyLink} href="#/english">
+                영어 시작하기
+              </a>
+            </div>
           </div>
         )}
 
@@ -170,7 +180,9 @@ export default function Review({
             ))}
           </div>
         ) : (
-          <div className={styles.emptyState}>아직 복습을 완료한 문제는 없어요.</div>
+          <div className={styles.emptyState}>
+            <p className={styles.emptyCopy}>아직 복습을 완료한 문제는 없어요.</p>
+          </div>
         )}
       </div>
     </section>

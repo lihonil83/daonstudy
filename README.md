@@ -2,7 +2,7 @@
 
 다온이 전용 학습도우미 프로젝트입니다.
 
-현재 저장소는 구현 전 단계의 하네스 문서와 실행 계획을 중심으로 정리되어 있습니다.
+현재 저장소는 문서 하네스와 실제 실행 가능한 앱을 함께 운영하고 있습니다.
 
 핵심 진입점:
 
@@ -13,6 +13,7 @@
 - `AGENTS.md` : 작업 원칙, 기술 스택, 개발 규칙
 - `ARCHITECTURE.md` : 폴더 구조, 데이터 모델, 설계 원칙
 - `PLANS.md` : 전체 로드맵과 Phase 기준
+- `RUNBOOK.md` : 실제 실행, 빌드, smoke 검증, 배포 전 체크리스트
 - `docs/exec-plans/active/mvp-plan.md` : 현재 MVP 실행 계획
 - `docs/design-docs/core-beliefs.md` : 교육 원칙과 UX 판단 기준
 - `docs/product-specs/` : 퀴즈, 진도, 보상, 오답 복습 상세 스펙
@@ -28,6 +29,7 @@
 ├── DESIGN.md
 ├── FRONTEND.md
 ├── PLANS.md
+├── RUNBOOK.md
 └── docs/
     ├── design-docs/
     ├── exec-plans/active/

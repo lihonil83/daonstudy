@@ -92,6 +92,8 @@ test('Progress page renders empty recent history guidance when there are no scor
   assert.match(html, /첫 퀴즈를 풀면 최근 기록이 여기부터 차곡차곡 쌓여요/);
   assert.match(html, /오늘 가볍게 한 번 시작해볼까요/);
   assert.match(html, /기록은 자동 저장되니 보통은 그대로 두면 됩니다/);
+  assert.match(html, /추천 수학 시작하기/);
+  assert.match(html, /추천 영어 시작하기/);
 });
 
 test('Review page renders empty-state copy when there are no wrong answers', async () => {
@@ -117,6 +119,8 @@ test('Review page renders empty-state copy when there are no wrong answers', asy
 
   assert.match(html, /미복습 문제가 없어요/);
   assert.match(html, /아직 복습을 완료한 문제는 없어요/);
+  assert.match(html, /수학 시작하기/);
+  assert.match(html, /영어 시작하기/);
 });
 
 test('Review page renders unreviewed and reviewed items from hook data', async () => {
