@@ -1,0 +1,26 @@
+{
+  "id": "alphabet-upper",
+  "title": "알파벳 대문자",
+  "questions": [
+    { "id": "alpha-upper-001", "type": "multiple-choice", "question": "대문자 A와 짝이 되는 소문자는?", "choices": ["a", "b", "d", "e"], "answer": "a", "hints": ["A의 작은 짝을 찾아보세요.", "첫 번째 소문자는 a예요."] },
+    { "id": "alpha-upper-002", "type": "multiple-choice", "question": "대문자 B와 짝이 되는 소문자는?", "choices": ["d", "b", "p", "h"], "answer": "b", "hints": ["길쭉한 선과 둥근 모양을 떠올려보세요.", "B의 소문자 짝은 b예요."] },
+    { "id": "alpha-upper-003", "type": "multiple-choice", "question": "대문자 C와 짝이 되는 소문자는?", "choices": ["o", "c", "e", "g"], "answer": "c", "hints": ["열린 동그라미 모양을 찾아보세요.", "C의 소문자 짝은 c예요."] },
+    { "id": "alpha-upper-004", "type": "multiple-choice", "question": "대문자 D와 짝이 되는 소문자는?", "choices": ["a", "o", "d", "q"], "answer": "d", "hints": ["오른쪽이 둥근 글자를 찾아보세요.", "D의 소문자 짝은 d예요."] },
+    { "id": "alpha-upper-005", "type": "multiple-choice", "question": "대문자 E와 짝이 되는 소문자는?", "choices": ["f", "c", "e", "l"], "answer": "e", "hints": ["작은 고리 모양으로 시작해요.", "E의 소문자 짝은 e예요."] },
+    { "id": "alpha-upper-006", "type": "multiple-choice", "question": "대문자 F와 짝이 되는 소문자는?", "choices": ["f", "t", "e", "i"], "answer": "f", "hints": ["길쭉하고 가로선이 있는 글자예요.", "F의 소문자 짝은 f예요."] },
+    { "id": "alpha-upper-007", "type": "multiple-choice", "question": "대문자 G와 짝이 되는 소문자는?", "choices": ["q", "g", "c", "y"], "answer": "g", "hints": ["고리와 꼬리가 함께 있어요.", "G의 소문자 짝은 g예요."] },
+    { "id": "alpha-upper-008", "type": "multiple-choice", "question": "대문자 H와 짝이 되는 소문자는?", "choices": ["n", "h", "k", "m"], "answer": "h", "hints": ["길쭉한 선과 봉우리가 하나 있어요.", "H의 소문자 짝은 h예요."] },
+    { "id": "alpha-upper-009", "type": "multiple-choice", "question": "대문자 I와 짝이 되는 소문자는?", "choices": ["j", "l", "i", "t"], "answer": "i", "hints": ["짧은 선 위에 점이 있어요.", "I의 소문자 짝은 i예요."] },
+    { "id": "alpha-upper-010", "type": "multiple-choice", "question": "대문자 J와 짝이 되는 소문자는?", "choices": ["i", "l", "j", "u"], "answer": "j", "hints": ["점이 있고 아래가 굽은 글자예요.", "J의 소문자 짝은 j예요."] },
+    { "id": "alpha-upper-011", "type": "multiple-choice", "question": "A 다음에 오는 글자는?", "choices": ["B", "C", "D", "E"], "answer": "B", "hints": ["두 번째 글자를 떠올려보세요.", "A, B 순서예요."] },
+    { "id": "alpha-upper-012", "type": "multiple-choice", "question": "C 다음에 오는 글자는?", "choices": ["B", "D", "E", "F"], "answer": "D", "hints": ["한 칸 앞으로 가보세요.", "C, D 순서예요."] },
+    { "id": "alpha-upper-013", "type": "multiple-choice", "question": "F 다음에 오는 글자는?", "choices": ["G", "H", "E", "I"], "answer": "G", "hints": ["F 다음 한 글자를 생각해보세요.", "F, G 순서예요."] },
+    { "id": "alpha-upper-014", "type": "multiple-choice", "question": "H 다음에 오는 글자는?", "choices": ["I", "G", "J", "K"], "answer": "I", "hints": ["H 바로 뒤 글자예요.", "H, I 순서예요."] },
+    { "id": "alpha-upper-015", "type": "multiple-choice", "question": "J 다음에 오는 글자는?", "choices": ["I", "J", "K", "L"], "answer": "K", "hints": ["J에서 한 칸 앞으로 가보세요.", "J, K 순서예요."] },
+    { "id": "alpha-upper-016", "type": "multiple-choice", "question": "M 다음에 오는 글자는?", "choices": ["L", "N", "O", "P"], "answer": "N", "hints": ["M 바로 다음 글자를 찾아보세요.", "M, N 순서예요."] },
+    { "id": "alpha-upper-017", "type": "multiple-choice", "question": "P 다음에 오는 글자는?", "choices": ["O", "Q", "R", "S"], "answer": "Q", "hints": ["P에서 한 칸 뒤예요.", "P, Q 순서예요."] },
+    { "id": "alpha-upper-018", "type": "multiple-choice", "question": "R 다음에 오는 글자는?", "choices": ["Q", "S", "T", "U"], "answer": "S", "hints": ["R 바로 뒤를 생각해보세요.", "R, S 순서예요."] },
+    { "id": "alpha-upper-019", "type": "multiple-choice", "question": "T 다음에 오는 글자는?", "choices": ["R", "S", "U", "V"], "answer": "U", "hints": ["T에서 한 칸 앞으로 가보세요.", "T, U 순서예요."] },
+    { "id": "alpha-upper-020", "type": "multiple-choice", "question": "W 다음에 오는 글자는?", "choices": ["X", "Y", "V", "Z"], "answer": "X", "hints": ["끝쪽 알파벳 순서를 떠올려보세요.", "W, X 순서예요."] }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "clock-reading",
+  "title": "시계 읽기",
+  "questions": [
+    { "id": "clock-001", "type": "multiple-choice", "question": "이 시계는 몇 시일까요?", "choices": ["1시", "2시", "3시", "4시"], "answer": "3시", "hints": ["긴 바늘이 12를 가리키면 정각이에요.", "짧은 바늘이 3을 가리키고 있어요."], "visual": { "type": "clock", "hour": 3, "minute": 0 } },
+    { "id": "clock-002", "type": "multiple-choice", "question": "이 시계는 몇 시일까요?", "choices": ["4시", "5시", "6시", "7시"], "answer": "6시", "hints": ["긴 바늘은 12에 있어요.", "짧은 바늘은 6을 가리켜요."], "visual": { "type": "clock", "hour": 6, "minute": 0 } },
+    { "id": "clock-003", "type": "multiple-choice", "question": "이 시계는 몇 시일까요?", "choices": ["7시", "8시", "9시", "10시"], "answer": "9시", "hints": ["정각 시계예요.", "짧은 바늘이 9를 가리키고 있어요."], "visual": { "type": "clock", "hour": 9, "minute": 0 } },
+    { "id": "clock-004", "type": "multiple-choice", "question": "이 시계는 몇 시일까요?", "choices": ["10시", "11시", "12시", "1시"], "answer": "12시", "hints": ["긴 바늘은 12를 가리켜요.", "짧은 바늘도 12에 가까워요."], "visual": { "type": "clock", "hour": 12, "minute": 0 } },
+    { "id": "clock-005", "type": "multiple-choice", "question": "이 시계는 몇 시일까요?", "choices": ["1시", "2시", "3시", "4시"], "answer": "1시", "hints": ["긴 바늘이 위를 보고 있어요.", "짧은 바늘은 1을 가리켜요."], "visual": { "type": "clock", "hour": 1, "minute": 0 } },
+    { "id": "clock-006", "type": "multiple-choice", "question": "이 시계는 몇 시일까요?", "choices": ["4시", "5시", "6시", "7시"], "answer": "5시", "hints": ["정각이에요.", "짧은 바늘이 5를 가리켜요."], "visual": { "type": "clock", "hour": 5, "minute": 0 } },
+    { "id": "clock-007", "type": "multiple-choice", "question": "이 시계는 몇 시일까요?", "choices": ["7시", "8시", "9시", "10시"], "answer": "8시", "hints": ["긴 바늘은 12예요.", "짧은 바늘은 8에 있어요."], "visual": { "type": "clock", "hour": 8, "minute": 0 } },
+    { "id": "clock-008", "type": "multiple-choice", "question": "이 시계는 몇 시일까요?", "choices": ["10시", "11시", "12시", "1시"], "answer": "11시", "hints": ["정각 시계예요.", "짧은 바늘이 11을 가리켜요."], "visual": { "type": "clock", "hour": 11, "minute": 0 } },
+    { "id": "clock-009", "type": "multiple-choice", "question": "이 시계는 몇 시일까요?", "choices": ["2시", "3시", "4시", "5시"], "answer": "4시", "hints": ["긴 바늘은 12에 있어요.", "짧은 바늘은 4를 가리켜요."], "visual": { "type": "clock", "hour": 4, "minute": 0 } },
+    { "id": "clock-010", "type": "multiple-choice", "question": "이 시계는 몇 시일까요?", "choices": ["6시", "7시", "8시", "9시"], "answer": "7시", "hints": ["정각이에요.", "짧은 바늘이 7을 가리켜요."], "visual": { "type": "clock", "hour": 7, "minute": 0 } },
+    { "id": "clock-011", "type": "multiple-choice", "question": "이 시계는 몇 시 30분일까요?", "choices": ["11시 30분", "12시 30분", "1시 30분", "2시 30분"], "answer": "12시 30분", "hints": ["긴 바늘이 6을 가리키면 30분이에요.", "짧은 바늘이 12와 1 사이에 있어요."], "visual": { "type": "clock", "hour": 12, "minute": 30 } },
+    { "id": "clock-012", "type": "multiple-choice", "question": "이 시계는 몇 시 30분일까요?", "choices": ["1시 30분", "2시 30분", "3시 30분", "4시 30분"], "answer": "2시 30분", "hints": ["긴 바늘은 6을 가리켜요.", "짧은 바늘은 2와 3 사이에 있어요."], "visual": { "type": "clock", "hour": 2, "minute": 30 } },
+    { "id": "clock-013", "type": "multiple-choice", "question": "이 시계는 몇 시 30분일까요?", "choices": ["3시 30분", "4시 30분", "5시 30분", "6시 30분"], "answer": "5시 30분", "hints": ["30분 시계예요.", "짧은 바늘이 5와 6 사이에 있어요."], "visual": { "type": "clock", "hour": 5, "minute": 30 } },
+    { "id": "clock-014", "type": "multiple-choice", "question": "이 시계는 몇 시 30분일까요?", "choices": ["6시 30분", "7시 30분", "8시 30분", "9시 30분"], "answer": "8시 30분", "hints": ["긴 바늘이 아래를 보고 있어요.", "짧은 바늘은 8과 9 사이에 있어요."], "visual": { "type": "clock", "hour": 8, "minute": 30 } },
+    { "id": "clock-015", "type": "multiple-choice", "question": "이 시계는 몇 시 30분일까요?", "choices": ["9시 30분", "10시 30분", "11시 30분", "12시 30분"], "answer": "11시 30분", "hints": ["30분이에요.", "짧은 바늘은 11과 12 사이에 있어요."], "visual": { "type": "clock", "hour": 11, "minute": 30 } },
+    { "id": "clock-016", "type": "multiple-choice", "question": "이 시계는 몇 시 30분일까요?", "choices": ["12시 30분", "1시 30분", "2시 30분", "3시 30분"], "answer": "1시 30분", "hints": ["긴 바늘이 6에 있어요.", "짧은 바늘이 1과 2 사이에 있어요."], "visual": { "type": "clock", "hour": 1, "minute": 30 } },
+    { "id": "clock-017", "type": "multiple-choice", "question": "이 시계는 몇 시 30분일까요?", "choices": ["3시 30분", "4시 30분", "5시 30분", "6시 30분"], "answer": "4시 30분", "hints": ["긴 바늘은 6을 가리켜요.", "짧은 바늘은 4와 5 사이에 있어요."], "visual": { "type": "clock", "hour": 4, "minute": 30 } },
+    { "id": "clock-018", "type": "multiple-choice", "question": "이 시계는 몇 시 30분일까요?", "choices": ["6시 30분", "7시 30분", "8시 30분", "9시 30분"], "answer": "7시 30분", "hints": ["30분 시계예요.", "짧은 바늘은 7과 8 사이에 있어요."], "visual": { "type": "clock", "hour": 7, "minute": 30 } },
+    { "id": "clock-019", "type": "multiple-choice", "question": "이 시계는 몇 시 30분일까요?", "choices": ["8시 30분", "9시 30분", "10시 30분", "11시 30분"], "answer": "10시 30분", "hints": ["긴 바늘이 6을 가리켜요.", "짧은 바늘은 10과 11 사이에 있어요."], "visual": { "type": "clock", "hour": 10, "minute": 30 } },
+    { "id": "clock-020", "type": "multiple-choice", "question": "이 시계는 몇 시 30분일까요?", "choices": ["2시 30분", "3시 30분", "4시 30분", "5시 30분"], "answer": "3시 30분", "hints": ["30분은 긴 바늘이 아래를 가리켜요.", "짧은 바늘은 3과 4 사이에 있어요."], "visual": { "type": "clock", "hour": 3, "minute": 30 } }
+  ]
+}

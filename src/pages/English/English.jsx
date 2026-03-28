@@ -1,0 +1,89 @@
+import { Link, useParams } from 'react-router-dom';
+import QuizSession from '../../components/Quiz/QuizSession';
+import { ENGLISH_UNITS } from '../../data/unitRegistry';
+import styles from './English.module.css';
+
+export default function English() {
+  const { unitId } = useParams();
+  const units = Object.values(ENGLISH_UNITS);
+
+  if (unitId) {
+    const unit = ENGLISH_UNITS[unitId];
+
+    if (!unit) {
+      return (
+        <section className={styles.page}>
+          <div className={styles.panel}>
+            <span className={`${styles.tag} ${styles.englishTag}`}>영어 단원</span>
+            <h2 className={styles.title}>단원을 찾을 수 없어요</h2>
+            <p className={styles.copy}>
+              아직 등록되지 않은 영어 단원 경로예요. 아래 목록에 있는 단원으로 다시 들어가면
+              바로 이어서 학습할 수 있어요.
+            </p>
+            <Link className={styles.linkButton} to="/english">
+              단원 목록으로 돌아가기
+            </Link>
+          </div>
+        </section>
+      );
+    }
+
+    if (!unit.available) {
+      return (
+        <section className={styles.page}>
+          <div className={styles.panel}>
+            <span className={`${styles.tag} ${styles.englishTag}`}>영어 단원</span>
+            <h2 className={styles.title}>{unit.title}</h2>
+            <p className={styles.copy}>
+              {unit.description} 지금은 잠겨 있지만, 학습 순서가 보이도록 자리를 먼저 만들어
+              두었습니다.
+            </p>
+            <Link className={styles.linkButton} to="/english">
+              단원 목록으로 돌아가기
+            </Link>
+          </div>
+        </section>
+      );
+    }
+
+    return <QuizSession unit={unit} accent="english" backTo="/english" />;
+  }
+
+  return (
+    <section className={styles.page}>
+      <div className={styles.panel}>
+        <span className={`${styles.tag} ${styles.englishTag}`}>영어</span>
+        <h2 className={styles.title}>영어 단원을 골라보세요</h2>
+        <p className={styles.copy}>
+          이제 알파벳, 기초 단어, 파닉스 A·B·C 단원을 바로 풀 수 있어요. 다음 단원도
+          그대로 보여서 앱이 커져도 길을 다시 익힐 필요가 없습니다.
+        </p>
+        <div className={styles.unitList}>
+          {units.map((unit) =>
+            unit.available ? (
+              <Link key={unit.id} to={`/english/${unit.id}`} className={styles.unitCard}>
+                <div className={styles.unitMeta}>
+                  <strong>{unit.title}</strong>
+                  <span className={styles.tag}>시작 가능</span>
+                </div>
+                <span className={styles.unitNote}>{unit.description}</span>
+              </Link>
+            ) : (
+              <div
+                key={unit.id}
+                className={`${styles.unitCard} ${styles.unitCardDisabled}`}
+                aria-disabled="true"
+              >
+                <div className={styles.unitMeta}>
+                  <strong>{unit.title}</strong>
+                  <span className={styles.tag}>잠김</span>
+                </div>
+                <span className={styles.unitNote}>{unit.description}</span>
+              </div>
+            ),
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}

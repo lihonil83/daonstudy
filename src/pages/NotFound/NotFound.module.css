@@ -1,0 +1,71 @@
+.card {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  background:
+    linear-gradient(145deg, rgba(250, 246, 232, 0.98), rgba(240, 248, 245, 0.94));
+  border: 1px solid rgba(63, 96, 77, 0.14);
+  box-shadow: 0 24px 48px rgba(40, 66, 56, 0.08);
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7a6a36;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  color: #22362c;
+}
+
+.description {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #496257;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.linkButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.9rem;
+  padding: 0.7rem 1rem;
+  border-radius: 999px;
+  background: #234435;
+  color: #f7f7f2;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+  box-shadow: 0 14px 28px rgba(35, 68, 53, 0.18);
+}
+
+.linkButton:hover {
+  transform: translateY(-1px);
+  background: #1b3429;
+}
+
+@media (max-width: 640px) {
+  .actions {
+    flex-direction: column;
+  }
+
+  .linkButton {
+    width: 100%;
+  }
+}

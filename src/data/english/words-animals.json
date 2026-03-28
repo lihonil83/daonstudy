@@ -1,0 +1,26 @@
+{
+  "id": "words-animals",
+  "title": "동물 단어",
+  "questions": [
+    { "id": "animal-001", "type": "multiple-choice", "question": "고양이를 영어로 하면?", "choices": ["dog", "cat", "lion", "bear"], "answer": "cat", "hints": ["야옹 하는 동물이에요.", "고양이는 cat이에요."] },
+    { "id": "animal-002", "type": "multiple-choice", "question": "강아지를 영어로 하면?", "choices": ["rabbit", "dog", "bird", "fish"], "answer": "dog", "hints": ["멍멍 하는 동물이에요.", "강아지는 dog예요."] },
+    { "id": "animal-003", "type": "multiple-choice", "question": "사자를 영어로 하면?", "choices": ["tiger", "lion", "bear", "monkey"], "answer": "lion", "hints": ["갈기가 있는 동물이에요.", "사자는 lion이에요."] },
+    { "id": "animal-004", "type": "multiple-choice", "question": "호랑이를 영어로 하면?", "choices": ["tiger", "lion", "elephant", "rabbit"], "answer": "tiger", "hints": ["줄무늬가 있는 큰 고양이예요.", "호랑이는 tiger예요."] },
+    { "id": "animal-005", "type": "multiple-choice", "question": "토끼를 영어로 하면?", "choices": ["rabbit", "bird", "fish", "cat"], "answer": "rabbit", "hints": ["귀가 길고 깡충깡충 뛰어요.", "토끼는 rabbit이에요."] },
+    { "id": "animal-006", "type": "multiple-choice", "question": "곰을 영어로 하면?", "choices": ["bear", "lion", "dog", "bird"], "answer": "bear", "hints": ["크고 힘이 센 동물이에요.", "곰은 bear예요."] },
+    { "id": "animal-007", "type": "multiple-choice", "question": "원숭이를 영어로 하면?", "choices": ["fish", "monkey", "rabbit", "cat"], "answer": "monkey", "hints": ["나무를 잘 타는 동물이에요.", "원숭이는 monkey예요."] },
+    { "id": "animal-008", "type": "multiple-choice", "question": "코끼리를 영어로 하면?", "choices": ["elephant", "tiger", "bear", "dog"], "answer": "elephant", "hints": ["코가 아주 긴 동물이에요.", "코끼리는 elephant예요."] },
+    { "id": "animal-009", "type": "multiple-choice", "question": "새를 영어로 하면?", "choices": ["bird", "fish", "lion", "rabbit"], "answer": "bird", "hints": ["하늘을 나는 동물이에요.", "새는 bird예요."] },
+    { "id": "animal-010", "type": "multiple-choice", "question": "물고기를 영어로 하면?", "choices": ["cat", "fish", "bird", "bear"], "answer": "fish", "hints": ["물속에서 헤엄치는 동물이에요.", "물고기는 fish예요."] },
+    { "id": "animal-011", "type": "multiple-choice", "question": "cat은 어떤 동물일까요?", "choices": ["고양이", "강아지", "사자", "곰"], "answer": "고양이", "hints": ["야옹 하고 울어요.", "cat은 고양이예요."] },
+    { "id": "animal-012", "type": "multiple-choice", "question": "dog는 어떤 동물일까요?", "choices": ["토끼", "강아지", "새", "물고기"], "answer": "강아지", "hints": ["멍멍 하고 짖어요.", "dog는 강아지예요."] },
+    { "id": "animal-013", "type": "multiple-choice", "question": "lion은 어떤 동물일까요?", "choices": ["호랑이", "사자", "곰", "원숭이"], "answer": "사자", "hints": ["갈기가 있는 왕 같은 동물이에요.", "lion은 사자예요."] },
+    { "id": "animal-014", "type": "multiple-choice", "question": "tiger는 어떤 동물일까요?", "choices": ["호랑이", "사자", "코끼리", "토끼"], "answer": "호랑이", "hints": ["줄무늬가 있어요.", "tiger는 호랑이예요."] },
+    { "id": "animal-015", "type": "multiple-choice", "question": "rabbit는 어떤 동물일까요?", "choices": ["토끼", "새", "물고기", "고양이"], "answer": "토끼", "hints": ["귀가 길어요.", "rabbit는 토끼예요."] },
+    { "id": "animal-016", "type": "multiple-choice", "question": "bear는 어떤 동물일까요?", "choices": ["곰", "사자", "강아지", "새"], "answer": "곰", "hints": ["덩치가 크고 무거운 동물이에요.", "bear는 곰이에요."] },
+    { "id": "animal-017", "type": "multiple-choice", "question": "monkey는 어떤 동물일까요?", "choices": ["물고기", "원숭이", "토끼", "고양이"], "answer": "원숭이", "hints": ["나무를 잘 타요.", "monkey는 원숭이예요."] },
+    { "id": "animal-018", "type": "multiple-choice", "question": "elephant는 어떤 동물일까요?", "choices": ["코끼리", "호랑이", "곰", "강아지"], "answer": "코끼리", "hints": ["긴 코를 가진 아주 큰 동물이에요.", "elephant는 코끼리예요."] },
+    { "id": "animal-019", "type": "multiple-choice", "question": "bird는 어떤 동물일까요?", "choices": ["새", "물고기", "사자", "토끼"], "answer": "새", "hints": ["날개가 있어 하늘을 날아요.", "bird는 새예요."] },
+    { "id": "animal-020", "type": "multiple-choice", "question": "fish는 어떤 동물일까요?", "choices": ["고양이", "물고기", "새", "곰"], "answer": "물고기", "hints": ["물속에서 사는 동물이에요.", "fish는 물고기예요."] }
+  ]
+}

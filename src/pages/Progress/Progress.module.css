@@ -1,0 +1,246 @@
+.page {
+  display: grid;
+}
+
+.panel {
+  display: grid;
+  gap: 18px;
+  padding: 28px;
+  border: 1px solid var(--colorBorder);
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(168, 230, 207, 0.12)),
+    var(--colorCard);
+  box-shadow: var(--shadowSoft);
+}
+
+.tag {
+  display: inline-flex;
+  width: fit-content;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(46, 196, 182, 0.14);
+  color: var(--colorPrimaryDark);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(26px, 4vw, 36px);
+}
+
+.copy {
+  margin: 0;
+  color: var(--colorSub);
+  line-height: 1.6;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.card {
+  display: grid;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(35, 48, 58, 0.08);
+}
+
+.cardLabel {
+  color: var(--colorSub);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.cardValue {
+  font-size: 34px;
+}
+
+.cardNote {
+  color: var(--colorSub);
+  line-height: 1.5;
+}
+
+.sectionGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.section {
+  display: grid;
+  gap: 16px;
+  padding: 22px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(35, 48, 58, 0.08);
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.sectionMeta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.summaryPill {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(46, 196, 182, 0.12);
+  color: var(--colorPrimaryDark);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.sectionKicker {
+  margin: 0 0 6px;
+  color: var(--colorPrimaryDark);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 22px;
+}
+
+.unitList,
+.recentList {
+  display: grid;
+  gap: 12px;
+}
+
+.unitRow,
+.recentRow {
+  display: grid;
+  gap: 10px;
+  padding: 16px 18px;
+  border-radius: 20px;
+  background: rgba(248, 255, 253, 0.82);
+  border: 1px solid rgba(35, 48, 58, 0.06);
+}
+
+.unitRowReady {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 234, 167, 0.22));
+}
+
+.unitRowLocked {
+  opacity: 0.82;
+}
+
+.unitTop,
+.recentMain,
+.recentMeta,
+.unitMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.unitStatus {
+  color: var(--colorPrimaryDark);
+  font-weight: 700;
+}
+
+.unitStatusPlayed {
+  color: var(--colorPrimaryDark);
+}
+
+.unitStatusReady {
+  color: #b7791f;
+}
+
+.unitStatusLocked {
+  color: var(--colorSub);
+}
+
+.unitDescription {
+  margin: 0;
+  color: var(--colorSub);
+  line-height: 1.5;
+}
+
+.unitMeta,
+.recentMain span,
+.recentMeta {
+  color: var(--colorSub);
+  font-size: 14px;
+}
+
+.unitActions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.unitAction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(46, 196, 182, 0.14);
+  color: var(--colorPrimaryDark);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.unitActionDisabled {
+  background: rgba(35, 48, 58, 0.08);
+  color: var(--colorSub);
+}
+
+.recentMain strong {
+  color: var(--colorText);
+}
+
+.recentBadge {
+  color: var(--colorPrimaryDark);
+  font-weight: 700;
+}
+
+.emptyState {
+  padding: 18px;
+  border-radius: 18px;
+  background: rgba(248, 255, 253, 0.82);
+  color: var(--colorSub);
+  line-height: 1.6;
+}
+
+@media (max-width: 760px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sectionGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .sectionHeader {
+    flex-direction: column;
+  }
+
+  .sectionMeta {
+    justify-content: flex-start;
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "multiplication-4",
+  "title": "4단 구구단",
+  "questions": [
+    { "id": "mul4-001", "type": "multiple-choice", "question": "4 x 1 = ?", "choices": [2, 3, 4, 5], "answer": 4, "hints": ["4가 한 묶음이면 얼마일까요?", "4 x 1은 4예요."] },
+    { "id": "mul4-002", "type": "multiple-choice", "question": "4 x 2 = ?", "choices": [6, 8, 10, 12], "answer": 8, "hints": ["4를 두 번 더해보세요.", "4 + 4 = 8이에요."] },
+    { "id": "mul4-003", "type": "multiple-choice", "question": "4 x 3 = ?", "choices": [8, 10, 12, 16], "answer": 12, "hints": ["4씩 세 번 세어보세요.", "4 + 4 + 4 = 12예요."] },
+    { "id": "mul4-004", "type": "multiple-choice", "question": "4 x 4 = ?", "choices": [12, 14, 16, 20], "answer": 16, "hints": ["4가 네 묶음이에요.", "4 x 4는 16이에요."] },
+    { "id": "mul4-005", "type": "multiple-choice", "question": "4 x 5 = ?", "choices": [16, 18, 20, 24], "answer": 20, "hints": ["4씩 다섯 번 세어보세요.", "4 x 5는 20이에요."] },
+    { "id": "mul4-006", "type": "multiple-choice", "question": "4 x 6 = ?", "choices": [20, 22, 24, 28], "answer": 24, "hints": ["4를 여섯 번 더하면 돼요.", "4 x 6은 24예요."] },
+    { "id": "mul4-007", "type": "multiple-choice", "question": "4 x 7 = ?", "choices": [24, 26, 28, 32], "answer": 28, "hints": ["4씩 계속 세어보세요.", "일곱 번째 4의 배수는 28이에요."] },
+    { "id": "mul4-008", "type": "multiple-choice", "question": "4 x 8 = ?", "choices": [28, 30, 32, 36], "answer": 32, "hints": ["4를 여덟 번 더해보세요.", "4 x 8은 32예요."] },
+    { "id": "mul4-009", "type": "multiple-choice", "question": "4 x 9 = ?", "choices": [32, 34, 36, 40], "answer": 36, "hints": ["4단에서 아홉 번째 수를 떠올려보세요.", "4 x 9는 36이에요."] },
+    { "id": "mul4-010", "type": "multiple-choice", "question": "4 x 10 = ?", "choices": [36, 38, 40, 44], "answer": 40, "hints": ["4가 열 묶음이면 얼마일까요?", "4 x 10은 40이에요."] },
+    { "id": "mul4-011", "type": "multiple-choice", "question": "4 x ? = 4", "choices": [1, 2, 3, 4], "answer": 1, "hints": ["4가 한 번 있으면 4예요.", "4 x 1 = 4예요."] },
+    { "id": "mul4-012", "type": "multiple-choice", "question": "4 x ? = 8", "choices": [1, 2, 3, 4], "answer": 2, "hints": ["8을 4씩 묶어보세요.", "4 x 2 = 8이에요."] },
+    { "id": "mul4-013", "type": "multiple-choice", "question": "4 x ? = 12", "choices": [2, 3, 4, 5], "answer": 3, "hints": ["12는 4가 몇 묶음일까요?", "4 x 3 = 12예요."] },
+    { "id": "mul4-014", "type": "multiple-choice", "question": "4 x ? = 16", "choices": [2, 3, 4, 5], "answer": 4, "hints": ["16을 4씩 나누어보세요.", "4 x 4 = 16예요."] },
+    { "id": "mul4-015", "type": "multiple-choice", "question": "4 x ? = 20", "choices": [3, 4, 5, 6], "answer": 5, "hints": ["20은 4가 다섯 묶음인 수예요.", "4 x 5 = 20예요."] },
+    { "id": "mul4-016", "type": "multiple-choice", "question": "4 x ? = 24", "choices": [4, 5, 6, 7], "answer": 6, "hints": ["24는 4가 몇 번 들어갈까요?", "4 x 6 = 24예요."] },
+    { "id": "mul4-017", "type": "multiple-choice", "question": "4 x ? = 28", "choices": [5, 6, 7, 8], "answer": 7, "hints": ["28을 4씩 나눠보세요.", "4 x 7 = 28이에요."] },
+    { "id": "mul4-018", "type": "multiple-choice", "question": "4 x ? = 32", "choices": [6, 7, 8, 9], "answer": 8, "hints": ["32는 4가 여덟 묶음이에요.", "4 x 8 = 32예요."] },
+    { "id": "mul4-019", "type": "multiple-choice", "question": "4 x ? = 36", "choices": [7, 8, 9, 10], "answer": 9, "hints": ["36을 4로 나눠보세요.", "4 x 9 = 36이에요."] },
+    { "id": "mul4-020", "type": "multiple-choice", "question": "4 x ? = 40", "choices": [8, 9, 10, 11], "answer": 10, "hints": ["40은 4가 열 묶음인 수예요.", "4 x 10 = 40이에요."] }
+  ]
+}

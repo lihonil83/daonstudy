@@ -1,0 +1,26 @@
+{
+  "id": "words-colors",
+  "title": "색깔 단어",
+  "questions": [
+    { "id": "color-001", "type": "multiple-choice", "question": "빨간색을 영어로 하면?", "choices": ["blue", "red", "green", "black"], "answer": "red", "hints": ["사과 색을 떠올려보세요.", "빨간색은 red예요."] },
+    { "id": "color-002", "type": "multiple-choice", "question": "파란색을 영어로 하면?", "choices": ["yellow", "blue", "pink", "white"], "answer": "blue", "hints": ["하늘 색을 떠올려보세요.", "파란색은 blue예요."] },
+    { "id": "color-003", "type": "multiple-choice", "question": "노란색을 영어로 하면?", "choices": ["yellow", "orange", "green", "purple"], "answer": "yellow", "hints": ["바나나 색이에요.", "노란색은 yellow예요."] },
+    { "id": "color-004", "type": "multiple-choice", "question": "초록색을 영어로 하면?", "choices": ["brown", "pink", "green", "gray"], "answer": "green", "hints": ["풀잎 색을 떠올려보세요.", "초록색은 green이에요."] },
+    { "id": "color-005", "type": "multiple-choice", "question": "검은색을 영어로 하면?", "choices": ["black", "white", "blue", "red"], "answer": "black", "hints": ["밤처럼 어두운 색이에요.", "검은색은 black이에요."] },
+    { "id": "color-006", "type": "multiple-choice", "question": "하얀색을 영어로 하면?", "choices": ["gray", "white", "yellow", "orange"], "answer": "white", "hints": ["눈 색을 떠올려보세요.", "하얀색은 white예요."] },
+    { "id": "color-007", "type": "multiple-choice", "question": "분홍색을 영어로 하면?", "choices": ["pink", "purple", "red", "brown"], "answer": "pink", "hints": ["딸기우유 색이에요.", "분홍색은 pink예요."] },
+    { "id": "color-008", "type": "multiple-choice", "question": "보라색을 영어로 하면?", "choices": ["purple", "pink", "green", "black"], "answer": "purple", "hints": ["포도 색을 떠올려보세요.", "보라색은 purple이에요."] },
+    { "id": "color-009", "type": "multiple-choice", "question": "주황색을 영어로 하면?", "choices": ["orange", "yellow", "brown", "gray"], "answer": "orange", "hints": ["귤 색이에요.", "주황색은 orange예요."] },
+    { "id": "color-010", "type": "multiple-choice", "question": "갈색을 영어로 하면?", "choices": ["white", "brown", "blue", "purple"], "answer": "brown", "hints": ["나무 줄기 색을 떠올려보세요.", "갈색은 brown이에요."] },
+    { "id": "color-011", "type": "multiple-choice", "question": "red는 무슨 색일까요?", "choices": ["빨간색", "파란색", "초록색", "검은색"], "answer": "빨간색", "hints": ["사과처럼 보이는 색이에요.", "red는 빨간색이에요."] },
+    { "id": "color-012", "type": "multiple-choice", "question": "blue는 무슨 색일까요?", "choices": ["노란색", "파란색", "분홍색", "하얀색"], "answer": "파란색", "hints": ["하늘을 떠올려보세요.", "blue는 파란색이에요."] },
+    { "id": "color-013", "type": "multiple-choice", "question": "yellow는 무슨 색일까요?", "choices": ["주황색", "보라색", "노란색", "초록색"], "answer": "노란색", "hints": ["바나나 색이에요.", "yellow는 노란색이에요."] },
+    { "id": "color-014", "type": "multiple-choice", "question": "green은 무슨 색일까요?", "choices": ["초록색", "갈색", "파란색", "분홍색"], "answer": "초록색", "hints": ["풀밭 색을 떠올려보세요.", "green은 초록색이에요."] },
+    { "id": "color-015", "type": "multiple-choice", "question": "black은 무슨 색일까요?", "choices": ["검은색", "하얀색", "회색", "파란색"], "answer": "검은색", "hints": ["밤처럼 어두운 색이에요.", "black은 검은색이에요."] },
+    { "id": "color-016", "type": "multiple-choice", "question": "white는 무슨 색일까요?", "choices": ["주황색", "하얀색", "노란색", "갈색"], "answer": "하얀색", "hints": ["눈 색이에요.", "white는 하얀색이에요."] },
+    { "id": "color-017", "type": "multiple-choice", "question": "pink는 무슨 색일까요?", "choices": ["분홍색", "보라색", "빨간색", "갈색"], "answer": "분홍색", "hints": ["딸기우유 같은 색이에요.", "pink는 분홍색이에요."] },
+    { "id": "color-018", "type": "multiple-choice", "question": "purple는 무슨 색일까요?", "choices": ["보라색", "분홍색", "초록색", "검은색"], "answer": "보라색", "hints": ["포도 같은 색이에요.", "purple는 보라색이에요."] },
+    { "id": "color-019", "type": "multiple-choice", "question": "orange는 무슨 색일까요?", "choices": ["주황색", "노란색", "갈색", "회색"], "answer": "주황색", "hints": ["귤 색을 떠올려보세요.", "orange는 주황색이에요."] },
+    { "id": "color-020", "type": "multiple-choice", "question": "brown는 무슨 색일까요?", "choices": ["하얀색", "갈색", "파란색", "보라색"], "answer": "갈색", "hints": ["나무 색이에요.", "brown는 갈색이에요."] }
+  ]
+}

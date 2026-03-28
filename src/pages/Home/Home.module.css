@@ -1,0 +1,190 @@
+.page {
+  display: grid;
+  gap: 24px;
+}
+
+.hero {
+  display: grid;
+  gap: 18px;
+  padding: 28px;
+  border: 1px solid var(--colorBorder);
+  border-radius: 30px;
+  background:
+    linear-gradient(135deg, rgba(46, 196, 182, 0.12), rgba(255, 184, 0, 0.12)),
+    rgba(255, 255, 255, 0.84);
+  box-shadow: var(--shadowSoft);
+}
+
+.kicker {
+  margin: 0 0 10px;
+  color: var(--colorPrimaryDark);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.heading {
+  margin: 0;
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.05;
+}
+
+.copy {
+  margin: 0;
+  color: var(--colorSub);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.overviewGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.rewardCard,
+.reviewCard {
+  display: grid;
+  gap: 14px;
+  min-height: 220px;
+  padding: 24px;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(35, 48, 58, 0.08);
+}
+
+.rewardTop {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.rewardLabel,
+.reviewKicker {
+  margin: 0;
+  color: var(--colorPrimaryDark);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.rewardTitle,
+.reviewTitle {
+  margin: 6px 0 0;
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.rewardHint {
+  color: var(--colorSub);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.progressTrack {
+  height: 14px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(35, 48, 58, 0.08);
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--colorPrimary) 0%, var(--colorGold) 100%);
+}
+
+.rewardMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+  color: var(--colorSub);
+  font-size: 14px;
+}
+
+.badgeRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.badgeChip,
+.badgeChipMuted {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: rgba(46, 196, 182, 0.12);
+  font-size: 22px;
+}
+
+.badgeChipMuted {
+  background: rgba(35, 48, 58, 0.06);
+  opacity: 0.58;
+}
+
+.rewardCopy,
+.reviewCopy {
+  margin: 0;
+  color: var(--colorSub);
+  line-height: 1.6;
+}
+
+.card {
+  display: grid;
+  gap: 12px;
+  min-height: 200px;
+  padding: 24px;
+  border: 1px solid var(--colorBorder);
+  border-radius: 26px;
+  background: var(--colorCard);
+  box-shadow: var(--shadowSoft);
+  transition: transform 0.18s ease, border-color 0.18s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(46, 196, 182, 0.4);
+}
+
+.badge {
+  display: inline-flex;
+  width: fit-content;
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: rgba(35, 48, 58, 0.06);
+  color: var(--colorSub);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 24px;
+}
+
+.cardCopy {
+  margin: 0;
+  color: var(--colorSub);
+  line-height: 1.6;
+}
+
+@media (max-width: 680px) {
+  .overviewGrid,
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

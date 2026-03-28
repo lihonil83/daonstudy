@@ -1,0 +1,26 @@
+{
+  "id": "multiplication-2",
+  "title": "2단 구구단",
+  "questions": [
+    { "id": "mul2-001", "type": "multiple-choice", "question": "2 x 1 = ?", "choices": [2, 1, 3, 4], "answer": 2, "hints": ["2씩 세어보세요.", "첫 번째 칸은 2예요."] },
+    { "id": "mul2-002", "type": "multiple-choice", "question": "2 x 2 = ?", "choices": [6, 2, 4, 8], "answer": 4, "hints": ["2를 두 번 더해보세요.", "2 + 2 = 4예요."] },
+    { "id": "mul2-003", "type": "multiple-choice", "question": "2 x 3 = ?", "choices": [5, 7, 6, 8], "answer": 6, "hints": ["2, 4, 6으로 세어보세요.", "2가 3묶음이면 6이에요."] },
+    { "id": "mul2-004", "type": "multiple-choice", "question": "2 x 4 = ?", "choices": [8, 6, 10, 12], "answer": 8, "hints": ["2씩 네 번 세어보세요.", "2 + 2 + 2 + 2 = 8이에요."] },
+    { "id": "mul2-005", "type": "multiple-choice", "question": "2 x 5 = ?", "choices": [10, 12, 8, 6], "answer": 10, "hints": ["2를 다섯 번 더하면 돼요.", "2 + 2 + 2 + 2 + 2 = 10이에요."] },
+    { "id": "mul2-006", "type": "multiple-choice", "question": "2 x 6 = ?", "choices": [14, 10, 12, 16], "answer": 12, "hints": ["2, 4, 6, 8, 10, 12로 세어보세요.", "2가 6묶음이면 12예요."] },
+    { "id": "mul2-007", "type": "multiple-choice", "question": "2 x 7 = ?", "choices": [12, 13, 14, 16], "answer": 14, "hints": ["2씩 계속 세어보세요.", "일곱 번째 2의 배수는 14예요."] },
+    { "id": "mul2-008", "type": "multiple-choice", "question": "2 x 8 = ?", "choices": [14, 16, 18, 12], "answer": 16, "hints": ["2를 여덟 번 더해보세요.", "2 + 2 + 2 + 2 + 2 + 2 + 2 + 2 = 16이에요."] },
+    { "id": "mul2-009", "type": "multiple-choice", "question": "2 x 9 = ?", "choices": [18, 16, 20, 14], "answer": 18, "hints": ["아홉 번째 2의 배수를 떠올려보세요.", "20보다 2 작은 수가 18이에요."] },
+    { "id": "mul2-010", "type": "multiple-choice", "question": "2 x 10 = ?", "choices": [22, 18, 20, 24], "answer": 20, "hints": ["2가 열 묶음이면 얼마일까요?", "2 x 10은 20이에요."] },
+    { "id": "mul2-011", "type": "multiple-choice", "question": "2 x ? = 2", "choices": [1, 2, 3, 4], "answer": 1, "hints": ["2가 한 번 있으면 얼마일까요?", "2 x 1 = 2예요."] },
+    { "id": "mul2-012", "type": "multiple-choice", "question": "2 x ? = 4", "choices": [1, 2, 3, 4], "answer": 2, "hints": ["2가 몇 묶음이면 4가 될까요?", "2 x 2 = 4예요."] },
+    { "id": "mul2-013", "type": "multiple-choice", "question": "2 x ? = 6", "choices": [2, 3, 4, 5], "answer": 3, "hints": ["6을 2씩 묶어보세요.", "2 x 3 = 6이에요."] },
+    { "id": "mul2-014", "type": "multiple-choice", "question": "2 x ? = 8", "choices": [2, 3, 4, 5], "answer": 4, "hints": ["8을 2씩 나눠보세요.", "2 x 4 = 8이에요."] },
+    { "id": "mul2-015", "type": "multiple-choice", "question": "2 x ? = 10", "choices": [4, 5, 6, 7], "answer": 5, "hints": ["10의 반은 얼마일까요?", "2 x 5 = 10이에요."] },
+    { "id": "mul2-016", "type": "multiple-choice", "question": "2 x ? = 12", "choices": [4, 5, 6, 7], "answer": 6, "hints": ["12의 반은 얼마일까요?", "2 x 6 = 12예요."] },
+    { "id": "mul2-017", "type": "multiple-choice", "question": "2 x ? = 14", "choices": [5, 6, 7, 8], "answer": 7, "hints": ["14를 2씩 나눠보세요.", "2 x 7 = 14예요."] },
+    { "id": "mul2-018", "type": "multiple-choice", "question": "2 x ? = 16", "choices": [6, 7, 8, 9], "answer": 8, "hints": ["16의 반은 얼마일까요?", "2 x 8 = 16이에요."] },
+    { "id": "mul2-019", "type": "multiple-choice", "question": "2 x ? = 18", "choices": [7, 8, 9, 10], "answer": 9, "hints": ["18의 반을 떠올려보세요.", "2 x 9 = 18이에요."] },
+    { "id": "mul2-020", "type": "multiple-choice", "question": "2 x ? = 20", "choices": [8, 9, 10, 11], "answer": 10, "hints": ["20의 반은 얼마일까요?", "2 x 10 = 20이에요."] }
+  ]
+}

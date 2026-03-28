@@ -1,0 +1,26 @@
+{
+  "id": "multiplication-3",
+  "title": "3단 구구단",
+  "questions": [
+    { "id": "mul3-001", "type": "multiple-choice", "question": "3 x 1 = ?", "choices": [1, 2, 3, 4], "answer": 3, "hints": ["3이 한 묶음이면 얼마일까요?", "3 x 1은 3이에요."] },
+    { "id": "mul3-002", "type": "multiple-choice", "question": "3 x 2 = ?", "choices": [5, 6, 7, 8], "answer": 6, "hints": ["3을 두 번 더해보세요.", "3 + 3 = 6이에요."] },
+    { "id": "mul3-003", "type": "multiple-choice", "question": "3 x 3 = ?", "choices": [6, 8, 9, 12], "answer": 9, "hints": ["3씩 세 번 세어보세요.", "3 + 3 + 3 = 9예요."] },
+    { "id": "mul3-004", "type": "multiple-choice", "question": "3 x 4 = ?", "choices": [10, 12, 14, 16], "answer": 12, "hints": ["3을 네 번 더하면 돼요.", "3 + 3 + 3 + 3 = 12예요."] },
+    { "id": "mul3-005", "type": "multiple-choice", "question": "3 x 5 = ?", "choices": [12, 15, 18, 20], "answer": 15, "hints": ["3씩 다섯 번 세어보세요.", "3 + 3 + 3 + 3 + 3 = 15예요."] },
+    { "id": "mul3-006", "type": "multiple-choice", "question": "3 x 6 = ?", "choices": [15, 16, 18, 21], "answer": 18, "hints": ["3이 여섯 묶음이에요.", "3 x 6은 18이에요."] },
+    { "id": "mul3-007", "type": "multiple-choice", "question": "3 x 7 = ?", "choices": [18, 20, 21, 24], "answer": 21, "hints": ["3씩 계속 세어보면 21이 나와요.", "일곱 번째 3의 배수는 21이에요."] },
+    { "id": "mul3-008", "type": "multiple-choice", "question": "3 x 8 = ?", "choices": [21, 24, 27, 30], "answer": 24, "hints": ["3을 여덟 번 더해보세요.", "3 x 8은 24예요."] },
+    { "id": "mul3-009", "type": "multiple-choice", "question": "3 x 9 = ?", "choices": [24, 27, 30, 33], "answer": 27, "hints": ["3단에서 9번째 수를 떠올려보세요.", "3 x 9는 27이에요."] },
+    { "id": "mul3-010", "type": "multiple-choice", "question": "3 x 10 = ?", "choices": [27, 28, 30, 33], "answer": 30, "hints": ["3이 열 묶음이면 얼마일까요?", "3 x 10은 30이에요."] },
+    { "id": "mul3-011", "type": "multiple-choice", "question": "3 x ? = 3", "choices": [1, 2, 3, 4], "answer": 1, "hints": ["3이 한 번 있으면 3이에요.", "3 x 1 = 3이에요."] },
+    { "id": "mul3-012", "type": "multiple-choice", "question": "3 x ? = 6", "choices": [1, 2, 3, 4], "answer": 2, "hints": ["6을 3씩 묶어보세요.", "3 x 2 = 6이에요."] },
+    { "id": "mul3-013", "type": "multiple-choice", "question": "3 x ? = 9", "choices": [2, 3, 4, 5], "answer": 3, "hints": ["9는 3이 몇 묶음일까요?", "3 x 3 = 9예요."] },
+    { "id": "mul3-014", "type": "multiple-choice", "question": "3 x ? = 12", "choices": [2, 3, 4, 5], "answer": 4, "hints": ["12를 3씩 나누어보세요.", "3 x 4 = 12예요."] },
+    { "id": "mul3-015", "type": "multiple-choice", "question": "3 x ? = 15", "choices": [3, 4, 5, 6], "answer": 5, "hints": ["15를 3씩 묶으면 다섯 묶음이에요.", "3 x 5 = 15예요."] },
+    { "id": "mul3-016", "type": "multiple-choice", "question": "3 x ? = 18", "choices": [4, 5, 6, 7], "answer": 6, "hints": ["18은 3이 몇 번 들어갈까요?", "3 x 6 = 18이에요."] },
+    { "id": "mul3-017", "type": "multiple-choice", "question": "3 x ? = 21", "choices": [5, 6, 7, 8], "answer": 7, "hints": ["21을 3씩 나눠보세요.", "3 x 7 = 21이에요."] },
+    { "id": "mul3-018", "type": "multiple-choice", "question": "3 x ? = 24", "choices": [6, 7, 8, 9], "answer": 8, "hints": ["24는 3이 여덟 묶음이에요.", "3 x 8 = 24예요."] },
+    { "id": "mul3-019", "type": "multiple-choice", "question": "3 x ? = 27", "choices": [7, 8, 9, 10], "answer": 9, "hints": ["27을 3으로 나눠보세요.", "3 x 9 = 27이에요."] },
+    { "id": "mul3-020", "type": "multiple-choice", "question": "3 x ? = 30", "choices": [8, 9, 10, 11], "answer": 10, "hints": ["30은 3이 열 묶음인 수예요.", "3 x 10 = 30이에요."] }
+  ]
+}
