@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:smoke": "vite build --mode smoke",
     "preview": "vite preview",
-    "smoke:browser": "npm run build && node scripts/browser-smoke.mjs",
+    "smoke:browser": "npm run build:smoke && node scripts/browser-smoke.mjs",
+    "smoke:browser:prod": "npm run build && node scripts/browser-smoke.mjs --production",
     "check": "npm run test && npm run validate:docs && npm run build",
     "test": "node --test",
     "validate:docs": "node scripts/validate-docs.mjs"

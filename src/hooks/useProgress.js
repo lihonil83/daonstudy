@@ -7,10 +7,8 @@ import {
   getStudyDaysCount,
   normalizeProgress,
 } from '../models/progressModel.js';
+import { PROGRESS_KEY, SCORES_KEY } from '../config/storageKeys.js';
 import { readStorageJSON, subscribeStorageKey, writeStorageJSON } from '../utils/storage';
-
-const SCORES_KEY = 'eduapp_scores';
-const PROGRESS_KEY = 'eduapp_progress';
 
 function loadScores() {
   return readStorageJSON(SCORES_KEY, []);

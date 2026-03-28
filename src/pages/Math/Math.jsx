@@ -55,8 +55,8 @@ export default function Math() {
         <span className={`${styles.tag} ${styles.mathTag}`}>수학</span>
         <h2 className={styles.title}>수학 단원을 골라보세요</h2>
         <p className={styles.copy}>
-          이제 2단, 3단, 4단 구구단과 시계 읽기, 길이·무게 단위, 덧셈·뺄셈 생성형 단원을
-          바로 풀 수 있어요. 다음 단원도 미리 보여서 학습 지도가 자연스럽게 이어집니다.
+          구구단, 시계 읽기, 길이·무게 단위, 덧셈·뺄셈 단원 가운데 오늘 풀고 싶은 문제부터
+          시작해보세요. 아직 안 푼 단원과 이미 해본 단원이 함께 보여서 다음 걸음도 고르기 쉽습니다.
         </p>
         <div className={styles.unitList}>
           {units.map((unit) =>

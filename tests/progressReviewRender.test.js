@@ -61,6 +61,8 @@ test('Progress page renders populated stats and recent history from hook data', 
   assert.match(html, /🔥 4일째 이어가고 있어요/);
   assert.match(html, /덧셈 20까지/);
   assert.match(html, /📈 실력이 늘고 있어요/);
+  assert.match(html, /학습 기록 관리/);
+  assert.match(html, /학습 기록 초기화/);
 });
 
 test('Progress page renders empty recent history guidance when there are no scores', async () => {
@@ -89,6 +91,7 @@ test('Progress page renders empty recent history guidance when there are no scor
 
   assert.match(html, /첫 퀴즈를 풀면 최근 기록이 여기부터 차곡차곡 쌓여요/);
   assert.match(html, /오늘 가볍게 한 번 시작해볼까요/);
+  assert.match(html, /기록은 자동 저장되니 보통은 그대로 두면 됩니다/);
 });
 
 test('Review page renders empty-state copy when there are no wrong answers', async () => {

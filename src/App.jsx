@@ -6,6 +6,7 @@ import English from './pages/English/English';
 import Review from './pages/Review/Review';
 import Progress from './pages/Progress/Progress';
 import NotFound from './pages/NotFound/NotFound';
+import { smokeRoutesEnabled } from './config/featureFlags';
 import SmokeQuizComplete from './pages/Smoke/SmokeQuizComplete';
 import SmokeReviewComplete from './pages/Smoke/SmokeReviewComplete';
 import SmokeWrongToReviewFlow from './pages/Smoke/SmokeWrongToReviewFlow';
@@ -23,14 +24,16 @@ export function AppRoutes() {
         <Route path="/english/:unitId" element={<English />} />
         <Route path="/review" element={<Review />} />
         <Route path="/progress" element={<Progress />} />
-        <Route path="/smoke/quiz-complete" element={<SmokeQuizComplete />} />
-        <Route path="/smoke/review-complete" element={<SmokeReviewComplete />} />
-        <Route path="/smoke/wrong-to-review" element={<SmokeWrongToReviewFlow />} />
-        <Route
-          path="/smoke/wrong-to-review-complete"
-          element={<SmokeWrongToReviewFlow autoStartReview />}
-        />
-        <Route path="/smoke/storage-flow" element={<SmokeStorageFlow />} />
+        {smokeRoutesEnabled ? <Route path="/smoke/quiz-complete" element={<SmokeQuizComplete />} /> : null}
+        {smokeRoutesEnabled ? <Route path="/smoke/review-complete" element={<SmokeReviewComplete />} /> : null}
+        {smokeRoutesEnabled ? <Route path="/smoke/wrong-to-review" element={<SmokeWrongToReviewFlow />} /> : null}
+        {smokeRoutesEnabled ? (
+          <Route
+            path="/smoke/wrong-to-review-complete"
+            element={<SmokeWrongToReviewFlow autoStartReview />}
+          />
+        ) : null}
+        {smokeRoutesEnabled ? <Route path="/smoke/storage-flow" element={<SmokeStorageFlow />} /> : null}
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

@@ -49,6 +49,59 @@
   gap: 16px;
 }
 
+.spotlightCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 24px;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(35, 48, 58, 0.08);
+  box-shadow: var(--shadowSoft);
+}
+
+.spotlightBody {
+  display: grid;
+  gap: 8px;
+}
+
+.spotlightBadge {
+  display: inline-flex;
+  width: fit-content;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(46, 196, 182, 0.14);
+  color: var(--colorPrimaryDark);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.spotlightTitle {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.15;
+}
+
+.spotlightCopy {
+  margin: 0;
+  color: var(--colorSub);
+  line-height: 1.6;
+}
+
+.spotlightCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 16px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--colorPrimary) 0%, #6ed3c8 100%);
+  color: #ffffff;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
 .rewardCard,
 .reviewCard {
   display: grid;
@@ -142,6 +195,32 @@
   line-height: 1.6;
 }
 
+.guideGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.guideCard {
+  display: grid;
+  gap: 8px;
+  min-height: 132px;
+  padding: 18px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.76);
+  border: 1px solid rgba(35, 48, 58, 0.08);
+}
+
+.guideTitle {
+  font-size: 18px;
+}
+
+.guideCopy {
+  margin: 0;
+  color: var(--colorSub);
+  line-height: 1.6;
+}
+
 .card {
   display: grid;
   gap: 12px;
@@ -183,6 +262,12 @@
 }
 
 @media (max-width: 680px) {
+  .spotlightCard {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .guideGrid,
   .overviewGrid,
   .grid {
     grid-template-columns: 1fr;

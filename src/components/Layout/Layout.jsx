@@ -17,16 +17,17 @@ export default function Layout() {
 
       <header className={styles.header}>
         <div>
-          <p className={styles.eyebrow}>다온스터디 2단계</p>
+          <p className={styles.eyebrow}>Daon Study</p>
           <h1 className={styles.title}>다온 학습 놀이터</h1>
           <p className={styles.subtitle}>
-            윈도우 로컬 브라우저와 HashRouter 환경에서 퀴즈, 복습, 보상이 함께 이어지는 현재 빌드입니다.
+            오늘의 퀴즈, 복습, 기록을 한곳에서 이어갈 수 있는 우리 학습 홈이에요. 수학과 영어를
+            오가며 차분하게 쌓아가면 됩니다.
           </p>
         </div>
         <div className={styles.statusCard}>
-          <span className={styles.statusLabel}>현재 집중 단계</span>
-          <strong className={styles.statusValue}>콘텐츠 확장 + 자동 검증</strong>
-          <span className={styles.statusHint}>전용 단원과 테스트 하네스가 함께 자라고 있어요</span>
+          <span className={styles.statusLabel}>오늘의 학습 준비</span>
+          <strong className={styles.statusValue}>바로 시작할 수 있어요</strong>
+          <span className={styles.statusHint}>수학, 영어, 복습, 기록이 서로 연결되어 자동으로 이어집니다</span>
         </div>
       </header>
 

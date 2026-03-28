@@ -55,8 +55,8 @@ export default function English() {
         <span className={`${styles.tag} ${styles.englishTag}`}>영어</span>
         <h2 className={styles.title}>영어 단원을 골라보세요</h2>
         <p className={styles.copy}>
-          이제 알파벳, 기초 단어, 파닉스 A·B·C 단원을 바로 풀 수 있어요. 다음 단원도
-          그대로 보여서 앱이 커져도 길을 다시 익힐 필요가 없습니다.
+          알파벳, 기초 단어, 파닉스 A·B·C 단원 가운데 오늘 듣고 보고 싶은 문제부터 골라보세요.
+          이미 해본 단원과 다음에 열어볼 단원이 함께 보여서 이어서 공부하기 편합니다.
         </p>
         <div className={styles.unitList}>
           {units.map((unit) =>

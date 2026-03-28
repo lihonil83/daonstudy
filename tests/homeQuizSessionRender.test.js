@@ -57,6 +57,16 @@ test('Home page renders reward summary and review alert from hook data', async (
             };
           }
         `,
+        '../../hooks/useProgress': `
+          export function useProgress() {
+            return {
+              totalQuizCount: 5,
+              getUnitProgress() {
+                return { attempts: 0 };
+              },
+            };
+          }
+        `,
       },
     },
   );
@@ -67,6 +77,8 @@ test('Home page renders reward summary and review alert from hook data', async (
   assert.match(html, /다음까지 120 XP/);
   assert.match(html, /📖 복습할 문제가 3개 있어요/);
   assert.match(html, /뱃지 1\/8 수집/);
+  assert.match(html, /복습 3문제부터 가볍게/);
+  assert.match(html, /복습 시작하기/);
 });
 
 test('Home page renders the no-review state when there are no pending wrong answers', async () => {
@@ -96,6 +108,17 @@ test('Home page renders the no-review state when there are no pending wrong answ
             };
           }
         `,
+        '../../hooks/useProgress': `
+          export function useProgress() {
+            return {
+              totalQuizCount: 0,
+              getUnitProgress(subject, unitId) {
+                if (unitId === 'addition-up-to-20') return { attempts: 0 };
+                return { attempts: 1 };
+              },
+            };
+          }
+        `,
       },
     },
   );
@@ -104,6 +127,8 @@ test('Home page renders the no-review state when there are no pending wrong answ
 
   assert.match(html, /✨ 복습할 문제가 없어요/);
   assert.match(html, /필요하면 언제든 다시 볼 수 있어요/);
+  assert.match(html, /덧셈 20까지부터 시작해요/);
+  assert.match(html, /첫 퀴즈 시작하기/);
 });
 
 test('QuizSession renders the default quiz result summary with badge and review CTA', async () => {

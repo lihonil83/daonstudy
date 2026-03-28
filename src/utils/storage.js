@@ -1,3 +1,5 @@
+import { LEARNING_STORAGE_KEYS } from '../config/storageKeys.js';
+
 const STORAGE_EVENT_NAME = 'eduapp:storage-change';
 const memoryStorage = new Map();
 
@@ -84,6 +86,10 @@ export function clearStorageKeys(keys) {
   keys.forEach((key) => {
     removeStorageKey(key);
   });
+}
+
+export function clearLearningData() {
+  clearStorageKeys(LEARNING_STORAGE_KEYS);
 }
 
 export function subscribeStorageKey(key, callback) {

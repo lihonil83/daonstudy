@@ -8,16 +8,17 @@ const BASE_URL = `http://${HOST}:${PORT}`;
 const PREVIEW_READY_TIMEOUT_MS = 10000;
 const PAGE_BUDGET_MS = 3000;
 const CHROME_CLOSE_TIMEOUT_MS = 10000;
+const runtimeMode = process.argv.includes('--production') ? 'production' : 'smoke';
 const previewCommand = {
   cmd: process.platform === 'win32' ? 'npm.cmd' : 'npm',
   args: ['run', 'preview', '--', '--host', HOST, '--port', String(PORT)],
 };
 
-const pageChecks = [
+const commonPageChecks = [
   {
     name: 'home',
     url: `${BASE_URL}/#/`,
-    expected: ['다온 학습 놀이터', '배운 기록과 보상이 함께 쌓이는 학습 출발점', '✨ 복습할 문제가 없어요'],
+    expected: ['다온 학습 놀이터', '시작, 복습, 기록이 한 번에 이어지는 학습 홈', '✨ 복습할 문제가 없어요'],
   },
   {
     name: 'math',
@@ -50,6 +51,19 @@ const pageChecks = [
     expected: ['파닉스 A', '정답을 골라보세요.', '소리 듣기'],
   },
   {
+    name: 'math-missing-unit',
+    url: `${BASE_URL}/#/math/not-a-real-unit`,
+    expected: ['단원을 찾을 수 없어요', '단원 목록으로 돌아가기'],
+  },
+  {
+    name: 'fallback',
+    url: `${BASE_URL}/#/mystery-path`,
+    expected: ['이 화면은 아직 준비되지 않았어요', '홈으로 가기', '영어 단원 보기'],
+  },
+];
+
+const smokeOnlyPageChecks = [
+  {
     name: 'smoke-quiz-complete',
     url: `${BASE_URL}/#/smoke/quiz-complete`,
     expected: ['퀴즈 완료', '스모크 자동 완료', '2 / 2', '+90'],
@@ -79,17 +93,21 @@ const pageChecks = [
     expected: ['저장 smoke 완료', '퀴즈 기록 1개', '총 XP 70', '복습 완료 1개', '뱃지 1/10 수집'],
     budgetMs: 10000,
   },
+];
+
+const productionOnlyPageChecks = [
   {
-    name: 'math-missing-unit',
-    url: `${BASE_URL}/#/math/not-a-real-unit`,
-    expected: ['단원을 찾을 수 없어요', '단원 목록으로 돌아가기'],
-  },
-  {
-    name: 'fallback',
-    url: `${BASE_URL}/#/mystery-path`,
-    expected: ['이 화면은 아직 준비되지 않았어요', '홈으로 가기', '영어 단원 보기'],
+    name: 'smoke-route-hidden',
+    url: `${BASE_URL}/#/smoke/quiz-complete`,
+    expected: ['이 화면은 아직 준비되지 않았어요', '홈으로 가기', '수학 단원 보기'],
+    forbidden: ['스모크 자동 완료', '퀴즈 완료'],
   },
 ];
+
+const pageChecks =
+  runtimeMode === 'production'
+    ? [...commonPageChecks, ...productionOnlyPageChecks]
+    : [...commonPageChecks, ...smokeOnlyPageChecks];
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -248,6 +266,12 @@ async function run() {
       for (const expectedText of page.expected) {
         if (!dom.includes(expectedText)) {
           throw new Error(`[${page.name}] expected text not found: ${expectedText}`);
+        }
+      }
+
+      for (const forbiddenText of page.forbidden ?? []) {
+        if (dom.includes(forbiddenText)) {
+          throw new Error(`[${page.name}] forbidden text found: ${forbiddenText}`);
         }
       }
 

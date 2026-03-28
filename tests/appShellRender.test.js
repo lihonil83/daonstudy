@@ -32,9 +32,10 @@ function renderAppShell(AppShell, initialEntries) {
   }
 }
 
-async function loadAppShell() {
+async function loadAppShell(smokeEnabled = false) {
   const { AppShell } = await loadJsxModule(path.resolve('/Users/jihun/daonstudy/daonstudy/src/App.jsx'), {
     stubModules: {
+      './config/featureFlags': `export const smokeRoutesEnabled = ${smokeEnabled ? 'true' : 'false'};`,
       './pages/Home/Home': 'export default function Home() { return "HOME_ROUTE_STUB"; }',
       './pages/Math/Math': 'export default function Math() { return "MATH_ROUTE_STUB"; }',
       './pages/English/English': 'export default function English() { return "ENGLISH_ROUTE_STUB"; }',
@@ -55,7 +56,7 @@ test('App shell renders the shared layout and home route content', async () => {
   const html = renderAppShell(AppShell, ['/']);
 
   assert.match(html, /다온 학습 놀이터/);
-  assert.match(html, /콘텐츠 확장 \+ 자동 검증/);
+  assert.match(html, /바로 시작할 수 있어요/);
   assert.match(html, /HOME_ROUTE_STUB/);
   assert.match(html, /홈/);
   assert.match(html, /수학/);
@@ -86,7 +87,7 @@ test('App shell shows the fallback screen for unknown routes', async () => {
 });
 
 test('App shell routes the hidden smoke review path into the review smoke page', async () => {
-  const AppShell = await loadAppShell();
+  const AppShell = await loadAppShell(true);
   const html = renderAppShell(AppShell, ['/smoke/review-complete']);
 
   assert.match(html, /SMOKE_REVIEW_ROUTE_STUB/);
@@ -94,7 +95,7 @@ test('App shell routes the hidden smoke review path into the review smoke page',
 });
 
 test('App shell routes the wrong-to-review smoke path into the flow harness', async () => {
-  const AppShell = await loadAppShell();
+  const AppShell = await loadAppShell(true);
   const html = renderAppShell(AppShell, ['/smoke/wrong-to-review-complete']);
 
   assert.match(html, /SMOKE_WRONG_TO_REVIEW_ROUTE_STUB/);
@@ -102,9 +103,17 @@ test('App shell routes the wrong-to-review smoke path into the flow harness', as
 });
 
 test('App shell routes the storage-aware smoke path into the storage harness', async () => {
-  const AppShell = await loadAppShell();
+  const AppShell = await loadAppShell(true);
   const html = renderAppShell(AppShell, ['/smoke/storage-flow']);
 
   assert.match(html, /SMOKE_STORAGE_ROUTE_STUB/);
   assert.doesNotMatch(html, /SMOKE_WRONG_TO_REVIEW_ROUTE_STUB/);
+});
+
+test('App shell hides smoke routes when the smoke flag is disabled', async () => {
+  const AppShell = await loadAppShell(false);
+  const html = renderAppShell(AppShell, ['/smoke/quiz-complete']);
+
+  assert.match(html, /이 화면은 아직 준비되지 않았어요/);
+  assert.doesNotMatch(html, /SMOKE_ROUTE_STUB/);
 });

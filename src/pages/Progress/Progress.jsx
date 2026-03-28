@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ENGLISH_UNITS, MATH_UNITS } from '../../data/unitRegistry';
 import { useProgress } from '../../hooks/useProgress';
+import { clearLearningData } from '../../utils/storage';
 import styles from './Progress.module.css';
 
 const subjectSections = [
@@ -39,6 +41,8 @@ function getUnitStateLabel(unit, unitProgress) {
 
 export default function Progress() {
   const { currentStreak, getUnitProgress, recentScores, totalQuizCount, totalStudyDays } = useProgress();
+  const [isResetConfirmOpen, setIsResetConfirmOpen] = useState(false);
+  const [resetNotice, setResetNotice] = useState('');
 
   const stats = [
     {
@@ -57,6 +61,21 @@ export default function Progress() {
       note: totalQuizCount === 0 ? '아직 첫 기록이 없어요.' : '퀴즈를 끝까지 마치면 자동으로 더해집니다.',
     },
   ];
+
+  const openResetConfirm = () => {
+    setResetNotice('');
+    setIsResetConfirmOpen(true);
+  };
+
+  const cancelReset = () => {
+    setIsResetConfirmOpen(false);
+  };
+
+  const handleResetLearningData = () => {
+    clearLearningData();
+    setIsResetConfirmOpen(false);
+    setResetNotice('학습 기록을 모두 초기화했어요. 다시 가볍게 시작할 수 있어요.');
+  };
 
   return (
     <section className={styles.page}>
@@ -187,6 +206,47 @@ export default function Progress() {
           ) : (
             <div className={styles.emptyState}>
               첫 퀴즈를 풀면 최근 기록이 여기부터 차곡차곡 쌓여요.
+            </div>
+          )}
+        </section>
+
+        <section className={styles.section}>
+          <div className={styles.sectionHeader}>
+            <div>
+              <p className={styles.sectionKicker}>🧹 기록 관리</p>
+              <h3 className={styles.sectionTitle}>학습 기록 관리</h3>
+            </div>
+          </div>
+          <p className={styles.manageCopy}>
+            새로 시작하고 싶을 때만 사용하세요. 퀴즈 기록, 진도, XP, 뱃지, 오답 노트가 함께
+            초기화됩니다.
+          </p>
+          {resetNotice ? <div className={styles.noticeCard}>{resetNotice}</div> : null}
+          {isResetConfirmOpen ? (
+            <div className={styles.resetCard}>
+              <strong className={styles.resetTitle}>정말 모두 초기화할까요?</strong>
+              <p className={styles.resetCopy}>
+                지금까지 쌓인 학습 기록이 모두 비워집니다. 다시 시작하고 싶을 때만 눌러주세요.
+              </p>
+              <div className={styles.resetActions}>
+                <button type="button" className={styles.ghostButton} onClick={cancelReset}>
+                  취소
+                </button>
+                <button
+                  type="button"
+                  className={styles.dangerButton}
+                  onClick={handleResetLearningData}
+                >
+                  모두 초기화
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className={styles.manageRow}>
+              <span className={styles.manageHint}>기록은 자동 저장되니 보통은 그대로 두면 됩니다.</span>
+              <button type="button" className={styles.ghostButton} onClick={openResetConfirm}>
+                학습 기록 초기화
+              </button>
             </div>
           )}
         </section>

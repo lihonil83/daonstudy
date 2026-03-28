@@ -227,6 +227,73 @@
   line-height: 1.6;
 }
 
+.manageCopy,
+.resetCopy {
+  margin: 0;
+  color: var(--colorSub);
+  line-height: 1.6;
+}
+
+.manageRow,
+.resetActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.manageHint {
+  color: var(--colorSub);
+  font-size: 14px;
+}
+
+.noticeCard,
+.resetCard {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(35, 48, 58, 0.08);
+}
+
+.noticeCard {
+  background: rgba(46, 196, 182, 0.12);
+  color: var(--colorPrimaryDark);
+  font-weight: 700;
+}
+
+.resetCard {
+  background: rgba(255, 246, 235, 0.9);
+}
+
+.resetTitle {
+  font-size: 18px;
+}
+
+.ghostButton,
+.dangerButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ghostButton {
+  background: rgba(35, 48, 58, 0.08);
+  color: var(--colorText);
+}
+
+.dangerButton {
+  background: #f06d5e;
+  color: #ffffff;
+}
+
 @media (max-width: 760px) {
   .grid {
     grid-template-columns: 1fr;
@@ -242,5 +309,11 @@
 
   .sectionMeta {
     justify-content: flex-start;
+  }
+
+  .manageRow,
+  .resetActions {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
