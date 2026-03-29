@@ -4,6 +4,67 @@
 
 현재 저장소는 문서 하네스와 실제 실행 가능한 앱을 함께 운영하고 있습니다.
 
+## Windows 빠른 실행
+
+GitHub 공개 저장소라는 뜻은 다른 노트북에서 코드를 받을 수 있다는 의미이고, 앱이 자동 배포된 상태는 아닙니다.
+Windows 노트북에서 직접 실행하려면 아래 순서로 진행하면 됩니다.
+
+필수 조건:
+
+- Node.js LTS
+- Git
+- PowerShell 또는 Windows Terminal
+
+설치 확인:
+
+```powershell
+node -v
+npm -v
+git --version
+```
+
+저장소 받기와 의존성 설치:
+
+```powershell
+git clone https://github.com/lihonil83/daonstudy.git
+cd daonstudy
+npm install
+```
+
+개발 서버 실행:
+
+```powershell
+npm run dev
+```
+
+브라우저 접속:
+
+- 기본 주소는 보통 `http://localhost:5173`
+
+운영 빌드 확인:
+
+```powershell
+npm run build
+npm run preview
+```
+
+릴리스 번들까지 만들고 Windows에서 간단히 열기:
+
+```powershell
+npm run release:prep
+```
+
+- 이후 `release/` 폴더 안의 `start-windows.bat`를 더블클릭하면 됩니다.
+
+같은 와이파이의 다른 기기에서도 접속하려면:
+
+```powershell
+npm run dev -- --host 0.0.0.0
+```
+
+- 그다음 실행한 노트북의 IP로 접속합니다.
+- 예시: `http://192.168.0.10:5173`
+
 핵심 진입점:
 
 - `CONSTITUTION.md` : 프로젝트 헌법, 최상위 원칙, 변경 경계
