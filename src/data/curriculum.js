@@ -35,8 +35,8 @@ function mathRes(grade, semester, chapter) {
   return [
     {
       type: 'link',
-      label: `✏️ 일일수학 ${grade}-${semester}-${chapter}`,
-      url: `${LINKS.illil}/${grade}/${semester}/${chapter}`,
+      label: `✏️ 일일수학 (${grade}학년 ${semester}학기 ${chapter}단원)`,
+      url: LINKS.illil,
       provider: 'illil',
     },
     {
