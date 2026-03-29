@@ -100,3 +100,113 @@
   color: #ffffff;
   font-weight: 700;
 }
+
+/* ── 스테이지 헤더 ── */
+.stageHeader {
+  display: grid;
+  gap: 10px;
+}
+
+/* ── 단원 카드 내부 레이아웃 ── */
+.unitMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.unitLeft {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.unitIcon {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.unitTitle {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.unitDesc {
+  display: block;
+  font-size: 13px;
+  color: var(--colorSub);
+  line-height: 1.5;
+}
+
+.unitRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.unitCount {
+  font-size: 12px;
+  color: var(--colorSub);
+  font-weight: 600;
+}
+
+/* ── 상태 태그 ── */
+.tagNew {
+  display: inline-flex;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(247, 143, 179, 0.16);
+  color: #9d3d67;
+}
+
+.tagTried {
+  display: inline-flex;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(79, 142, 247, 0.14);
+  color: #2563eb;
+}
+
+.tagDone {
+  display: inline-flex;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(34, 197, 94, 0.14);
+  color: #166534;
+}
+
+.tagLocked {
+  display: inline-flex;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(35, 48, 58, 0.08);
+  color: #7a8a99;
+}
+
+/* ── 모바일 ── */
+@media (max-width: 480px) {
+  .unitLeft {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .unitMeta {
+    flex-wrap: wrap;
+  }
+}
