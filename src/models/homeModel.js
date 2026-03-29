@@ -1,7 +1,7 @@
 const STARTER_SEQUENCE = [
-  ['math', 'addition-up-to-20'],
-  ['english', 'alphabet-upper'],
   ['math', 'multiplication-2'],
+  ['english', 'alphabet-upper'],
+  ['math', 'multiplication-3'],
   ['english', 'alphabet-lower'],
   ['math', 'clock-reading'],
   ['english', 'phonics-a'],

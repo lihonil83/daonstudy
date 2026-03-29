@@ -5,7 +5,7 @@ import process from 'node:process';
 const HOST = '127.0.0.1';
 const PORT = 4173;
 const BASE_URL = `http://${HOST}:${PORT}`;
-const PREVIEW_READY_TIMEOUT_MS = 10000;
+const PREVIEW_READY_TIMEOUT_MS = 20000;
 const PAGE_BUDGET_MS = 3000;
 const CHROME_CLOSE_TIMEOUT_MS = 10000;
 const runtimeMode = process.argv.includes('--production') ? 'production' : 'smoke';
@@ -23,7 +23,7 @@ const commonPageChecks = [
   {
     name: 'math',
     url: `${BASE_URL}/#/math`,
-    expected: ['수학 단원을 골라보세요', '길이 단위', '덧셈 20까지'],
+    expected: ['수학 단원을 골라보세요', '길이 단위', '2단 구구단'],
   },
   {
     name: 'english',
@@ -42,8 +42,8 @@ const commonPageChecks = [
   },
   {
     name: 'math-quiz',
-    url: `${BASE_URL}/#/math/addition-up-to-20`,
-    expected: ['덧셈 20까지', '정답을 골라보세요.', '현재 점수: 0', '이 문제에서 틀린 횟수: 0'],
+    url: `${BASE_URL}/#/math/multiplication-2`,
+    expected: ['2단 구구단', '정답을 골라보세요.', '현재 점수: 0', '이 문제에서 틀린 횟수: 0'],
   },
   {
     name: 'english-quiz',
@@ -78,7 +78,7 @@ const smokeOnlyPageChecks = [
   {
     name: 'smoke-wrong-to-review',
     url: `${BASE_URL}/#/smoke/wrong-to-review`,
-    expected: ['오답 노트', '7 + 5 = ?', '미복습 1개', '전체 복습 시작 (1문제)'],
+    expected: ['오답 노트', '2 x 6 = ?', '미복습 1개', '전체 복습 시작 (1문제)'],
     budgetMs: 6000,
   },
   {

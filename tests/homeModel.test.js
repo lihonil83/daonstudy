@@ -4,8 +4,8 @@ import test from 'node:test';
 import { getRecommendedMission } from '../src/models/homeModel.js';
 
 const mathUnits = [
-  { id: 'addition-up-to-20', subject: 'math', title: '덧셈 20까지', available: true },
   { id: 'multiplication-2', subject: 'math', title: '2단 구구단', available: true },
+  { id: 'multiplication-3', subject: 'math', title: '3단 구구단', available: true },
   { id: 'clock-reading', subject: 'math', title: '시계 읽기', available: true },
 ];
 
@@ -35,7 +35,7 @@ test('getRecommendedMission picks the gentle starter unit on the first visit', (
     unreviewedCount: 0,
     totalQuizCount: 0,
     getUnitProgress(subject, unitId) {
-      if (unitId === 'addition-up-to-20') {
+      if (unitId === 'multiplication-2') {
         return { attempts: 0 };
       }
 
@@ -45,8 +45,8 @@ test('getRecommendedMission picks the gentle starter unit on the first visit', (
     englishUnits,
   });
 
-  assert.equal(recommendation.to, '/math/addition-up-to-20');
-  assert.match(recommendation.title, /덧셈 20까지부터 시작해요/);
+  assert.equal(recommendation.to, '/math/multiplication-2');
+  assert.match(recommendation.title, /2단 구구단부터 시작해요/);
 });
 
 test('getRecommendedMission suggests the next unseen unit after study has started', () => {

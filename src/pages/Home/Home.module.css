@@ -1,275 +1,326 @@
+/* ────────────────────────────────────────────
+   홈 페이지 - 스크롤 없이 화면에 꽉 차는 레이아웃
+───────────────────────────────────────────── */
+
 .page {
   display: grid;
-  gap: 24px;
+  grid-template-columns: 260px 1fr;
+  gap: 20px;
+  height: 100%;          /* Layout .main 이 높이를 채워줌 */
+  min-height: 0;
 }
 
-.hero {
-  display: grid;
-  gap: 18px;
-  padding: 28px;
+/* ── 왼쪽 사이드바 ── */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* 캐릭터 카드 */
+.avatarCard {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px 18px;
+  border-radius: 28px;
   border: 1px solid var(--colorBorder);
-  border-radius: 30px;
-  background:
-    linear-gradient(135deg, rgba(46, 196, 182, 0.12), rgba(255, 184, 0, 0.12)),
-    rgba(255, 255, 255, 0.84);
+  background: linear-gradient(
+    145deg,
+    rgba(46, 196, 182, 0.1),
+    rgba(255, 255, 255, 0.9)
+  );
+  box-shadow: var(--shadowSoft);
+  text-align: center;
+}
+
+.avatarEmoji {
+  font-size: 52px;
+  line-height: 1;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+}
+
+.levelBadge {
+  display: inline-flex;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--colorPrimary), #6ed3c8);
+  color: white;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.levelTitle {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--colorText);
+}
+
+.xpBar {
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(35, 48, 58, 0.1);
+  overflow: hidden;
+}
+
+.xpFill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--colorPrimary), var(--colorGold));
+  transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.xpText {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--colorText);
+}
+
+.xpGoal {
+  margin: 0;
+  font-size: 11px;
+  color: var(--colorSub);
+}
+
+/* 스트릭 카드 */
+.streakCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: 20px;
+  border: 1px solid var(--colorBorder);
+  background: rgba(255, 255, 255, 0.85);
   box-shadow: var(--shadowSoft);
 }
 
-.kicker {
-  margin: 0 0 10px;
-  color: var(--colorPrimaryDark);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+.streakIcon {
+  font-size: 28px;
 }
 
-.heading {
+.streakLabel {
   margin: 0;
-  font-size: clamp(28px, 4vw, 40px);
-  line-height: 1.05;
-}
-
-.copy {
-  margin: 0;
+  font-size: 11px;
   color: var(--colorSub);
-  font-size: 17px;
-  line-height: 1.65;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+.streakValue {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--colorText);
+}
+
+/* 복습 알림 배지 */
+.reviewBadge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: 18px;
+  border: 1px solid var(--colorBorder);
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--colorSub);
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.reviewBadge:hover {
+  transform: translateY(-2px);
+  border-color: rgba(46, 196, 182, 0.4);
+}
+
+.reviewBadgeActive {
+  border-color: rgba(255, 184, 0, 0.5);
+  background: rgba(255, 184, 0, 0.08);
+  color: #b45309;
+}
+
+/* ── 오른쪽 메인 영역 ── */
+.mainArea {
+  display: flex;
+  flex-direction: column;
   gap: 16px;
+  min-height: 0;
 }
 
-.overviewGrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+/* 인사말 */
+.greeting {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
+.greetingKicker {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--colorSub);
+}
+
+.greetingTitle {
+  margin: 0;
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--colorText);
+}
+
+/* 오늘의 추천 스팟라이트 */
 .spotlightCard {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  padding: 22px 24px;
+  gap: 16px;
+  padding: 22px 26px;
   border-radius: 26px;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(35, 48, 58, 0.08);
+  border: 1.5px solid rgba(46, 196, 182, 0.25);
+  background: linear-gradient(
+    135deg,
+    rgba(46, 196, 182, 0.08),
+    rgba(255, 184, 0, 0.06)
+  );
   box-shadow: var(--shadowSoft);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.spotlightBody {
-  display: grid;
-  gap: 8px;
+.spotlightCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(46, 196, 182, 0.2);
+}
+
+.spotlightLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .spotlightBadge {
   display: inline-flex;
   width: fit-content;
-  padding: 7px 10px;
+  padding: 4px 10px;
   border-radius: 999px;
-  background: rgba(46, 196, 182, 0.14);
+  background: rgba(46, 196, 182, 0.15);
   color: var(--colorPrimaryDark);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .spotlightTitle {
   margin: 0;
-  font-size: 28px;
-  line-height: 1.15;
-}
-
-.spotlightCopy {
-  margin: 0;
-  color: var(--colorSub);
-  line-height: 1.6;
-}
-
-.spotlightCta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 16px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, var(--colorPrimary) 0%, #6ed3c8 100%);
-  color: #ffffff;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.rewardCard,
-.reviewCard {
-  display: grid;
-  gap: 14px;
-  min-height: 220px;
-  padding: 24px;
-  border-radius: 26px;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(35, 48, 58, 0.08);
-}
-
-.rewardTop {
-  display: flex;
-  gap: 12px;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.rewardLabel,
-.reviewKicker {
-  margin: 0;
-  color: var(--colorPrimaryDark);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.rewardTitle,
-.reviewTitle {
-  margin: 6px 0 0;
-  font-size: 24px;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--colorText);
   line-height: 1.2;
 }
 
-.rewardHint {
-  color: var(--colorSub);
+.spotlightDesc {
+  margin: 0;
   font-size: 14px;
-  font-weight: 700;
-}
-
-.progressTrack {
-  height: 14px;
-  overflow: hidden;
-  border-radius: 999px;
-  background: rgba(35, 48, 58, 0.08);
-}
-
-.progressFill {
-  height: 100%;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--colorPrimary) 0%, var(--colorGold) 100%);
-}
-
-.rewardMeta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: space-between;
   color: var(--colorSub);
-  font-size: 14px;
+  line-height: 1.5;
 }
 
-.badgeRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.badgeChip,
-.badgeChipMuted {
+.spotlightCta {
+  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 14px;
-  background: rgba(46, 196, 182, 0.12);
-  font-size: 22px;
-}
-
-.badgeChipMuted {
-  background: rgba(35, 48, 58, 0.06);
-  opacity: 0.58;
-}
-
-.rewardCopy,
-.reviewCopy {
-  margin: 0;
-  color: var(--colorSub);
-  line-height: 1.6;
-}
-
-.guideGrid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.guideCard {
-  display: grid;
-  gap: 8px;
-  min-height: 132px;
-  padding: 18px;
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.76);
-  border: 1px solid rgba(35, 48, 58, 0.08);
-}
-
-.guideTitle {
-  font-size: 18px;
-}
-
-.guideCopy {
-  margin: 0;
-  color: var(--colorSub);
-  line-height: 1.6;
-}
-
-.card {
-  display: grid;
-  gap: 12px;
-  min-height: 200px;
-  padding: 24px;
-  border: 1px solid var(--colorBorder);
-  border-radius: 26px;
-  background: var(--colorCard);
-  box-shadow: var(--shadowSoft);
-  transition: transform 0.18s ease, border-color 0.18s ease;
-}
-
-.card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(46, 196, 182, 0.4);
-}
-
-.badge {
-  display: inline-flex;
-  width: fit-content;
-  padding: 8px 10px;
+  padding: 14px 22px;
   border-radius: 999px;
-  background: rgba(35, 48, 58, 0.06);
-  color: var(--colorSub);
+  background: linear-gradient(135deg, var(--colorPrimary), #6ed3c8);
+  color: white;
+  font-size: 15px;
+  font-weight: 800;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(46, 196, 182, 0.35);
+}
+
+/* 빠른 메뉴 3개 */
+.quickMenu {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  flex: 1;
+  min-height: 0;
+}
+
+.menuCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 24px;
+  border: 1.5px solid var(--colorBorder);
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: var(--shadowSoft);
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  padding: 20px;
+}
+
+.menuCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.menuRoadmap:hover { border-color: #4f8ef7; }
+.menuReview:hover  { border-color: #f7914f; }
+.menuProgress:hover { border-color: #a78bfa; }
+
+.menuIcon {
+  font-size: 36px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.menuLabel {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--colorText);
+}
+
+.menuDesc {
   font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-}
-
-.cardTitle {
-  margin: 0;
-  font-size: 24px;
-}
-
-.cardCopy {
-  margin: 0;
   color: var(--colorSub);
-  line-height: 1.6;
+  font-weight: 600;
 }
 
-@media (max-width: 680px) {
-  .spotlightCard {
-    flex-direction: column;
-    align-items: flex-start;
+/* ── 반응형 ── */
+@media (max-width: 720px) {
+  .page {
+    grid-template-columns: 1fr;
   }
 
-  .guideGrid,
-  .overviewGrid,
-  .grid {
-    grid-template-columns: 1fr;
+  .sidebar {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .avatarCard {
+    flex: none;
+    width: 100%;
+    flex-direction: row;
+    text-align: left;
+    padding: 16px 20px;
+  }
+
+  .avatarEmoji { font-size: 40px; }
+
+  .quickMenu {
+    grid-template-columns: repeat(3, 1fr);
   }
 }

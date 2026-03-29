@@ -4,6 +4,7 @@ import {
   buildQuizResult,
   evaluateAnswer,
 } from '../models/quizModel.js';
+import { generateMathMixedUnit, generateEnglishMixedUnit } from '../utils/quizGenerator.js';
 
 export function useQuiz(unit, options = {}) {
   const configuredQuestionCount = Math.max(0, options.questionCount ?? unit?.questionCount ?? 10);
@@ -25,6 +26,7 @@ export function useQuiz(unit, options = {}) {
   const [questionResults, setQuestionResults] = useState([]);
   const [feedbackState, setFeedbackState] = useState('idle');
   const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [explanationText, setExplanationText] = useState('');
   const [statusText, setStatusText] = useState('정답을 골라보세요.');
 
   const clearAdvanceTimer = () => {
@@ -37,11 +39,24 @@ export function useQuiz(unit, options = {}) {
   const resetQuiz = () => {
     clearAdvanceTimer();
     quizStartedAtRef.current = Date.now();
-    const sourceQuestions =
-      options.questions ??
-      (typeof unit?.data?.generateQuestions === 'function'
-        ? unit.data.generateQuestions()
-        : unit?.data?.questions ?? []);
+    let sourceQuestions = options.questions;
+
+    if (!sourceQuestions) {
+      if (unit?.type === 'generated') {
+        const { type, danList, sourceUnits } = unit.config || {};
+        if (type === 'math-mixed') {
+          sourceQuestions = generateMathMixedUnit(danList, configuredQuestionCount);
+        } else if (type === 'english-mixed') {
+          sourceQuestions = generateEnglishMixedUnit(sourceUnits, configuredQuestionCount);
+        } else {
+          sourceQuestions = [];
+        }
+      } else {
+        sourceQuestions = typeof unit?.data?.generateQuestions === 'function'
+          ? unit.data.generateQuestions()
+          : unit?.data?.questions ?? [];
+      }
+    }
     const questionCount = Math.max(0, Math.min(configuredQuestionCount, sourceQuestions.length));
 
     if (!sourceQuestions.length) {
@@ -51,6 +66,7 @@ export function useQuiz(unit, options = {}) {
       setAttemptCount(0);
       setIsShowingHint(false);
       setHintText('');
+      setExplanationText('');
       setIsComplete(false);
       setResult(null);
       setXpEarned(0);
@@ -68,6 +84,7 @@ export function useQuiz(unit, options = {}) {
     setAttemptCount(0);
     setIsShowingHint(false);
     setHintText('');
+    setExplanationText('');
     setIsComplete(false);
     setResult(null);
     setXpEarned(0);
@@ -124,6 +141,7 @@ export function useQuiz(unit, options = {}) {
     setAttemptCount(0);
     setIsShowingHint(false);
     setHintText('');
+    setExplanationText('');
     setFeedbackState('idle');
     setSelectedAnswer(null);
     setStatusText('정답을 골라보세요.');
@@ -179,6 +197,7 @@ export function useQuiz(unit, options = {}) {
     setFeedbackState('revealed');
     setIsShowingHint(false);
     setHintText('');
+    setExplanationText(currentQuestion.explanation ?? '');
     setWrongAnswers(evaluation.nextWrongAnswers);
     setStatusText(evaluation.statusText);
     queueAdvance(
@@ -201,6 +220,7 @@ export function useQuiz(unit, options = {}) {
     score,
     isShowingHint,
     hintText,
+    explanationText,
     attemptCount,
     isComplete,
     result,

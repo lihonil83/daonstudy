@@ -33,9 +33,15 @@ export function getSpeechPrompt(visual) {
     return null;
   }
 
+  const uniqueLetters = letters.filter((letter, index, source) => {
+    const normalizedLetter = String(letter).trim().toLowerCase();
+
+    return source.findIndex((candidate) => String(candidate).trim().toLowerCase() === normalizedLetter) === index;
+  });
+
   return {
     label: `${letters.join('/')} 소리 듣기`,
-    text: letters.join(' '),
+    text: uniqueLetters.join(' '),
     lang: 'en-US',
   };
 }

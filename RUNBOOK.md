@@ -47,7 +47,18 @@ npm run build
 npm run preview
 ```
 
-또는 `dist/index.html`을 직접 열어도 되도록 설계되어 있습니다.
+또는 릴리스 번들을 로컬 서버로 열려면:
+
+```bash
+npm run release:open
+```
+
+서피스북 같은 Windows 노트북에서는 릴리스 번들 안의 `start-windows.bat`를 더블클릭하는 방법이 가장 간단합니다.
+
+주의:
+
+- `file:///.../dist/index.html`을 브라우저에서 직접 열면, 특히 Chrome 계열에서는 module script가 막혀 빈 화면으로 보일 수 있습니다.
+- 실제 사용 확인은 `npm run preview` 또는 `npm run release:open` 방식을 권장합니다.
 
 ## 4. 검증용 smoke 빌드
 

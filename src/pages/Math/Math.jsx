@@ -1,14 +1,17 @@
 import { Link, useParams } from 'react-router-dom';
 import QuizSession from '../../components/Quiz/QuizSession';
 import { MATH_UNITS } from '../../data/unitRegistry';
+import { useProgress } from '../../hooks/useProgress';
 import styles from './Math.module.css';
 
 export default function Math() {
   const { unitId } = useParams();
+  const { suggestedUnits } = useProgress();
+  const mathSuggested = suggestedUnits.filter(u => u.subject === 'math');
   const units = Object.values(MATH_UNITS);
 
   if (unitId) {
-    const unit = MATH_UNITS[unitId];
+    const unit = MATH_UNITS[unitId] || mathSuggested.find(u => u.id === unitId);
 
     if (!unit) {
       return (
@@ -55,8 +58,8 @@ export default function Math() {
         <span className={`${styles.tag} ${styles.mathTag}`}>수학</span>
         <h2 className={styles.title}>수학 단원을 골라보세요</h2>
         <p className={styles.copy}>
-          구구단, 시계 읽기, 길이·무게 단위, 덧셈·뺄셈 단원 가운데 오늘 풀고 싶은 문제부터
-          시작해보세요. 아직 안 푼 단원과 이미 해본 단원이 함께 보여서 다음 걸음도 고르기 쉽습니다.
+          구구단, 시계 읽기, 길이·무게 단원 가운데 오늘 풀고 싶은 문제부터 시작해보세요.
+          아직 안 푼 단원과 이미 해본 단원이 함께 보여서 다음 걸음도 고르기 쉽습니다.
         </p>
         <div className={styles.unitList}>
           {units.map((unit) =>
@@ -83,6 +86,23 @@ export default function Math() {
             ),
           )}
         </div>
+
+        {mathSuggested.length > 0 ? (
+          <>
+            <h3 className={styles.sectionTitle}>✨ 특별 도전 과제 (생성형)</h3>
+            <div className={styles.unitList}>
+              {mathSuggested.map((unit) => (
+                <Link key={unit.id} to={`/math/${unit.id}`} className={`${styles.unitCard} ${styles.dynamicCard}`}>
+                  <div className={styles.unitMeta}>
+                    <strong>{unit.title}</strong>
+                    <span className={styles.tag}>새로운 도전</span>
+                  </div>
+                  <span className={styles.unitNote}>{unit.description}</span>
+                </Link>
+              ))}
+            </div>
+          </>
+        ) : null}
       </div>
     </section>
   );

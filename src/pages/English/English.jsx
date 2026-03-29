@@ -1,14 +1,17 @@
 import { Link, useParams } from 'react-router-dom';
 import QuizSession from '../../components/Quiz/QuizSession';
 import { ENGLISH_UNITS } from '../../data/unitRegistry';
+import { useProgress } from '../../hooks/useProgress';
 import styles from './English.module.css';
 
 export default function English() {
   const { unitId } = useParams();
+  const { suggestedUnits } = useProgress();
+  const englishSuggested = suggestedUnits.filter(u => u.subject === 'english');
   const units = Object.values(ENGLISH_UNITS);
 
   if (unitId) {
-    const unit = ENGLISH_UNITS[unitId];
+    const unit = ENGLISH_UNITS[unitId] || englishSuggested.find(u => u.id === unitId);
 
     if (!unit) {
       return (
@@ -83,6 +86,23 @@ export default function English() {
             ),
           )}
         </div>
+
+        {englishSuggested.length > 0 ? (
+          <>
+            <h3 className={styles.sectionTitle}>✨ 특별 챌린지 (생성형)</h3>
+            <div className={styles.unitList}>
+              {englishSuggested.map((unit) => (
+                <Link key={unit.id} to={`/english/${unit.id}`} className={`${styles.unitCard} ${styles.dynamicCard}`}>
+                  <div className={styles.unitMeta}>
+                    <strong>{unit.title}</strong>
+                    <span className={styles.tag}>새로운 도전</span>
+                  </div>
+                  <span className={styles.unitNote}>{unit.description}</span>
+                </Link>
+              ))}
+            </div>
+          </>
+        ) : null}
       </div>
     </section>
   );

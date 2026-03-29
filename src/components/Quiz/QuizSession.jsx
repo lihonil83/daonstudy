@@ -6,6 +6,7 @@ import { useQuiz } from '../../hooks/useQuiz';
 import { useReward } from '../../hooks/useReward';
 import { useSpeechSynthesis } from '../../hooks/useSpeechSynthesis';
 import { useWrongAnswers } from '../../hooks/useWrongAnswers';
+import { useSound } from '../../hooks/useSound';
 import { getSpeechPrompt } from '../../models/speechModel';
 import styles from './QuizSession.module.css';
 
@@ -49,6 +50,7 @@ export default function QuizSession({
   const { addXp, checkBadges, clearPending, pendingBadges, pendingLevelUp } = useReward();
   const { addWrongAnswer, markReviewed } = useWrongAnswers();
   const speech = useSpeechSynthesis();
+  const { playClick, playCorrect, playWrong, playFanfare } = useSound();
   const lastSavedKeyRef = useRef('');
   const lastCompletedKeyRef = useRef('');
   const automationTimerRef = useRef(null);
@@ -141,6 +143,14 @@ export default function QuizSession({
   ]);
 
   useEffect(() => {
+    if (quiz.feedbackState === 'correct') {
+      playCorrect();
+    } else if (quiz.feedbackState === 'wrong' || quiz.feedbackState === 'revealed') {
+      playWrong();
+    }
+  }, [quiz.feedbackState, playCorrect, playWrong]);
+
+  useEffect(() => {
     if (!quiz.isComplete || !quiz.result) {
       lastCompletedKeyRef.current = '';
       return;
@@ -162,8 +172,10 @@ export default function QuizSession({
     }
 
     onComplete?.(quiz.result);
+    // 퀴즈 완료 팡파르 재생 (점수에 상관없이 완료 자체를 축하)
+    playFanfare();
     lastCompletedKeyRef.current = completionKey;
-  }, [mode, onComplete, quiz.isComplete, quiz.result, unit.id, unit.subject]);
+  }, [mode, onComplete, playFanfare, quiz.isComplete, quiz.result, unit.id, unit.subject]);
 
   useEffect(() => {
     speech.stop();
@@ -206,6 +218,7 @@ export default function QuizSession({
     lastAutomatedQuestionRef.current = automationKey;
     automationTimerRef.current = setTimeout(() => {
       automationTimerRef.current = null;
+      // 자동화 시에는 클릭 소리를 재생하지 않거나 필요에 따라 추가
       quiz.submitAnswer(plannedAnswer);
     }, automation.answerDelayMs ?? 120);
 
@@ -334,6 +347,26 @@ export default function QuizSession({
               </Link>
             ) : null}
           </div>
+
+          {unit.resources && unit.resources.length > 0 ? (
+            <div className={styles.resourceSection}>
+              <p className={styles.resourceTitle}>📚 계속 공부하려면 — 여기서 더 풀어보세요</p>
+              <p className={styles.resourceHint}>앱을 켜 둔 채로 아래 사이트에서 같은 단원 문제를 풀면 공부 시간이 자동으로 기록돼요.</p>
+              <div className={styles.resourceLinks}>
+                {unit.resources.map((res) => (
+                  <a
+                    key={res.url}
+                    href={res.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${styles.resourceLink} ${styles[`resource_${res.provider}`]}`}
+                  >
+                    {res.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          ) : null}
         </div>
       </section>
     );
@@ -394,6 +427,12 @@ export default function QuizSession({
             <p>{quiz.hintText}</p>
           </div>
         ) : null}
+        {quiz.explanationText ? (
+          <div className={styles.explanationBox}>
+            <span className={styles.explanationLabel}>💡 AI 선생님의 설명</span>
+            <p>{quiz.explanationText}</p>
+          </div>
+        ) : null}
         <div className={styles.choiceGrid}>
           {quiz.currentQuestion.choices.map((choice) => {
             const choiceState = getChoiceState(choice, quiz);
@@ -411,7 +450,9 @@ export default function QuizSession({
                 type="button"
                 className={className}
                 disabled={!quiz.canAnswer}
-                onClick={() => quiz.submitAnswer(choice)}
+                onClick={() => {
+                  quiz.submitAnswer(choice);
+                }}
               >
                 <span>{String(choice)}</span>
               </button>

@@ -113,7 +113,7 @@ test('Home page renders the no-review state when there are no pending wrong answ
             return {
               totalQuizCount: 0,
               getUnitProgress(subject, unitId) {
-                if (unitId === 'addition-up-to-20') return { attempts: 0 };
+                if (unitId === 'multiplication-2') return { attempts: 0 };
                 return { attempts: 1 };
               },
             };
@@ -127,7 +127,7 @@ test('Home page renders the no-review state when there are no pending wrong answ
 
   assert.match(html, /✨ 복습할 문제가 없어요/);
   assert.match(html, /필요하면 언제든 다시 볼 수 있어요/);
-  assert.match(html, /덧셈 20까지부터 시작해요/);
+  assert.match(html, /2단 구구단부터 시작해요/);
   assert.match(html, /첫 퀴즈 시작하기/);
 });
 
@@ -217,8 +217,8 @@ test('QuizSession renders the default quiz result summary with badge and review 
   const html = renderWithRouter(
     React.createElement(QuizSession, {
       unit: {
-        id: 'addition-up-to-20',
-        title: '덧셈 20까지',
+        id: 'multiplication-2',
+        title: '2단 구구단',
         subject: 'math',
       },
       accent: 'math',
@@ -227,7 +227,7 @@ test('QuizSession renders the default quiz result summary with badge and review 
   );
 
   assert.match(html, /퀴즈 완료/);
-  assert.match(html, /덧셈 20까지/);
+  assert.match(html, /2단 구구단/);
   assert.match(html, /\+95/);
   assert.match(html, /레벨 업! 🌱 → 🚀/);
   assert.match(html, /🏅 새 뱃지/);

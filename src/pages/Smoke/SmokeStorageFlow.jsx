@@ -12,28 +12,30 @@ const STORAGE_KEYS = ['eduapp_scores', 'eduapp_progress', 'eduapp_reward', 'edua
 const smokeStorageQuestions = [
   {
     id: 'smoke-storage-wrong',
-    question: '8 + 4 = ?',
+    question: '3 x 4 = ?',
     choices: [11, 12, 13],
     answer: 12,
-    hints: ['8과 4를 합쳐보세요.', '10보다 조금 더 커요.'],
+    hints: ['3을 네 번 더해보세요.', '3 + 3 + 3 + 3 = 12예요.'],
     visual: {
       type: 'equation-card',
-      expression: '8 + 4',
+      expression: '3 x 4',
       cue: '저장 검증',
       badge: 'SAVE',
+      category: 'multiplication',
     },
   },
   {
     id: 'smoke-storage-correct',
-    question: '6 + 3 = ?',
+    question: '3 x 3 = ?',
     choices: [8, 9, 10],
     answer: 9,
-    hints: ['6에 3을 더하면 9예요.'],
+    hints: ['3을 세 번 더하면 9예요.'],
     visual: {
       type: 'equation-card',
-      expression: '6 + 3',
+      expression: '3 x 3',
       cue: '저장 검증',
       badge: 'SAVE',
+      category: 'multiplication',
     },
   },
 ];

@@ -39,11 +39,11 @@ test('Progress page renders populated stats and recent history from hook data', 
               totalStudyDays: 7,
               totalQuizCount: 12,
               recentScores: [
-                { id: 'score-1', date: '2026-03-28', unitTitle: '덧셈 20까지', score: 10, total: 10, stars: 3, improved: true },
+                { id: 'score-1', date: '2026-03-28', unitTitle: '2단 구구단', score: 10, total: 10, stars: 3, improved: true },
                 { id: 'score-2', date: '2026-03-27', unitTitle: '파닉스 B', score: 8, total: 10, stars: 2, improved: false },
               ],
               getUnitProgress(subject, unitId) {
-                if (unitId === 'addition-up-to-20') return { bestScore: 10, bestStars: 3, attempts: 2, firstClear: '2026-03-28' };
+                if (unitId === 'multiplication-2') return { bestScore: 10, bestStars: 3, attempts: 2, firstClear: '2026-03-28' };
                 if (unitId === 'phonics-b') return { bestScore: 8, bestStars: 2, attempts: 1, firstClear: '2026-03-27' };
                 return { bestScore: 0, bestStars: 0, attempts: 0, firstClear: null };
               },
@@ -59,7 +59,7 @@ test('Progress page renders populated stats and recent history from hook data', 
   assert.match(html, /공부한 날/);
   assert.match(html, /7일/);
   assert.match(html, /🔥 4일째 이어가고 있어요/);
-  assert.match(html, /덧셈 20까지/);
+  assert.match(html, /2단 구구단/);
   assert.match(html, /📈 실력이 늘고 있어요/);
   assert.match(html, /학습 기록 관리/);
   assert.match(html, /학습 기록 초기화/);
@@ -146,8 +146,8 @@ test('Review page renders unreviewed and reviewed items from hook data', async (
                 {
                   id: 'wrong-1',
                   subject: 'math',
-                  unitTitle: '덧셈 20까지',
-                  question: '7 + 5 = ?',
+                  unitTitle: '2단 구구단',
+                  question: '2 x 4 = ?',
                   date: '2026-03-28',
                 },
               ],
@@ -162,7 +162,7 @@ test('Review page renders unreviewed and reviewed items from hook data', async (
   const html = renderWithRouter(React.createElement(ReviewPage));
 
   assert.match(html, /전체 복습 시작 \(1문제\)/);
-  assert.match(html, /7 \+ 5 = \?/);
+  assert.match(html, /2 x 4 = \?/);
   assert.match(html, /파닉스 C/);
   assert.match(html, /완료 기록 비우기/);
 });

@@ -12,105 +12,19 @@ import multiplication2 from './math/multiplication-2.json';
 import multiplication3 from './math/multiplication-3.json';
 import multiplication4 from './math/multiplication-4.json';
 import weightUnits from './math/weight-units.json';
-import { buildArithmeticQuestionBank } from '../models/arithmeticModel.js';
 
 export const MATH_UNITS = {
-  'multiplication-2': {
-    id: 'multiplication-2',
-    title: '2단 구구단',
-    description: '2단을 주제로 한 10문제 랜덤 퀴즈입니다.',
-    subject: 'math',
-    available: true,
-    data: multiplication2,
-  },
-  'multiplication-3': {
-    id: 'multiplication-3',
-    title: '3단 구구단',
-    description: '3단을 주제로 한 10문제 랜덤 퀴즈입니다.',
-    subject: 'math',
-    available: true,
-    data: multiplication3,
-  },
-  'multiplication-4': {
-    id: 'multiplication-4',
-    title: '4단 구구단',
-    description: '4단을 주제로 한 10문제 랜덤 퀴즈입니다.',
-    subject: 'math',
-    available: true,
-    data: multiplication4,
-  },
-  'clock-reading': {
-    id: 'clock-reading',
-    title: '시계 읽기',
-    description: '시계 그림을 보고 몇 시인지 고르는 10문제 랜덤 퀴즈입니다.',
-    subject: 'math',
-    available: true,
-    data: clockReading,
-  },
-  'clock-reading-advanced': {
-    id: 'clock-reading-advanced',
-    title: '시계 읽기 심화',
-    description: '15분과 45분 시각을 읽는 10문제 랜덤 퀴즈입니다.',
-    subject: 'math',
-    available: true,
-    data: clockReadingAdvanced,
-  },
-  'length-units': {
-    id: 'length-units',
-    title: '길이 단위',
-    description: 'm와 cm를 바꾸어 생각하는 10문제 랜덤 퀴즈입니다.',
-    subject: 'math',
-    available: true,
-    data: lengthUnits,
-  },
-  'weight-units': {
-    id: 'weight-units',
-    title: '무게 단위',
-    description: 'kg와 g를 바꾸어 생각하는 10문제 랜덤 퀴즈입니다.',
-    subject: 'math',
-    available: true,
-    data: weightUnits,
-  },
-  'addition-up-to-20': {
-    id: 'addition-up-to-20',
-    title: '덧셈 20까지',
-    description: '20 안에서 덧셈 문제를 자동으로 만드는 10문제 생성형 퀴즈입니다.',
-    subject: 'math',
-    available: true,
-    questionCount: 10,
-    data: {
-      generateQuestions: () =>
-        buildArithmeticQuestionBank({
-          operation: 'addition',
-          minLeft: 1,
-          maxLeft: 10,
-          minRight: 1,
-          maxRight: 10,
-          minAnswer: 2,
-          maxAnswer: 20,
-        }),
-    },
-  },
-  'subtraction-up-to-20': {
-    id: 'subtraction-up-to-20',
-    title: '뺄셈 20까지',
-    description: '20 안에서 뺄셈 문제를 자동으로 만드는 10문제 생성형 퀴즈입니다.',
-    subject: 'math',
-    available: true,
-    questionCount: 10,
-    data: {
-      generateQuestions: () =>
-        buildArithmeticQuestionBank({
-          operation: 'subtraction',
-          minLeft: 2,
-          maxLeft: 20,
-          minRight: 1,
-          maxRight: 10,
-          minAnswer: 0,
-          maxAnswer: 20,
-        }),
-    },
-  },
+  'g1-m-1-1': { id: 'g1-m-1-1', title: '9까지의 수', subject: 'math', available: true },
+  'g1-m-1-3': { id: 'g1-m-1-3', title: '덧셈과 뺄셈', subject: 'math', available: true },
+  'g2-m-2-2': { id: 'g2-m-2-2', title: '구구단', subject: 'math', available: true },
+  'g2-m-2-4': { id: 'g2-m-2-4', title: '시각과 시간', subject: 'math', available: true },
+  'g3-m-1-3': { id: 'g3-m-1-3', title: '나눗셈', subject: 'math', available: true },
+  'g4-m-1-1': { id: 'g4-m-1-1', title: '큰 수', subject: 'math', available: true },
+  'g5-m-1-2': { id: 'g5-m-1-2', title: '약수와 배수', subject: 'math', available: true },
+  'g6-m-1-1': { id: 'g6-m-1-1', title: '분수의 나눗셈', subject: 'math', available: true },
+  // 기존 레거시 ID (호환성 유지)
+  'multiplication-2': { id: 'multiplication-2', title: '2단 구구단', subject: 'math', available: true },
+  'clock-reading': { id: 'clock-reading', title: '시계 읽기', subject: 'math', available: true },
 };
 
 export const ENGLISH_UNITS = {

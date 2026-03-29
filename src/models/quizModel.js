@@ -36,6 +36,7 @@ export function createQuestionOutcome(question, unit, userAnswer, isCorrect) {
     userAnswer,
     correctAnswer: question.answer,
     isCorrect,
+    explanation: question.explanation ?? '',
     subject: question.subject ?? unit.subject,
     unit: question.unit ?? unit.id,
     unitTitle: question.unitTitle ?? unit.title,

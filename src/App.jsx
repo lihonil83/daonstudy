@@ -6,11 +6,16 @@ import English from './pages/English/English';
 import Review from './pages/Review/Review';
 import Progress from './pages/Progress/Progress';
 import NotFound from './pages/NotFound/NotFound';
+import Roadmap from './pages/Roadmap/Roadmap';
+import GeneratedQuiz from './pages/GeneratedQuiz/GeneratedQuiz';
+import EmbedActivity from './pages/EmbedActivity/EmbedActivity';
+import Settings from './pages/Settings/Settings';
 import { smokeRoutesEnabled } from './config/featureFlags';
 import SmokeQuizComplete from './pages/Smoke/SmokeQuizComplete';
 import SmokeReviewComplete from './pages/Smoke/SmokeReviewComplete';
 import SmokeWrongToReviewFlow from './pages/Smoke/SmokeWrongToReviewFlow';
 import SmokeStorageFlow from './pages/Smoke/SmokeStorageFlow';
+import { useStudyLogger } from './hooks/useStudyLogger';
 import styles from './App.module.css';
 
 export function AppRoutes() {
@@ -24,6 +29,10 @@ export function AppRoutes() {
         <Route path="/english/:unitId" element={<English />} />
         <Route path="/review" element={<Review />} />
         <Route path="/progress" element={<Progress />} />
+        <Route path="/roadmap" element={<Roadmap />} />
+        <Route path="/quiz/generated" element={<GeneratedQuiz />} />
+        <Route path="/activity/embed" element={<EmbedActivity />} />
+        <Route path="/settings" element={<Settings />} />
         {smokeRoutesEnabled ? <Route path="/smoke/quiz-complete" element={<SmokeQuizComplete />} /> : null}
         {smokeRoutesEnabled ? <Route path="/smoke/review-complete" element={<SmokeReviewComplete />} /> : null}
         {smokeRoutesEnabled ? <Route path="/smoke/wrong-to-review" element={<SmokeWrongToReviewFlow />} /> : null}
@@ -51,5 +60,8 @@ export function AppShell({ RouterComponent = HashRouter, routerProps = {} }) {
 }
 
 export default function App() {
+  // 백그라운드 학습 시간 로거 시작
+  useStudyLogger();
+
   return <AppShell />;
 }

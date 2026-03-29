@@ -5,15 +5,16 @@ import Review from '../Review/Review';
 const smokeQuizQuestions = [
   {
     id: 'smoke-flow-wrong-1',
-    question: '7 + 5 = ?',
+    question: '2 x 6 = ?',
     choices: [10, 11, 12],
     answer: 12,
-    hints: ['7에 5를 더하면 12가 돼요.', '10보다 조금 더 커요.'],
+    hints: ['2를 여섯 번 더하면 12가 돼요.', '2 + 2 + 2 + 2 + 2 + 2 = 12예요.'],
     visual: {
       type: 'equation-card',
-      expression: '7 + 5',
+      expression: '2 x 6',
       cue: '오답 생성 스모크',
       badge: 'SMOKE',
+      category: 'multiplication',
     },
   },
 ];

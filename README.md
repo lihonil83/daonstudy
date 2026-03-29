@@ -50,3 +50,5 @@
 - `npm run smoke:browser` : smoke 빌드 + 로컬 preview + headless Chrome 기반 브라우저 스모크 검증
 - `npm run smoke:browser:prod` : 운영 빌드에서 smoke 라우트가 숨겨지는지 headless Chrome으로 검증
 - `npm run release:prep` : 전체 검증 후 운영 `dist`를 `release/` 폴더용 산출물로 정리
+- `npm run release:open` : 최신 릴리스 번들을 로컬 서버로 열고 브라우저에서 확인
+- Windows 노트북에서는 release 번들 안의 `start-windows.bat` 더블클릭으로도 실행 가능

@@ -296,6 +296,73 @@
   gap: 12px;
 }
 
+/* ── 외부 학습 자료 섹션 ── */
+.resourceSection {
+  display: grid;
+  gap: 12px;
+  padding: 20px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(79, 142, 247, 0.08), rgba(157, 78, 221, 0.06));
+  border: 1px solid rgba(79, 142, 247, 0.18);
+}
+
+.resourceTitle {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--colorPrimary, #4f8ef7);
+}
+
+.resourceHint {
+  margin: 0;
+  font-size: 12px;
+  color: var(--colorSub, #7a8a99);
+  line-height: 1.5;
+}
+
+.resourceLinks {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.resourceLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.resourceLink:hover {
+  opacity: 0.82;
+}
+
+/* 일일수학: 파란 계열 */
+.resource_illil {
+  background: #e8f1ff;
+  color: #2563eb;
+  border: 1px solid rgba(37, 99, 235, 0.18);
+}
+
+/* 모두매쓰: 초록 계열 */
+.resource_modoo {
+  background: #e6f9f0;
+  color: #16a34a;
+  border: 1px solid rgba(22, 163, 74, 0.18);
+}
+
+/* 칸아카데미: 보라 계열 */
+.resource_khan {
+  background: #f3eeff;
+  color: #7c3aed;
+  border: 1px solid rgba(124, 58, 237, 0.18);
+}
+
 @media (max-width: 760px) {
   .topRow,
   .footer {
@@ -306,5 +373,13 @@
   .choiceGrid,
   .resultGrid {
     grid-template-columns: 1fr;
+  }
+
+  .resourceLinks {
+    flex-direction: column;
+  }
+
+  .resourceLink {
+    justify-content: center;
   }
 }

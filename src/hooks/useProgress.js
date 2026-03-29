@@ -9,6 +9,9 @@ import {
 } from '../models/progressModel.js';
 import { PROGRESS_KEY, SCORES_KEY } from '../config/storageKeys.js';
 import { readStorageJSON, subscribeStorageKey, writeStorageJSON } from '../utils/storage';
+import { suggestNextDynamicUnit } from '../utils/quizGenerator';
+import { MATH_UNITS, ENGLISH_UNITS } from '../data/unitRegistry';
+import { useWrongAnswers } from './useWrongAnswers';
 
 function loadScores() {
   return readStorageJSON(SCORES_KEY, []);
@@ -21,6 +24,7 @@ function loadProgress() {
 export function useProgress() {
   const [scores, setScores] = useState(() => loadScores());
   const [progress, setProgress] = useState(() => loadProgress());
+  const { wrongAnswers: unreviewedWrongs } = useWrongAnswers();
 
   useEffect(() => {
     const syncScores = () => {
@@ -87,6 +91,11 @@ export function useProgress() {
     [scores],
   );
 
+  const suggestedUnits = useMemo(
+    () => suggestNextDynamicUnit(progress, MATH_UNITS, ENGLISH_UNITS, unreviewedWrongs),
+    [progress, unreviewedWrongs]
+  );
+
   return {
     saveQuizResult,
     totalStudyDays,
@@ -97,5 +106,6 @@ export function useProgress() {
     recentScores,
     getScoresBySubject,
     getScoresByDate,
+    suggestedUnits,
   };
 }

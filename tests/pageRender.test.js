@@ -47,13 +47,13 @@ function renderRoute(initialEntry, routePath, element) {
   }
 }
 
-test('Math page lists generated and measurement units on the index route', () => {
+test('Math page lists multiplication and measurement units on the index route', () => {
   const html = renderRoute('/math', '/math', React.createElement(MathPage));
 
+  assert.match(html, /2단 구구단/);
+  assert.match(html, /3단 구구단/);
   assert.match(html, /길이 단위/);
   assert.match(html, /무게 단위/);
-  assert.match(html, /덧셈 20까지/);
-  assert.match(html, /뺄셈 20까지/);
 });
 
 test('English page lists the expanded phonics sequence on the index route', () => {

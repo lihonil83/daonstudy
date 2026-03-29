@@ -15,7 +15,7 @@ import {
 
 test('clearLearningData removes all learning-related storage keys', () => {
   writeStorageJSON(SCORES_KEY, [{ id: 'score-1' }]);
-  writeStorageJSON(PROGRESS_KEY, { math: { units: { 'addition-up-to-20': { attempts: 1 } } } });
+  writeStorageJSON(PROGRESS_KEY, { math: { units: { 'multiplication-2': { attempts: 1 } } } });
   writeStorageJSON(REWARD_KEY, { totalXp: 120 });
   writeStorageJSON(WRONG_KEY, [{ id: 'wrong-1' }]);
 
