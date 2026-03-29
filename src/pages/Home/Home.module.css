@@ -43,6 +43,21 @@
   filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
 }
 
+.avatarInfo {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.levelLine {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--colorText);
+}
+
 .levelBadge {
   display: inline-flex;
   padding: 4px 12px;
@@ -83,9 +98,10 @@
   color: var(--colorText);
 }
 
-.xpGoal {
+.badgeText {
   margin: 0;
-  font-size: 11px;
+  font-size: 12px;
+  font-weight: 700;
   color: var(--colorSub);
 }
 
@@ -173,9 +189,9 @@
 
 .greetingKicker {
   margin: 0;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--colorSub);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--colorText);
 }
 
 .greetingTitle {
@@ -184,6 +200,79 @@
   font-weight: 900;
   line-height: 1.1;
   color: var(--colorText);
+}
+
+.greetingSub {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--colorSub);
+}
+
+.missionCard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px 20px;
+  border-radius: 24px;
+  border: 1.5px solid rgba(46, 196, 182, 0.22);
+  background: linear-gradient(135deg, rgba(46, 196, 182, 0.12), rgba(255, 255, 255, 0.94));
+  box-shadow: var(--shadowSoft);
+}
+
+.missionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.missionBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(35, 48, 58, 0.08);
+  color: var(--colorText);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.reviewStatus {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--colorText);
+}
+
+.missionTitle {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--colorText);
+}
+
+.missionCopy {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--colorSub);
+}
+
+.missionButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  padding: 12px 18px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--colorPrimary), var(--colorGold));
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 8px 18px rgba(46, 196, 182, 0.25);
 }
 
 /* 과목 카드 그리드 */
@@ -356,6 +445,7 @@
   }
 
   .avatarEmoji { font-size: 40px; }
+  .avatarInfo { align-items: flex-start; }
 
   .quickMenu {
     grid-template-columns: repeat(3, 1fr);

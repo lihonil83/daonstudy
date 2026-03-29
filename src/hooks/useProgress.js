@@ -24,7 +24,7 @@ function loadProgress() {
 export function useProgress() {
   const [scores, setScores] = useState(() => loadScores());
   const [progress, setProgress] = useState(() => loadProgress());
-  const { wrongAnswers: unreviewedWrongs } = useWrongAnswers();
+  const { unreviewedList } = useWrongAnswers();
 
   useEffect(() => {
     const syncScores = () => {
@@ -92,8 +92,8 @@ export function useProgress() {
   );
 
   const suggestedUnits = useMemo(
-    () => suggestNextDynamicUnit(progress, MATH_UNITS, ENGLISH_UNITS, unreviewedWrongs),
-    [progress, unreviewedWrongs]
+    () => suggestNextDynamicUnit(progress, MATH_UNITS, ENGLISH_UNITS, unreviewedList),
+    [progress, unreviewedList],
   );
 
   return {

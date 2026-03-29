@@ -1,4 +1,5 @@
 import { getLocalDateString } from './progressModel';
+import { readStorageJSON, writeStorageJSON } from '../utils/storage';
 
 export const STUDY_LOG_KEY = 'eduapp_study_logs';
 
@@ -11,21 +12,22 @@ export function createEmptyStudyLog() {
 }
 
 export function loadStudyLog() {
-  try {
-    const data = localStorage.getItem(STUDY_LOG_KEY);
-    return data ? JSON.parse(data) : createEmptyStudyLog();
-  } catch (e) {
-    console.error('Failed to load study logs:', e);
-    return createEmptyStudyLog();
-  }
+  const fallback = createEmptyStudyLog();
+  const stored = readStorageJSON(STUDY_LOG_KEY, fallback);
+
+  return {
+    dailyStats: stored.dailyStats ?? {},
+    totalSeconds: stored.totalSeconds ?? 0,
+    sessions: stored.sessions ?? [],
+  };
 }
 
 export function saveStudyLog(log) {
-  try {
-    localStorage.setItem(STUDY_LOG_KEY, JSON.stringify(log));
-  } catch (e) {
-    console.error('Failed to save study logs:', e);
-  }
+  writeStorageJSON(STUDY_LOG_KEY, {
+    dailyStats: log.dailyStats ?? {},
+    totalSeconds: log.totalSeconds ?? 0,
+    sessions: log.sessions ?? [],
+  });
 }
 
 /**
@@ -35,14 +37,14 @@ export function saveStudyLog(log) {
  */
 export function addStudyTime(secondsToAdd, date = getLocalDateString()) {
   const log = loadStudyLog();
-  
+
   // 날짜별 통계 업데이트
   const currentDaily = log.dailyStats[date] || 0;
   log.dailyStats[date] = currentDaily + secondsToAdd;
-  
+
   // 전체 시간 업데이트
   log.totalSeconds += secondsToAdd;
-  
+
   saveStudyLog(log);
   return log;
 }

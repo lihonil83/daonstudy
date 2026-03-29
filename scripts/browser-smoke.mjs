@@ -216,10 +216,20 @@ function sanitizeChromeStderr(stderrText) {
     .join('\n');
 }
 
+function extractVisibleText(dom) {
+  return dom
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 async function dumpDom(chromeBinary, url, budgetMs = PAGE_BUDGET_MS) {
   const chrome = spawnProcess(chromeBinary, [
     '--headless=new',
     '--disable-gpu',
+    '--disable-service-worker',
     `--virtual-time-budget=${budgetMs}`,
     '--dump-dom',
     url,
@@ -262,15 +272,16 @@ async function run() {
 
     for (const page of pageChecks) {
       const dom = await dumpDom(chromeBinary, page.url, page.budgetMs);
+      const visibleText = extractVisibleText(dom);
 
       for (const expectedText of page.expected) {
-        if (!dom.includes(expectedText)) {
+        if (!visibleText.includes(expectedText)) {
           throw new Error(`[${page.name}] expected text not found: ${expectedText}`);
         }
       }
 
       for (const forbiddenText of page.forbidden ?? []) {
-        if (dom.includes(forbiddenText)) {
+        if (visibleText.includes(forbiddenText)) {
           throw new Error(`[${page.name}] forbidden text found: ${forbiddenText}`);
         }
       }

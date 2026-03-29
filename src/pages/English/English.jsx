@@ -1,22 +1,24 @@
 import { Link, useParams } from 'react-router-dom';
+import QuizSession from '../../components/Quiz/QuizSession';
 import DailyLessonSession from '../../components/English/DailyLessonSession';
 import { ENGLISH_STAGE_1, findEnglishUnit } from '../../data/englishCurriculum';
-import { getCurrentDay, isDayPassed, getUnitProgress } from '../../models/enDailyProgressModel';
+import { ENGLISH_CHALLENGE_UNITS, ENGLISH_UNITS as QUICK_ENGLISH_UNITS } from '../../data/unitRegistry';
+import { getCurrentDay, getUnitProgress, isDayPassed } from '../../models/enDailyProgressModel';
 import styles from './English.module.css';
 
-// ─── 단원 카드 진도 표시 ──────────────────────────────────────────────
 function UnitProgressDots({ unitId, totalDays }) {
   return (
     <div className={styles.dayDots}>
-      {Array.from({ length: totalDays }, (_, i) => {
-        const d = i + 1;
-        const passed = isDayPassed(unitId, d);
-        const current = !passed && d === getCurrentDay(unitId);
+      {Array.from({ length: totalDays }, (_, index) => {
+        const day = index + 1;
+        const passed = isDayPassed(unitId, day);
+        const current = !passed && day === getCurrentDay(unitId);
+
         return (
           <span
-            key={d}
+            key={day}
             className={`${styles.dot} ${passed ? styles.dotDone : current ? styles.dotCurrent : styles.dotLocked}`}
-            title={`Day ${d}`}
+            title={`Day ${day}`}
           />
         );
       })}
@@ -24,10 +26,42 @@ function UnitProgressDots({ unitId, totalDays }) {
   );
 }
 
-export default function English() {
+function QuickChallengeSection() {
+  return (
+    <div className={styles.stageHeader}>
+      <span className={`${styles.tag} ${styles.englishTag}`}>⚡ 빠른 챌린지</span>
+      <h3 className={styles.title}>알파벳과 파닉스 핵심 퀴즈</h3>
+      <p className={styles.copy}>10문제 퀴즈로 대문자, 소문자, 파닉스 A/B/C를 바로 연습할 수 있어요.</p>
+      <div className={styles.unitList}>
+        {ENGLISH_CHALLENGE_UNITS.map((unit) => (
+          <Link key={unit.id} to={`/english/${unit.id}`} className={styles.unitCard}>
+            <div className={styles.unitMeta}>
+              <div className={styles.unitLeft}>
+                <span className={styles.unitIcon}>🔤</span>
+                <div>
+                  <strong className={styles.unitTitle}>{unit.title}</strong>
+                  <span className={styles.unitDesc}>{unit.description}</span>
+                </div>
+              </div>
+              <div className={styles.unitRight}>
+                <span className={styles.tagNew}>바로 도전</span>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default function EnglishPage() {
   const { unitId } = useParams();
 
-  // ─── 단원 내부 학습 ────────────────────────────────────────────────
+  const quickUnit = unitId ? QUICK_ENGLISH_UNITS[unitId] : null;
+  if (quickUnit) {
+    return <QuizSession unit={quickUnit} accent="english" backTo="/english" />;
+  }
+
   if (unitId) {
     const unit = findEnglishUnit(unitId);
 
@@ -37,7 +71,7 @@ export default function English() {
           <div className={styles.panel}>
             <span className={`${styles.tag} ${styles.englishTag}`}>영어 단원</span>
             <h2 className={styles.title}>단원을 찾을 수 없어요</h2>
-            <Link className={styles.linkButton} to="/english">단원 목록으로</Link>
+            <Link className={styles.linkButton} to="/english">단원 목록으로 돌아가기</Link>
           </div>
         </section>
       );
@@ -50,7 +84,7 @@ export default function English() {
             <span className={`${styles.tag} ${styles.englishTag}`}>준비 중</span>
             <h2 className={styles.title}>{unit.icon} {unit.title}</h2>
             <p className={styles.copy}>{unit.description}<br />곧 열릴 예정이에요! 🛠️</p>
-            <Link className={styles.linkButton} to="/english">단원 목록으로</Link>
+            <Link className={styles.linkButton} to="/english">단원 목록으로 돌아가기</Link>
           </div>
         </section>
       );
@@ -59,12 +93,21 @@ export default function English() {
     return <DailyLessonSession unit={unit} backTo="/english" />;
   }
 
-  // ─── 단원 목록 ────────────────────────────────────────────────────
   const stage = ENGLISH_STAGE_1;
 
   return (
     <section className={styles.page}>
       <div className={styles.panel}>
+        <div className={styles.stageHeader}>
+          <span className={`${styles.tag} ${styles.englishTag}`}>{stage.icon} {stage.subtitle}</span>
+          <h2 className={styles.title}>영어 단원을 골라보세요</h2>
+          <p className={styles.copy}>
+            빠른 알파벳·파닉스 퀴즈부터 시작하거나, Stage 1 일일 학습으로 차근차근 이어갈 수 있어요.
+          </p>
+        </div>
+
+        <QuickChallengeSection />
+
         <div className={styles.stageHeader}>
           <span className={`${styles.tag} ${styles.englishTag}`}>{stage.icon} {stage.subtitle}</span>
           <h2 className={styles.title}>{stage.title}</h2>
@@ -76,16 +119,16 @@ export default function English() {
         <div className={styles.unitList}>
           {stage.units.map((unit) => {
             const isComingSoon = unit.type === 'coming-soon';
-            const totalDays = unit.dailyLessons.length;
+            const totalDays = unit.dailyLessons?.length ?? 0;
             const { passedDays, allDone } = getUnitProgress(unit.id, totalDays);
             const currentDay = getCurrentDay(unit.id);
-
-            // 이전 단원이 완료됐는지 확인 (단원 순서 잠금)
             const unitIndex = stage.units.indexOf(unit);
-            const prevUnit = unitIndex > 0 ? stage.units[unitIndex - 1] : null;
-            const prevDone = !prevUnit || prevUnit.type === 'coming-soon' ||
-              getUnitProgress(prevUnit.id, prevUnit.dailyLessons.length).allDone;
-            const isUnitLocked = !prevDone && !allDone && passedDays === 0;
+            const previousUnit = unitIndex > 0 ? stage.units[unitIndex - 1] : null;
+            const previousDone =
+              !previousUnit ||
+              previousUnit.type === 'coming-soon' ||
+              getUnitProgress(previousUnit.id, previousUnit.dailyLessons.length).allDone;
+            const isUnitLocked = !previousDone && !allDone && passedDays === 0;
 
             const cardContent = (
               <>
@@ -112,16 +155,15 @@ export default function English() {
                   </div>
                 </div>
 
-                {/* 일일 진도 점 */}
-                {!isComingSoon && totalDays > 0 && (
+                {!isComingSoon && totalDays > 0 ? (
                   <UnitProgressDots unitId={unit.id} totalDays={totalDays} />
-                )}
-                {!isComingSoon && totalDays > 0 && (
+                ) : null}
+                {!isComingSoon && totalDays > 0 ? (
                   <p className={styles.unitDayCount}>
                     {passedDays} / {totalDays}일 완료
-                    {!allDone && ` · 오늘: Day ${Math.min(currentDay, totalDays)}`}
+                    {!allDone ? ` · 오늘: Day ${globalThis.Math.min(currentDay, totalDays)}` : ''}
                   </p>
-                )}
+                ) : null}
               </>
             );
 

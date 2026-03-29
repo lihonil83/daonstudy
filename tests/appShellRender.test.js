@@ -55,14 +55,13 @@ test('App shell renders the shared layout and home route content', async () => {
   const AppShell = await loadAppShell();
   const html = renderAppShell(AppShell, ['/']);
 
-  assert.match(html, /다온 학습 놀이터/);
-  assert.match(html, /바로 시작할 수 있어요/);
+  assert.match(html, /✨ 다온/);
   assert.match(html, /HOME_ROUTE_STUB/);
   assert.match(html, /홈/);
-  assert.match(html, /수학/);
-  assert.match(html, /영어/);
+  assert.match(html, /로드맵/);
   assert.match(html, /복습/);
   assert.match(html, /기록/);
+  assert.match(html, /설정/);
 });
 
 test('App shell routes subject paths into the right page outlet', async () => {

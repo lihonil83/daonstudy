@@ -26,6 +26,40 @@ const smokeQuizUnit = {
   data: { questions: smokeQuizQuestions },
 };
 
+const smokeReviewQuestions = smokeQuizQuestions.map((question) => ({
+  id: question.id,
+  originalQuestionId: question.id,
+  wrongId: `smoke-review-${question.id}`,
+  subject: 'math',
+  unit: smokeQuizUnit.id,
+  unitTitle: smokeQuizUnit.title,
+  question: question.question,
+  choices: [...question.choices],
+  answer: question.answer,
+  correctAnswer: question.answer,
+  hints: [...(question.hints ?? [])],
+  visual: question.visual ? { ...question.visual } : null,
+}));
+
+const smokeReviewUnit = {
+  id: 'wrong-review',
+  title: '📖 오답 복습',
+  subject: 'review',
+  data: { questions: smokeReviewQuestions },
+};
+
+const smokeReviewQuizOptions = {
+  questions: smokeReviewQuestions,
+  questionCount: smokeReviewQuestions.length,
+  completionBonus: 30,
+  perfectBonus: 0,
+};
+
+const smokePerfectReviewAutomation = {
+  mode: 'perfect',
+  answerDelayMs: 120,
+};
+
 function buildReviewWrongAnswers(items) {
   return items.map((item, index) => ({
     id: `smoke-review-item-${index + 1}`,
@@ -36,7 +70,8 @@ function buildReviewWrongAnswers(items) {
     question: item.question,
     choices: [...(item.choices ?? [])],
     userAnswer: item.userAnswer,
-    correctAnswer: item.correctAnswer,
+    answer: item.answer ?? item.correctAnswer,
+    correctAnswer: item.correctAnswer ?? item.answer,
     hints: [...(item.hints ?? [])],
     visual: item.visual ? { ...item.visual } : null,
     date: '2026-03-28',
@@ -47,6 +82,21 @@ function buildReviewWrongAnswers(items) {
 }
 
 export default function SmokeWrongToReviewFlow({ autoStartReview = false }) {
+  if (autoStartReview) {
+    return (
+      <QuizSession
+        key="smoke-wrong-review-complete"
+        unit={smokeReviewUnit}
+        accent="review"
+        backTo="/review"
+        mode="review"
+        quizOptions={smokeReviewQuizOptions}
+        automation={smokePerfectReviewAutomation}
+        persistResult={false}
+      />
+    );
+  }
+
   const [stage, setStage] = useState('quiz');
   const [wrongAnswers, setWrongAnswers] = useState([]);
   const reviewWrongAnswers = useMemo(() => buildReviewWrongAnswers(wrongAnswers), [wrongAnswers]);

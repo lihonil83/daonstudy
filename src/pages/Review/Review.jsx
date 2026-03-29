@@ -5,19 +5,24 @@ import { splitWrongAnswers } from '../../models/wrongAnswerModel';
 import styles from './Review.module.css';
 
 function buildReviewQuestions(items) {
-  return items.map((item) => ({
-    id: item.originalQuestionId,
-    originalQuestionId: item.originalQuestionId,
-    wrongId: item.id,
-    subject: item.subject,
-    unit: item.unit,
-    unitTitle: item.unitTitle,
-    question: item.question,
-    choices: item.choices,
-    answer: item.correctAnswer,
-    hints: item.hints,
-    visual: item.visual ?? null,
-  }));
+  return items.map((item) => {
+    const resolvedAnswer = item.correctAnswer ?? item.answer;
+
+    return {
+      id: item.originalQuestionId,
+      originalQuestionId: item.originalQuestionId,
+      wrongId: item.id,
+      subject: item.subject,
+      unit: item.unit,
+      unitTitle: item.unitTitle,
+      question: item.question,
+      choices: item.choices,
+      answer: resolvedAnswer,
+      correctAnswer: resolvedAnswer,
+      hints: item.hints,
+      visual: item.visual ?? null,
+    };
+  });
 }
 
 export default function Review({
@@ -28,7 +33,6 @@ export default function Review({
   onReviewComplete,
 }) {
   const wrongAnswerStore = useWrongAnswers();
-  const hasAutoStartedRef = useRef(false);
   const overrideLists = useMemo(
     () => (overrideWrongAnswers ? splitWrongAnswers(overrideWrongAnswers) : null),
     [overrideWrongAnswers],
@@ -37,7 +41,12 @@ export default function Review({
   const reviewedList = overrideLists?.reviewedList ?? wrongAnswerStore.reviewedList;
   const unreviewedList = overrideLists?.unreviewedList ?? wrongAnswerStore.unreviewedList;
   const unreviewedCount = overrideLists?.unreviewedList.length ?? wrongAnswerStore.unreviewedCount;
-  const [activeReviewIds, setActiveReviewIds] = useState([]);
+  const autoStartIds = useMemo(
+    () => (autoStartAll ? unreviewedList.map((item) => item.id) : []),
+    [autoStartAll, unreviewedList],
+  );
+  const hasAutoStartedRef = useRef(autoStartIds.length > 0);
+  const [activeReviewIds, setActiveReviewIds] = useState(autoStartIds);
   const activeReviewItems = useMemo(
     () => unreviewedList.filter((item) => activeReviewIds.includes(item.id)),
     [activeReviewIds, unreviewedList],
@@ -46,6 +55,24 @@ export default function Review({
     () => buildReviewQuestions(activeReviewItems),
     [activeReviewItems],
   );
+  const activeReviewUnit = useMemo(
+    () => ({
+      id: 'wrong-review',
+      title: '📖 오답 복습',
+      subject: 'review',
+      data: { questions: activeReviewQuestions },
+    }),
+    [activeReviewQuestions],
+  );
+  const activeReviewQuizOptions = useMemo(
+    () => ({
+      questions: activeReviewQuestions,
+      questionCount: activeReviewQuestions.length,
+      completionBonus: 30,
+      perfectBonus: 0,
+    }),
+    [activeReviewQuestions],
+  );
 
   useEffect(() => {
     if (!autoStartAll || hasAutoStartedRef.current || unreviewedList.length === 0) {
@@ -53,28 +80,21 @@ export default function Review({
     }
 
     hasAutoStartedRef.current = true;
-    setActiveReviewIds(unreviewedList.map((item) => item.id));
+    setActiveReviewIds((current) =>
+      current.length > 0 ? current : unreviewedList.map((item) => item.id),
+    );
   }, [autoStartAll, unreviewedList]);
 
   if (activeReviewQuestions.length > 0) {
     return (
       <section className={styles.page}>
         <QuizSession
-          unit={{
-            id: 'wrong-review',
-            title: '📖 오답 복습',
-            subject: 'review',
-            data: { questions: activeReviewQuestions },
-          }}
+          key={activeReviewIds.join(':') || 'wrong-review'}
+          unit={activeReviewUnit}
           accent="review"
           backTo="/review"
           mode="review"
-          quizOptions={{
-            questions: activeReviewQuestions,
-            questionCount: activeReviewQuestions.length,
-            completionBonus: 30,
-            perfectBonus: 0,
-          }}
+          quizOptions={activeReviewQuizOptions}
           automation={reviewAutomation}
           persistResult={persistReviewResult}
           onComplete={onReviewComplete}

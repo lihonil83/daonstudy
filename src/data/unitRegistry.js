@@ -13,75 +13,128 @@ import multiplication3 from './math/multiplication-3.json';
 import multiplication4 from './math/multiplication-4.json';
 import weightUnits from './math/weight-units.json';
 
-export const MATH_UNITS = {
-  'g1-m-1-1': { id: 'g1-m-1-1', title: '9까지의 수', subject: 'math', available: true },
-  'g1-m-1-3': { id: 'g1-m-1-3', title: '덧셈과 뺄셈', subject: 'math', available: true },
-  'g2-m-2-2': { id: 'g2-m-2-2', title: '구구단', subject: 'math', available: true },
-  'g2-m-2-4': { id: 'g2-m-2-4', title: '시각과 시간', subject: 'math', available: true },
-  'g3-m-1-3': { id: 'g3-m-1-3', title: '나눗셈', subject: 'math', available: true },
-  'g4-m-1-1': { id: 'g4-m-1-1', title: '큰 수', subject: 'math', available: true },
-  'g5-m-1-2': { id: 'g5-m-1-2', title: '약수와 배수', subject: 'math', available: true },
-  'g6-m-1-1': { id: 'g6-m-1-1', title: '분수의 나눗셈', subject: 'math', available: true },
-  // 기존 레거시 ID (호환성 유지)
-  'multiplication-2': { id: 'multiplication-2', title: '2단 구구단', subject: 'math', available: true },
-  'clock-reading': { id: 'clock-reading', title: '시계 읽기', subject: 'math', available: true },
-};
+export const MATH_CHALLENGE_UNITS = [
+  {
+    id: 'multiplication-2',
+    title: multiplication2.title,
+    description: '2단 구구단을 10문제 퀴즈로 가볍게 복습해요.',
+    subject: 'math',
+    available: true,
+    data: multiplication2,
+  },
+  {
+    id: 'multiplication-3',
+    title: multiplication3.title,
+    description: '3단 구구단에 자신감을 붙이는 퀴즈예요.',
+    subject: 'math',
+    available: true,
+    data: multiplication3,
+  },
+  {
+    id: 'multiplication-4',
+    title: multiplication4.title,
+    description: '4단 구구단까지 넓혀서 도전해봐요.',
+    subject: 'math',
+    available: true,
+    data: multiplication4,
+  },
+  {
+    id: 'length-units',
+    title: lengthUnits.title,
+    description: 'cm와 m를 바꿔 읽는 길이 단위 문제예요.',
+    subject: 'math',
+    available: true,
+    data: lengthUnits,
+  },
+  {
+    id: 'weight-units',
+    title: weightUnits.title,
+    description: 'g와 kg를 바꿔 읽는 무게 단위 문제예요.',
+    subject: 'math',
+    available: true,
+    data: weightUnits,
+  },
+  {
+    id: 'clock-reading',
+    title: clockReading.title,
+    description: '몇 시 몇 분을 읽는 시계 문제예요.',
+    subject: 'math',
+    available: true,
+    data: clockReading,
+  },
+  {
+    id: 'clock-reading-advanced',
+    title: clockReadingAdvanced.title,
+    description: '15분과 45분 시각까지 읽는 확장 시계 문제예요.',
+    subject: 'math',
+    available: true,
+    data: clockReadingAdvanced,
+  },
+];
 
-export const ENGLISH_UNITS = {
-  'alphabet-upper': {
+export const ENGLISH_CHALLENGE_UNITS = [
+  {
     id: 'alphabet-upper',
-    title: '알파벳 대문자',
-    description: '알파벳 대문자 기초를 익히는 10문제 랜덤 퀴즈입니다.',
+    title: alphabetUpper.title,
+    description: '알파벳 대문자를 10문제 퀴즈로 익혀요.',
     subject: 'english',
     available: true,
     data: alphabetUpper,
   },
-  'alphabet-lower': {
+  {
     id: 'alphabet-lower',
-    title: '알파벳 소문자',
-    description: '알파벳 소문자 기초를 익히는 10문제 랜덤 퀴즈입니다.',
+    title: alphabetLower.title,
+    description: '알파벳 소문자를 10문제 퀴즈로 익혀요.',
     subject: 'english',
     available: true,
     data: alphabetLower,
   },
-  'words-colors': {
-    id: 'words-colors',
-    title: '색깔 단어',
-    description: '색깔 기초 단어를 익히는 10문제 랜덤 퀴즈입니다.',
-    subject: 'english',
-    available: true,
-    data: wordsColors,
-  },
-  'words-animals': {
-    id: 'words-animals',
-    title: '동물 단어',
-    description: '동물 기초 단어를 익히는 10문제 랜덤 퀴즈입니다.',
-    subject: 'english',
-    available: true,
-    data: wordsAnimals,
-  },
-  'phonics-a': {
+  {
     id: 'phonics-a',
-    title: '파닉스 A',
-    description: 'A/a 첫소리와 연결되는 낱말을 익히는 10문제 랜덤 퀴즈입니다.',
+    title: phonicsA.title,
+    description: 'A/a 첫소리를 낱말과 연결해보는 퀴즈예요.',
     subject: 'english',
     available: true,
     data: phonicsA,
   },
-  'phonics-b': {
+  {
     id: 'phonics-b',
-    title: '파닉스 B',
-    description: 'B/b 첫소리와 연결되는 낱말을 익히는 10문제 랜덤 퀴즈입니다.',
+    title: phonicsB.title,
+    description: 'B/b 첫소리를 낱말과 연결해보는 퀴즈예요.',
     subject: 'english',
     available: true,
     data: phonicsB,
   },
-  'phonics-c': {
+  {
     id: 'phonics-c',
-    title: '파닉스 C',
-    description: 'C/c 첫소리와 연결되는 낱말을 익히는 10문제 랜덤 퀴즈입니다.',
+    title: phonicsC.title,
+    description: 'C/c 첫소리를 낱말과 연결해보는 퀴즈예요.',
     subject: 'english',
     available: true,
     data: phonicsC,
   },
-};
+  {
+    id: 'words-colors',
+    title: wordsColors.title,
+    description: '색깔 단어를 듣고 고르는 영어 퀴즈예요.',
+    subject: 'english',
+    available: true,
+    data: wordsColors,
+  },
+  {
+    id: 'words-animals',
+    title: wordsAnimals.title,
+    description: '동물 단어를 듣고 고르는 영어 퀴즈예요.',
+    subject: 'english',
+    available: true,
+    data: wordsAnimals,
+  },
+];
+
+export const MATH_UNITS = Object.fromEntries(
+  MATH_CHALLENGE_UNITS.map((unit) => [unit.id, unit]),
+);
+
+export const ENGLISH_UNITS = Object.fromEntries(
+  ENGLISH_CHALLENGE_UNITS.map((unit) => [unit.id, unit]),
+);
