@@ -219,6 +219,13 @@
   gap: 12px;
 }
 
+/* pick-sentence 모드: 문장이 길어서 1열로 */
+.choiceGridSingle {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
 .choiceBtn {
   min-height: 60px;
   padding: 10px;

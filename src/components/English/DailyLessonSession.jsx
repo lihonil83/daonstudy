@@ -31,6 +31,11 @@ function makeQuestion(card, allCards, quizMode) {
     answer = card.letter;
     choices = shuffle([answer, ...wrongPool.map(c => c.letter)]);
     ttsText = card.word;
+  } else if (quizMode === 'pick-sentence') {
+    question = `${card.emoji}  "${card.korean}"`;
+    answer = card.word;
+    choices = shuffle([answer, ...wrongPool.map(c => c.word)]);
+    ttsText = card.word;
   } else {
     question = `${card.emoji}  이 그림의 이름은?`;
     answer = card.word;
@@ -229,6 +234,9 @@ export default function DailyLessonSession({ unit, backTo = '/english' }) {
             {currentCard.vowel && (
               <p className={styles.cardHint}>모음: {currentCard.vowel}</p>
             )}
+            {currentCard.pattern && (
+              <p className={styles.cardHint}>패턴: {currentCard.pattern}</p>
+            )}
           </div>
 
           {/* TTS */}
@@ -295,7 +303,7 @@ export default function DailyLessonSession({ unit, backTo = '/english' }) {
             <p className={styles.questionText}>{currentQuestion.question}</p>
           </div>
 
-          <div className={styles.choiceGrid}>
+          <div className={unit.quizMode === 'pick-sentence' ? styles.choiceGridSingle : styles.choiceGrid}>
             {currentQuestion.choices.map(choice => {
               let state = 'default';
               if (selected !== null) {

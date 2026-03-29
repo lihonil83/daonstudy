@@ -174,6 +174,54 @@ const ANIMAL_CARDS = [
   { id: 'whale',    word: 'whale',    emoji: '🐳', korean: '고래' },
 ];
 
+// ─── 단원 9: 첫 문장 (I am / This is) ───────────────────────────────
+const FIRST_SENTENCE_CARDS = [
+  // I am + 형용사
+  { id: 'fs01', word: 'I am happy.',      emoji: '😊', korean: '나는 행복해요.',       pattern: 'I am + 형용사' },
+  { id: 'fs02', word: 'I am tired.',      emoji: '😴', korean: '나는 피곤해요.',       pattern: 'I am + 형용사' },
+  { id: 'fs03', word: 'I am hungry.',     emoji: '🍽️', korean: '나는 배고파요.',       pattern: 'I am + 형용사' },
+  { id: 'fs04', word: 'I am big.',        emoji: '🦒', korean: '나는 커요.',           pattern: 'I am + 형용사' },
+  { id: 'fs05', word: 'I am small.',      emoji: '🐭', korean: '나는 작아요.',         pattern: 'I am + 형용사' },
+  { id: 'fs06', word: 'I am fast.',       emoji: '🏃', korean: '나는 빨라요.',         pattern: 'I am + 형용사' },
+  // I am + 명사
+  { id: 'fs07', word: 'I am a student.', emoji: '🎒', korean: '나는 학생이에요.',     pattern: 'I am + 명사' },
+  { id: 'fs08', word: 'I am a boy.',     emoji: '👦', korean: '나는 소년이에요.',     pattern: 'I am + 명사' },
+  { id: 'fs09', word: 'I am a girl.',    emoji: '👧', korean: '나는 소녀예요.',       pattern: 'I am + 명사' },
+  { id: 'fs10', word: 'I am a cat.',     emoji: '🐱', korean: '나는 고양이예요.',     pattern: 'I am + 명사' },
+  // This is + 명사
+  { id: 'fs11', word: 'This is a cat.',  emoji: '🐱', korean: '이것은 고양이예요.',   pattern: 'This is + 명사' },
+  { id: 'fs12', word: 'This is a dog.',  emoji: '🐶', korean: '이것은 개예요.',       pattern: 'This is + 명사' },
+  { id: 'fs13', word: 'This is a bird.', emoji: '🐦', korean: '이것은 새예요.',       pattern: 'This is + 명사' },
+  { id: 'fs14', word: 'This is a book.', emoji: '📚', korean: '이것은 책이에요.',     pattern: 'This is + 명사' },
+  { id: 'fs15', word: 'This is a pen.',  emoji: '🖊️', korean: '이것은 펜이에요.',     pattern: 'This is + 명사' },
+  { id: 'fs16', word: 'This is a bag.',  emoji: '👜', korean: '이것은 가방이에요.',   pattern: 'This is + 명사' },
+  // This is + 형용사
+  { id: 'fs17', word: 'This is red.',    emoji: '🔴', korean: '이것은 빨간색이에요.', pattern: 'This is + 형용사' },
+  { id: 'fs18', word: 'This is big.',    emoji: '🐘', korean: '이것은 커요.',         pattern: 'This is + 형용사' },
+  { id: 'fs19', word: 'This is small.',  emoji: '🐭', korean: '이것은 작아요.',       pattern: 'This is + 형용사' },
+  { id: 'fs20', word: 'This is my hand.',emoji: '🖐️', korean: '이것은 내 손이에요.',  pattern: 'This is + 명사' },
+];
+
+// ─── 단원 10: 인사와 소개 ────────────────────────────────────────────
+const GREETING_CARDS = [
+  { id: 'gr01', word: 'Hello!',                    emoji: '👋', korean: '안녕하세요!' },
+  { id: 'gr02', word: 'Hi!',                        emoji: '😊', korean: '안녕!' },
+  { id: 'gr03', word: 'Good morning!',              emoji: '🌅', korean: '좋은 아침이에요!' },
+  { id: 'gr04', word: 'Good afternoon!',            emoji: '☀️', korean: '좋은 오후예요!' },
+  { id: 'gr05', word: 'Good night!',                emoji: '🌙', korean: '잘 자요!' },
+  { id: 'gr06', word: 'Goodbye!',                   emoji: '👋', korean: '안녕히 가세요!' },
+  { id: 'gr07', word: 'My name is ___ .',           emoji: '🙋', korean: '내 이름은 ___이에요.' },
+  { id: 'gr08', word: 'Nice to meet you!',          emoji: '🤝', korean: '만나서 반가워요!' },
+  { id: 'gr09', word: 'How are you?',               emoji: '💬', korean: '어떻게 지내요?' },
+  { id: 'gr10', word: 'I am fine. Thank you.',      emoji: '😊', korean: '잘 지내요. 감사해요.' },
+  { id: 'gr11', word: 'I am happy!',                emoji: '😄', korean: '나는 행복해요!' },
+  { id: 'gr12', word: 'I am sad.',                  emoji: '😢', korean: '나는 슬퍼요.' },
+  { id: 'gr13', word: 'I am sleepy.',               emoji: '😴', korean: '나는 졸려요.' },
+  { id: 'gr14', word: 'I am excited!',              emoji: '🎉', korean: '나는 신나요!' },
+  { id: 'gr15', word: 'See you later!',             emoji: '✌️', korean: '나중에 봐요!' },
+  { id: 'gr16', word: 'Thank you!',                 emoji: '🙏', korean: '감사해요!' },
+];
+
 // ─── 단원 8: 신체 부위 ────────────────────────────────────────────────
 const BODY_CARDS = [
   { id: 'head',   word: 'head',   emoji: '👤', korean: '머리' },
@@ -321,10 +369,11 @@ export const ENGLISH_STAGE_1 = {
       title: '첫 문장',
       description: 'I am / This is 문장을 만들어요.',
       icon: '📝',
-      type: 'coming-soon',
+      type: 'daily',
+      quizMode: 'pick-sentence',
       showKorean: true,
-      cards: [],
-      dailyLessons: [],
+      cards: FIRST_SENTENCE_CARDS,
+      dailyLessons: chunkCards(FIRST_SENTENCE_CARDS, 4), // 20장 → 4일 [5,5,5,5]
     },
     {
       id: 'en-s1-u10',
@@ -332,10 +381,11 @@ export const ENGLISH_STAGE_1 = {
       title: '인사와 소개',
       description: 'Hello! My name is ___ 말하기.',
       icon: '👋',
-      type: 'coming-soon',
+      type: 'daily',
+      quizMode: 'pick-sentence',
       showKorean: true,
-      cards: [],
-      dailyLessons: [],
+      cards: GREETING_CARDS,
+      dailyLessons: chunkCards(GREETING_CARDS, 4), // 16장 → 4일 [4,4,4,4]
     },
   ],
 };
