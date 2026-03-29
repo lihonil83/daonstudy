@@ -57,7 +57,7 @@ export function useQuiz(unit, options = {}) {
           : unit?.data?.questions ?? [];
       }
     }
-    const questionCount = Math.max(0, Math.min(configuredQuestionCount, sourceQuestions.length));
+    const questionCount = Math.max(0, configuredQuestionCount);
 
     if (!sourceQuestions.length) {
       setQuestions([]);

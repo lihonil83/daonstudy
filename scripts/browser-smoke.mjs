@@ -43,7 +43,7 @@ const commonPageChecks = [
   {
     name: 'math-quiz',
     url: `${BASE_URL}/#/math/multiplication-2`,
-    expected: ['2단 구구단', '정답을 골라보세요.', '현재 점수: 0', '이 문제에서 틀린 횟수: 0'],
+    expected: ['2단 구구단', '정답을 골라보세요.', '현재 점수: 0', '이 문제에서 틀린 횟수: 0', '1 / 120'],
   },
   {
     name: 'english-quiz',
