@@ -8,6 +8,7 @@ import { useWrongAnswers } from '../../hooks/useWrongAnswers';
 import { getUnitProgress as getEnProgress } from '../../models/enDailyProgressModel';
 import { getRecommendedMission } from '../../models/homeModel';
 import { DAYS_PER_UNIT, getUnitProgress as getMathProgress } from '../../models/mathDailyProgressModel';
+import { getVisibleProgressPercent } from '../../models/progressDisplayModel';
 import styles from './Home.module.css';
 
 const DAILY_MATH_UNITS = CURRICULUM.filter((unit) => unit.subject === 'math');
@@ -21,7 +22,7 @@ function useMathSummary() {
   return {
     done,
     total,
-    pct: total > 0 ? Math.round((done / total) * 100) : 0,
+    pct: getVisibleProgressPercent(done, total),
   };
 }
 
@@ -35,7 +36,7 @@ function useEnglishSummary() {
   return {
     done,
     total,
-    pct: total > 0 ? Math.round((done / total) * 100) : 0,
+    pct: getVisibleProgressPercent(done, total),
   };
 }
 

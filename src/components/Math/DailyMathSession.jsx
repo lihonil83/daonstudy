@@ -13,6 +13,8 @@ import { useReward } from '../../hooks/useReward';
 import { useWrongAnswers } from '../../hooks/useWrongAnswers';
 import styles from './DailyMathSession.module.css';
 
+const DAILY_MATH_QUESTION_COUNT = 120;
+
 // ─── 내부 퀴즈 컴포넌트 ───────────────────────────────────────────────
 function QuizPart({ questions, onComplete, onWrongAnswer }) {
   const [idx, setIdx] = useState(0);
@@ -116,7 +118,7 @@ export default function DailyMathSession({ unit, backTo }) {
   const [lastTotal, setLastTotal] = useState(null);
 
   const questions = useMemo(
-    () => generateLocalQuiz(unit.id, 10),
+    () => generateLocalQuiz(unit.id, DAILY_MATH_QUESTION_COUNT),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [unit.id, quizKey],
   );

@@ -3,6 +3,7 @@ import { CURRICULUM } from '../../data/curriculum';
 import { ENGLISH_STAGE_1 } from '../../data/englishCurriculum';
 import { getUnitProgress as getMathProgress, DAYS_PER_UNIT, isUnitComplete } from '../../models/mathDailyProgressModel';
 import { getUnitProgress as getEnProgress } from '../../models/enDailyProgressModel';
+import { getVisibleProgressPercent } from '../../models/progressDisplayModel';
 import styles from './Roadmap.module.css';
 
 const MATH_UNITS = CURRICULUM.filter(u => u.subject === 'math');
@@ -10,15 +11,17 @@ const GRADES = [1, 2, 3, 4, 5, 6];
 
 function MathGradeRow({ grade }) {
   const units = MATH_UNITS.filter(u => u.grade === grade);
-  const done = units.filter(u => isUnitComplete(u.id)).length;
-  const total = units.length;
-  const pct = total > 0 ? Math.round(done / total * 100) : 0;
+  const doneUnits = units.filter(u => isUnitComplete(u.id)).length;
+  const totalUnits = units.length;
+  const doneDays = units.reduce((sum, unit) => sum + getMathProgress(unit.id, DAYS_PER_UNIT).passedDays, 0);
+  const totalDays = totalUnits * DAYS_PER_UNIT;
+  const pct = getVisibleProgressPercent(doneDays, totalDays);
 
   return (
     <div className={styles.gradeRow}>
       <div className={styles.gradeHead}>
         <span className={styles.gradeBadge}>{grade}학년</span>
-        <span className={styles.gradeCount}>{done}/{total} 단원</span>
+        <span className={styles.gradeCount}>{doneUnits}/{totalUnits} 단원 · {doneDays}/{totalDays}일</span>
         <span className={styles.gradePct}>{pct}%</span>
       </div>
       <div className={styles.gradeBar}>
@@ -116,7 +119,7 @@ export default function Roadmap() {
             <p className={styles.summarySubject}>수학</p>
             <p className={styles.summaryStats}>{mathDone}/{mathTotal} 단원 · {mathDaysDone}/{mathDaysTotal}일</p>
           </div>
-          <span className={styles.summaryPct}>{mathDaysTotal > 0 ? Math.round(mathDaysDone / mathDaysTotal * 100) : 0}%</span>
+          <span className={styles.summaryPct}>{getVisibleProgressPercent(mathDaysDone, mathDaysTotal)}%</span>
         </Link>
         <Link to="/english" className={`${styles.summaryCard} ${styles.summaryEnglish}`}>
           <span className={styles.summaryEmoji}>🔤</span>
@@ -124,7 +127,7 @@ export default function Roadmap() {
             <p className={styles.summarySubject}>영어</p>
             <p className={styles.summaryStats}>Stage 1 · {enDone}/{enTotal}일</p>
           </div>
-          <span className={styles.summaryPct}>{enTotal > 0 ? Math.round(enDone / enTotal * 100) : 0}%</span>
+          <span className={styles.summaryPct}>{getVisibleProgressPercent(enDone, enTotal)}%</span>
         </Link>
       </div>
 
