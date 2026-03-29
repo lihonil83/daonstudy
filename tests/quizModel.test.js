@@ -49,6 +49,34 @@ test('buildQuestionSet limits question count and clones choices/hints', () => {
   assert.notEqual(questionSet[0].hints, sourceQuestions[1].hints);
 });
 
+test('buildQuestionSet can expand beyond the source pool and preserve original question ids', () => {
+  const sourceQuestions = [
+    question,
+    {
+      id: 'mul3-006',
+      question: '3 x 6 = ?',
+      choices: [16, 18, 20, 22],
+      answer: 18,
+      hints: ['3이 여섯 묶음이에요.', '3 x 6은 18이에요.'],
+    },
+  ];
+
+  const questionSet = buildQuestionSet(
+    sourceQuestions,
+    5,
+    (items) => items,
+    (items) => items,
+  );
+
+  assert.equal(questionSet.length, 5);
+  assert.equal(questionSet[0].id, 'mul3-005');
+  assert.equal(questionSet[1].id, 'mul3-006');
+  assert.equal(questionSet[2].id, 'mul3-005__repeat_2');
+  assert.equal(questionSet[2].originalQuestionId, 'mul3-005');
+  assert.equal(questionSet[3].id, 'mul3-006__repeat_2');
+  assert.equal(questionSet[4].id, 'mul3-005__repeat_3');
+});
+
 test('evaluateAnswer returns correct branch with first-try XP', () => {
   const result = evaluateAnswer({
     question,

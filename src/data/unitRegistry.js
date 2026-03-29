@@ -13,61 +13,70 @@ import multiplication3 from './math/multiplication-3.json';
 import multiplication4 from './math/multiplication-4.json';
 import weightUnits from './math/weight-units.json';
 
+const MATH_CHALLENGE_QUESTION_COUNT = 120;
+
 export const MATH_CHALLENGE_UNITS = [
   {
     id: 'multiplication-2',
     title: multiplication2.title,
-    description: '2단 구구단을 10문제 퀴즈로 가볍게 복습해요.',
+    description: '2단 구구단을 120문제로 충분히 연습해요.',
     subject: 'math',
     available: true,
+    questionCount: MATH_CHALLENGE_QUESTION_COUNT,
     data: multiplication2,
   },
   {
     id: 'multiplication-3',
     title: multiplication3.title,
-    description: '3단 구구단에 자신감을 붙이는 퀴즈예요.',
+    description: '3단 구구단을 120문제로 반복 연습해요.',
     subject: 'math',
     available: true,
+    questionCount: MATH_CHALLENGE_QUESTION_COUNT,
     data: multiplication3,
   },
   {
     id: 'multiplication-4',
     title: multiplication4.title,
-    description: '4단 구구단까지 넓혀서 도전해봐요.',
+    description: '4단 구구단까지 120문제로 넓혀서 도전해요.',
     subject: 'math',
     available: true,
+    questionCount: MATH_CHALLENGE_QUESTION_COUNT,
     data: multiplication4,
   },
   {
     id: 'length-units',
     title: lengthUnits.title,
-    description: 'cm와 m를 바꿔 읽는 길이 단위 문제예요.',
+    description: '길이 단위를 120문제로 충분히 익혀요.',
     subject: 'math',
     available: true,
+    questionCount: MATH_CHALLENGE_QUESTION_COUNT,
     data: lengthUnits,
   },
   {
     id: 'weight-units',
     title: weightUnits.title,
-    description: 'g와 kg를 바꿔 읽는 무게 단위 문제예요.',
+    description: '무게 단위를 120문제로 반복 연습해요.',
     subject: 'math',
     available: true,
+    questionCount: MATH_CHALLENGE_QUESTION_COUNT,
     data: weightUnits,
   },
   {
     id: 'clock-reading',
     title: clockReading.title,
-    description: '몇 시 몇 분을 읽는 시계 문제예요.',
+    description: '시계 읽기를 120문제로 길게 연습해요.',
     subject: 'math',
     available: true,
+    questionCount: MATH_CHALLENGE_QUESTION_COUNT,
     data: clockReading,
   },
   {
     id: 'clock-reading-advanced',
     title: clockReadingAdvanced.title,
-    description: '15분과 45분 시각까지 읽는 확장 시계 문제예요.',
+    description: '확장 시계 읽기를 120문제로 탄탄히 익혀요.',
     subject: 'math',
     available: true,
+    questionCount: MATH_CHALLENGE_QUESTION_COUNT,
     data: clockReadingAdvanced,
   },
 ];
