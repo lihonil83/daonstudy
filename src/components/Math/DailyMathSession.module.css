@@ -1,0 +1,251 @@
+/* ── 퀴즈 껍데기 ── */
+.shell {
+  display: grid;
+}
+
+.card {
+  display: grid;
+  gap: 20px;
+  padding: 28px;
+  border: 1px solid rgba(116, 185, 255, 0.22);
+  border-radius: 28px;
+  background:
+    linear-gradient(145deg, rgba(116, 185, 255, 0.12), rgba(255, 255, 255, 0.92)),
+    var(--colorCard);
+  box-shadow: var(--shadowSoft);
+}
+
+/* ── 상단 헤더 ── */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.dayLabel {
+  margin: 0 0 4px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #2167a4;
+}
+
+.unitTitle {
+  margin: 0 0 4px;
+  font-size: clamp(20px, 3.5vw, 28px);
+}
+
+.unitDesc {
+  margin: 0;
+  font-size: 13px;
+  color: var(--colorSub);
+}
+
+.backLink {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  background: rgba(116, 185, 255, 0.14);
+  color: #2167a4;
+  white-space: nowrap;
+}
+
+/* ── 퀴즈 파트 ── */
+.quizPart {
+  display: grid;
+  gap: 16px;
+}
+
+.quizTop {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.progressTrack {
+  flex: 1;
+  height: 8px;
+  background: rgba(116, 185, 255, 0.18);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: #4f8ef7;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.counter {
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--colorSub);
+}
+
+.question {
+  margin: 0;
+  font-size: clamp(18px, 3vw, 24px);
+  line-height: 1.45;
+}
+
+.choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.choice {
+  padding: 16px 12px;
+  border: 2px solid rgba(116, 185, 255, 0.3);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.12s;
+  text-align: center;
+}
+
+.choice:hover:not(:disabled) {
+  background: rgba(116, 185, 255, 0.12);
+  border-color: #4f8ef7;
+  transform: translateY(-1px);
+}
+
+.choice:disabled {
+  cursor: default;
+}
+
+.choiceCorrect {
+  background: rgba(34, 197, 94, 0.18) !important;
+  border-color: #22c55e !important;
+  color: #166534;
+}
+
+.choiceWrong {
+  background: rgba(239, 68, 68, 0.16) !important;
+  border-color: #ef4444 !important;
+  color: #991b1b;
+}
+
+.explanation {
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: rgba(79, 142, 247, 0.1);
+  font-size: 14px;
+  line-height: 1.5;
+  color: #1e40af;
+}
+
+.scoreInfo {
+  margin: 0;
+  font-size: 13px;
+  color: var(--colorSub);
+  text-align: right;
+}
+
+/* ── 결과 화면 공통 ── */
+.resultScreen {
+  display: grid;
+}
+
+.resultCard {
+  display: grid;
+  gap: 14px;
+  padding: 36px 28px;
+  border-radius: 28px;
+  text-align: center;
+}
+
+.passCard {
+  background: linear-gradient(145deg, rgba(34, 197, 94, 0.14), rgba(255, 255, 255, 0.95));
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.failCard {
+  background: linear-gradient(145deg, rgba(251, 146, 60, 0.14), rgba(255, 255, 255, 0.95));
+  border: 1px solid rgba(251, 146, 60, 0.3);
+}
+
+.emoji {
+  margin: 0;
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.resultTitle {
+  margin: 0;
+  font-size: clamp(22px, 4vw, 30px);
+}
+
+.scoreDisplay {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.pct {
+  margin-left: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--colorSub);
+}
+
+.msg {
+  margin: 0;
+  color: var(--colorSub);
+  line-height: 1.6;
+}
+
+/* ── 결과 화면 버튼 ── */
+.resultActions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.retryBtn {
+  padding: 14px 20px;
+  border-radius: 16px;
+  background: #4f8ef7;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+}
+
+.retryBtn:hover {
+  background: #2563eb;
+}
+
+.backBtn {
+  display: block;
+  padding: 14px 20px;
+  border-radius: 16px;
+  background: rgba(116, 185, 255, 0.16);
+  color: #2167a4;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* ── 모바일 ── */
+@media (max-width: 480px) {
+  .choices {
+    grid-template-columns: 1fr;
+  }
+
+  .card,
+  .resultCard {
+    padding: 20px 16px;
+  }
+}

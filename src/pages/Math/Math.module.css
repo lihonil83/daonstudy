@@ -4,7 +4,7 @@
 
 .panel {
   display: grid;
-  gap: 18px;
+  gap: 24px;
   padding: 28px;
   border: 1px solid rgba(116, 185, 255, 0.22);
   border-radius: 28px;
@@ -12,6 +12,12 @@
     linear-gradient(145deg, rgba(116, 185, 255, 0.14), rgba(255, 255, 255, 0.9)),
     var(--colorCard);
   box-shadow: var(--shadowSoft);
+}
+
+/* ── 페이지 헤더 ── */
+.pageHeader {
+  display: grid;
+  gap: 10px;
 }
 
 .tag {
@@ -41,18 +47,47 @@
   line-height: 1.6;
 }
 
+/* ── 학년 섹션 ── */
+.gradeSection {
+  display: grid;
+  gap: 12px;
+}
+
+.gradeTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+  color: #1e293b;
+  padding-bottom: 8px;
+  border-bottom: 2px solid rgba(116, 185, 255, 0.2);
+}
+
+.gradeBadge {
+  display: inline-flex;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(116, 185, 255, 0.22);
+  color: #2167a4;
+}
+
+/* ── 단원 목록 ── */
 .unitList {
   display: grid;
-  gap: 14px;
+  gap: 12px;
 }
 
 .unitCard {
   display: grid;
   gap: 6px;
-  padding: 18px 20px;
+  padding: 16px 18px;
   border: 1px solid rgba(35, 48, 58, 0.08);
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.88);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.9);
   transition:
     transform 0.18s ease,
     border-color 0.18s ease;
@@ -60,30 +95,12 @@
 
 .unitCard:hover {
   transform: translateY(-2px);
-  border-color: rgba(33, 103, 164, 0.18);
-}
-
-.unitMeta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.unitMeta .tag {
-  padding: 6px 10px;
-  background: rgba(116, 185, 255, 0.16);
-  color: #2167a4;
-}
-
-.unitNote {
-  color: var(--colorSub);
-  line-height: 1.5;
+  border-color: rgba(33, 103, 164, 0.2);
 }
 
 .unitCardDisabled {
   cursor: not-allowed;
-  opacity: 0.72;
+  opacity: 0.65;
 }
 
 .unitCardDisabled:hover {
@@ -91,12 +108,133 @@
   border-color: rgba(35, 48, 58, 0.08);
 }
 
+/* ── 단원 카드 내부 ── */
+.unitMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.unitLeft {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.unitIcon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.unitTitle {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+
+.unitDesc {
+  display: block;
+  font-size: 12px;
+  color: var(--colorSub);
+  line-height: 1.4;
+}
+
+.unitRight {
+  flex-shrink: 0;
+}
+
+/* ── 상태 태그 ── */
+.tagNew {
+  display: inline-flex;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(116, 185, 255, 0.16);
+  color: #2167a4;
+}
+
+.tagTried {
+  display: inline-flex;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(79, 142, 247, 0.14);
+  color: #2563eb;
+}
+
+.tagDone {
+  display: inline-flex;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(34, 197, 94, 0.14);
+  color: #166534;
+}
+
+.tagLocked {
+  display: inline-flex;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(35, 48, 58, 0.08);
+  color: #7a8a99;
+}
+
+/* ── 일일 진도 점 ── */
+.dayDots {
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dotDone    { background: #22c55e; }
+.dotCurrent { background: #4f8ef7; box-shadow: 0 0 0 2px rgba(79,142,247,0.3); }
+.dotLocked  { background: rgba(35, 48, 58, 0.15); }
+
+.unitDayCount {
+  margin: 0;
+  font-size: 11px;
+  color: var(--colorSub);
+}
+
 .linkButton {
   display: inline-flex;
   width: fit-content;
   padding: 12px 16px;
   border-radius: 16px;
-  background: var(--colorMath);
+  background: #4f8ef7;
   color: #ffffff;
   font-weight: 700;
+}
+
+/* ── 모바일 ── */
+@media (max-width: 480px) {
+  .panel {
+    padding: 18px 16px;
+  }
+
+  .unitLeft {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .unitMeta {
+    flex-wrap: wrap;
+  }
 }
