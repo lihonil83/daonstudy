@@ -121,30 +121,39 @@
   color: var(--colorText);
 }
 
-/* 복습 알림 배지 */
-.reviewBadge {
+/* 통계 행 */
+.statRow {
   display: flex;
-  align-items: center;
   gap: 10px;
-  padding: 12px 18px;
-  border-radius: 18px;
+}
+
+.statItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 8px;
+  border-radius: 16px;
   border: 1px solid var(--colorBorder);
-  background: rgba(255, 255, 255, 0.8);
-  color: var(--colorSub);
-  font-size: 14px;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: var(--shadowSoft);
+  text-align: center;
+}
+
+.statNum {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--colorText);
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: 11px;
   font-weight: 600;
-  transition: all 0.2s;
-}
-
-.reviewBadge:hover {
-  transform: translateY(-2px);
-  border-color: rgba(46, 196, 182, 0.4);
-}
-
-.reviewBadgeActive {
-  border-color: rgba(255, 184, 0, 0.5);
-  background: rgba(255, 184, 0, 0.08);
-  color: #b45309;
+  color: var(--colorSub);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 /* ── 오른쪽 메인 영역 ── */
@@ -177,76 +186,86 @@
   color: var(--colorText);
 }
 
-/* 오늘의 추천 스팟라이트 */
-.spotlightCard {
-  display: flex;
+/* 과목 카드 그리드 */
+.subjectGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.subjectCard {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto auto;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 22px 26px;
-  border-radius: 26px;
-  border: 1.5px solid rgba(46, 196, 182, 0.25);
-  background: linear-gradient(
-    135deg,
-    rgba(46, 196, 182, 0.08),
-    rgba(255, 184, 0, 0.06)
-  );
+  gap: 8px 12px;
+  padding: 18px 20px;
+  border-radius: 24px;
+  border: 1.5px solid var(--colorBorder);
+  background: rgba(255, 255, 255, 0.88);
   box-shadow: var(--shadowSoft);
+  text-decoration: none;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.spotlightCard:hover {
+.subjectCard:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(46, 196, 182, 0.2);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
 }
 
-.spotlightLeft {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+.subjectMath { border-color: rgba(79, 142, 247, 0.3); }
+.subjectMath:hover { border-color: #4f8ef7; }
+.subjectEnglish { border-color: rgba(157, 61, 103, 0.25); }
+.subjectEnglish:hover { border-color: #9d3d67; }
+
+.subjectEmoji {
+  font-size: 32px;
+  grid-row: 1 / 3;
+  line-height: 1;
 }
 
-.spotlightBadge {
-  display: inline-flex;
-  width: fit-content;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: rgba(46, 196, 182, 0.15);
-  color: var(--colorPrimaryDark);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+.subjectInfo {
+  grid-column: 2;
+  grid-row: 1;
 }
 
-.spotlightTitle {
+.subjectName {
   margin: 0;
-  font-size: 22px;
+  font-size: 16px;
   font-weight: 800;
   color: var(--colorText);
-  line-height: 1.2;
 }
 
-.spotlightDesc {
+.subjectSub {
   margin: 0;
-  font-size: 14px;
+  font-size: 12px;
+  font-weight: 600;
   color: var(--colorSub);
-  line-height: 1.5;
 }
 
-.spotlightCta {
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 14px 22px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, var(--colorPrimary), #6ed3c8);
-  color: white;
-  font-size: 15px;
+.subjectPct {
+  grid-column: 3;
+  grid-row: 1;
+  font-size: 14px;
   font-weight: 800;
-  white-space: nowrap;
-  box-shadow: 0 4px 12px rgba(46, 196, 182, 0.35);
+  color: var(--colorText);
+  align-self: start;
+}
+
+.subjectBar {
+  grid-column: 2 / 4;
+  grid-row: 2;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(35, 48, 58, 0.1);
+  overflow: hidden;
+}
+
+.subjectFill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--colorPrimary), var(--colorGold));
+  transition: width 0.6s ease;
 }
 
 /* 빠른 메뉴 3개 */
@@ -259,6 +278,7 @@
 }
 
 .menuCard {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -281,6 +301,23 @@
 .menuRoadmap:hover { border-color: #4f8ef7; }
 .menuReview:hover  { border-color: #f7914f; }
 .menuProgress:hover { border-color: #a78bfa; }
+
+.menuBadge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #ef4444;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .menuIcon {
   font-size: 36px;

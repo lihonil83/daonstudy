@@ -8,10 +8,13 @@ import {
   DAYS_PER_UNIT,
 } from '../../models/mathDailyProgressModel';
 import { generateLocalQuiz } from '../../utils/localGenerator';
+import { useProgress } from '../../hooks/useProgress';
+import { useReward } from '../../hooks/useReward';
+import { useWrongAnswers } from '../../hooks/useWrongAnswers';
 import styles from './DailyMathSession.module.css';
 
 // ─── 내부 퀴즈 컴포넌트 ───────────────────────────────────────────────
-function QuizPart({ questions, onComplete }) {
+function QuizPart({ questions, onComplete, onWrongAnswer }) {
   const [idx, setIdx] = useState(0);
   const [score, setScore] = useState(0);
   const [selected, setSelected] = useState(null);
@@ -25,6 +28,18 @@ function QuizPart({ questions, onComplete }) {
     const correct = String(choice) === String(q.answer);
     setSelected(choice);
     setPhase(correct ? 'correct' : 'wrong');
+
+    if (!correct) {
+      onWrongAnswer?.({
+        originalQuestionId: q.id ?? `${q.question}`,
+        question: q.question,
+        choices: q.choices.map(String),
+        userAnswer: String(choice),
+        correctAnswer: String(q.answer),
+        hints: q.explanation ? [q.explanation] : [],
+        visual: null,
+      });
+    }
 
     setTimeout(() => {
       const nextScore = correct ? score + 1 : score;
@@ -91,6 +106,10 @@ export default function DailyMathSession({ unit, backTo }) {
   const currentDay = alreadyDone ? DAYS_PER_UNIT : getCurrentDay(unit.id);
   const isPracticeMode = alreadyDone;
 
+  const { saveQuizResult } = useProgress();
+  const { addXp } = useReward();
+  const { addWrongAnswer } = useWrongAnswers();
+
   const [screen, setScreen] = useState('quiz'); // 'quiz' | 'pass' | 'fail'
   const [quizKey, setQuizKey] = useState(0);
   const [lastScore, setLastScore] = useState(null);
@@ -102,10 +121,20 @@ export default function DailyMathSession({ unit, backTo }) {
     [unit.id, quizKey],
   );
 
+  const handleWrongAnswer = (wrongData) => {
+    addWrongAnswer({
+      ...wrongData,
+      subject: 'math',
+      unit: unit.id,
+      unitTitle: unit.title,
+    });
+  };
+
   const handleComplete = (score, total) => {
     setLastScore(score);
     setLastTotal(total);
-    if (isPracticeMode || isPassing(score, total)) {
+    const passed = isPracticeMode || isPassing(score, total);
+    if (passed) {
       if (!isPracticeMode) {
         markDayPassed(unit.id, currentDay, score, total);
       }
@@ -113,6 +142,18 @@ export default function DailyMathSession({ unit, backTo }) {
     } else {
       setScreen('fail');
     }
+    const xpEarned = passed ? score * 8 : score * 3;
+    saveQuizResult({
+      subject: 'math',
+      unit: unit.id,
+      unitTitle: `${unit.title} Day ${isPracticeMode ? '연습' : currentDay}`,
+      score,
+      total,
+      stars: passed ? (score === total ? 3 : 2) : 1,
+      xpEarned,
+      duration: 0,
+    });
+    addXp(xpEarned);
   };
 
   const handleRetry = () => {
@@ -212,7 +253,7 @@ export default function DailyMathSession({ unit, backTo }) {
           </Link>
         </div>
 
-        <QuizPart key={quizKey} questions={questions} onComplete={handleComplete} />
+        <QuizPart key={quizKey} questions={questions} onComplete={handleComplete} onWrongAnswer={handleWrongAnswer} />
       </div>
     </section>
   );

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useProgress } from '../../hooks/useProgress';
 import { useReward } from '../../hooks/useReward';
+import { useWrongAnswers } from '../../hooks/useWrongAnswers';
 import { useSpeechSynthesis } from '../../hooks/useSpeechSynthesis';
 import {
   getCurrentDay,
@@ -85,6 +86,7 @@ function buildTestQuestions(unit, day) {
 export default function DailyLessonSession({ unit, backTo = '/english' }) {
   const { saveQuizResult } = useProgress();
   const { addXp } = useReward();
+  const { addWrongAnswer } = useWrongAnswers();
   const speech = useSpeechSynthesis();
 
   // 현재 day 계산 (완료 기준 잠금)
@@ -136,6 +138,21 @@ export default function DailyLessonSession({ unit, backTo = '/english' }) {
     setFeedback(isCorrect ? 'correct' : 'wrong');
     if (isCorrect) setScore(s => s + 1);
     if (currentQuestion.ttsText) speech.speak(currentQuestion.ttsText);
+
+    if (!isCorrect) {
+      addWrongAnswer({
+        originalQuestionId: currentQuestion.id ?? currentQuestion.question,
+        subject: 'english',
+        unit: unit.id,
+        unitTitle: `${unit.title} Day ${day}`,
+        question: currentQuestion.question,
+        choices: currentQuestion.choices,
+        userAnswer: choice,
+        correctAnswer: currentQuestion.answer,
+        hints: currentQuestion.korean ? [currentQuestion.korean] : [],
+        visual: null,
+      });
+    }
 
     setTimeout(() => {
       setSelected(null);

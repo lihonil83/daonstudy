@@ -86,8 +86,8 @@ export default function Progress() {
             </div>
           ) : (
             <div className={styles.emptyCard}>
-              <p>아직 획득한 뱃지가 없어요. 로드맵을 따라 퀴즈를 풀어보세요!</p>
-              <Link to="/roadmap" className={styles.linkButton}>로드맵 가기</Link>
+              <p>아직 획득한 뱃지가 없어요. 퀴즈를 풀면 뱃지를 모을 수 있어요!</p>
+              <Link to="/" className={styles.linkButton}>홈으로</Link>
             </div>
           )}
         </section>
@@ -114,14 +114,14 @@ export default function Progress() {
             )}
           </section>
 
-          {/* ── AI 분석 (Placeholder) ── */}
+          {/* ── 퀵 링크 ── */}
           <section className={styles.section}>
-            <h3 className={styles.sectionTitle}>💡 AI 학습 가이드</h3>
-            <div className={styles.aiCard}>
-              <p className={styles.aiText}>
-                현재까지의 학습 데이터를 분석하여 아드님에게 꼭 필요한 다음 단원을 추천해줄 수 있어요.
-              </p>
-              <button className={styles.aiButton} disabled>준비 중인 기능이에요</button>
+            <h3 className={styles.sectionTitle}>🔗 바로 가기</h3>
+            <div className={styles.quickLinks}>
+              <Link to="/math" className={styles.linkButton}>🔢 수학 학습</Link>
+              <Link to="/english" className={styles.linkButton}>🔤 영어 학습</Link>
+              <Link to="/roadmap" className={styles.linkButton}>🗺️ 전체 현황</Link>
+              <Link to="/review" className={styles.linkButton}>📖 오답 노트</Link>
             </div>
           </section>
         </div>

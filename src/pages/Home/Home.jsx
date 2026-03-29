@@ -1,44 +1,43 @@
-import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { CURRICULUM } from '../../data/curriculum';
 import { useProgress } from '../../hooks/useProgress';
 import { useReward } from '../../hooks/useReward';
 import { useWrongAnswers } from '../../hooks/useWrongAnswers';
-import { getRecommendedMission } from '../../models/homeModel';
+import { getUnitProgress as getMathProgress, DAYS_PER_UNIT } from '../../models/mathDailyProgressModel';
+import { getUnitProgress as getEnProgress } from '../../models/enDailyProgressModel';
+import { ENGLISH_STAGE_1 } from '../../data/englishCurriculum';
 import styles from './Home.module.css';
 
+const MATH_UNITS = CURRICULUM.filter(u => u.subject === 'math');
+
+function useMathSummary() {
+  const total = MATH_UNITS.length * DAYS_PER_UNIT;
+  const done = MATH_UNITS.reduce((sum, u) => {
+    return sum + getMathProgress(u.id, DAYS_PER_UNIT).passedDays;
+  }, 0);
+  return { done, total, pct: total > 0 ? Math.round(done / total * 100) : 0 };
+}
+
+function useEnglishSummary() {
+  const units = ENGLISH_STAGE_1.units.filter(u => u.type === 'daily');
+  const total = units.reduce((s, u) => s + u.dailyLessons.length, 0);
+  const done = units.reduce((s, u) => {
+    return s + getEnProgress(u.id, u.dailyLessons.length).passedDays;
+  }, 0);
+  return { done, total, pct: total > 0 ? Math.round(done / total * 100) : 0 };
+}
+
 export default function Home() {
-  const { icon, level, title, totalXp, xpForNextLevel, xpProgress, xpToNext } = useReward();
-  const { getUnitProgress, totalQuizCount, currentStreak } = useProgress();
+  const { icon, level, title, totalXp, xpProgress, xpToNext } = useReward();
+  const { currentStreak, totalQuizCount } = useProgress();
   const { unreviewedCount } = useWrongAnswers();
-
-  const recommendation = useMemo(
-    () => {
-      // CURRICULUM 데이터를 homeModel이 기대하는 형식으로 변환
-      const allUnits = CURRICULUM.map(item => ({
-        ...item,
-        available: true // 모든 단원을 추천 가능 대상으로 함
-      }));
-      
-      const mathUnits = allUnits.filter(u => u.subject === 'math');
-      const englishUnits = allUnits.filter(u => u.subject === 'english');
-
-      return getRecommendedMission({
-        unreviewedCount,
-        totalQuizCount,
-        getUnitProgress,
-        mathUnits,
-        englishUnits,
-      });
-    },
-    [getUnitProgress, totalQuizCount, unreviewedCount],
-  );
-
+  const math = useMathSummary();
+  const english = useEnglishSummary();
   const xpPercent = Math.max(0, Math.min(1, xpProgress)) * 100;
 
   return (
     <div className={styles.page}>
-      {/* 왼쪽: 캐릭터 + XP */}
+      {/* ── 왼쪽: 캐릭터 + XP ── */}
       <aside className={styles.sidebar}>
         <div className={styles.avatarCard}>
           <div className={styles.avatarEmoji}>{icon}</div>
@@ -48,10 +47,8 @@ export default function Home() {
             <div className={styles.xpFill} style={{ width: `${xpPercent}%` }} />
           </div>
           <p className={styles.xpText}>{totalXp} XP · 다음까지 {xpToNext} XP</p>
-          <p className={styles.xpGoal}>{xpForNextLevel} XP 목표</p>
         </div>
 
-        {/* 연속 학습 스트릭 */}
         <div className={styles.streakCard}>
           <span className={styles.streakIcon}>🔥</span>
           <div>
@@ -60,46 +57,68 @@ export default function Home() {
           </div>
         </div>
 
-        {/* 복습 알림 */}
-        <Link to="/review" className={`${styles.reviewBadge} ${unreviewedCount > 0 ? styles.reviewBadgeActive : ''}`}>
-          <span>📖</span>
-          <span>복습할 문제 {unreviewedCount > 0 ? `${unreviewedCount}개` : '없음'}</span>
-        </Link>
+        <div className={styles.statRow}>
+          <div className={styles.statItem}>
+            <span className={styles.statNum}>{totalQuizCount}</span>
+            <span className={styles.statLabel}>퀴즈 완료</span>
+          </div>
+          <div className={styles.statItem}>
+            <span className={styles.statNum}>{unreviewedCount}</span>
+            <span className={styles.statLabel}>오답 대기</span>
+          </div>
+        </div>
       </aside>
 
-      {/* 오른쪽: 오늘의 추천 + 메뉴 */}
+      {/* ── 오른쪽: 주요 학습 ── */}
       <main className={styles.mainArea}>
         <div className={styles.greeting}>
-          <p className={styles.greetingKicker}>안녕하세요! 오늘도 같이 공부해요 🎉</p>
-          <h1 className={styles.greetingTitle}>다온 학습 놀이터</h1>
+          <h1 className={styles.greetingTitle}>다온 학습 놀이터 👋</h1>
+          <p className={styles.greetingKicker}>오늘도 조금씩, 꾸준히!</p>
         </div>
 
-        {/* 오늘의 추천 */}
-        <Link to={recommendation.to} className={styles.spotlightCard}>
-          <div className={styles.spotlightLeft}>
-            <span className={styles.spotlightBadge}>{recommendation.badge}</span>
-            <h3 className={styles.spotlightTitle}>{recommendation.title}</h3>
-            <p className={styles.spotlightDesc}>{recommendation.description}</p>
-          </div>
-          <span className={styles.spotlightCta}>{recommendation.cta} →</span>
-        </Link>
+        {/* 과목 카드 2개 */}
+        <div className={styles.subjectGrid}>
+          <Link to="/math" className={`${styles.subjectCard} ${styles.subjectMath}`}>
+            <span className={styles.subjectEmoji}>🔢</span>
+            <div className={styles.subjectInfo}>
+              <h3 className={styles.subjectName}>수학</h3>
+              <p className={styles.subjectSub}>1~6학년 · {math.done}/{math.total}일 완료</p>
+            </div>
+            <div className={styles.subjectBar}>
+              <div className={styles.subjectFill} style={{ width: `${math.pct}%` }} />
+            </div>
+            <span className={styles.subjectPct}>{math.pct}%</span>
+          </Link>
 
-        {/* 빠른 메뉴 3개 */}
+          <Link to="/english" className={`${styles.subjectCard} ${styles.subjectEnglish}`}>
+            <span className={styles.subjectEmoji}>🔤</span>
+            <div className={styles.subjectInfo}>
+              <h3 className={styles.subjectName}>영어</h3>
+              <p className={styles.subjectSub}>Stage 1 · {english.done}/{english.total}일 완료</p>
+            </div>
+            <div className={styles.subjectBar}>
+              <div className={styles.subjectFill} style={{ width: `${english.pct}%` }} />
+            </div>
+            <span className={styles.subjectPct}>{english.pct}%</span>
+          </Link>
+        </div>
+
+        {/* 빠른 메뉴 */}
         <div className={styles.quickMenu}>
           <Link to="/roadmap" className={`${styles.menuCard} ${styles.menuRoadmap}`}>
             <span className={styles.menuIcon}>🗺️</span>
-            <span className={styles.menuLabel}>학습 로드맵</span>
-            <span className={styles.menuDesc}>1~6학년 전체</span>
+            <span className={styles.menuLabel}>전체 현황</span>
           </Link>
           <Link to="/review" className={`${styles.menuCard} ${styles.menuReview}`}>
             <span className={styles.menuIcon}>📖</span>
-            <span className={styles.menuLabel}>오답 복습</span>
-            <span className={styles.menuDesc}>{unreviewedCount}개 대기중</span>
+            <span className={styles.menuLabel}>오답 노트</span>
+            {unreviewedCount > 0 && (
+              <span className={styles.menuBadge}>{unreviewedCount}</span>
+            )}
           </Link>
           <Link to="/progress" className={`${styles.menuCard} ${styles.menuProgress}`}>
             <span className={styles.menuIcon}>📊</span>
             <span className={styles.menuLabel}>학습 기록</span>
-            <span className={styles.menuDesc}>총 {totalQuizCount}회 완료</span>
           </Link>
         </div>
       </main>
