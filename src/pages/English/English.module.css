@@ -199,6 +199,30 @@
   color: #7a8a99;
 }
 
+/* ── 일일 진도 점 ── */
+.dayDots {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dotDone    { background: #22c55e; }
+.dotCurrent { background: #9d3d67; box-shadow: 0 0 0 2px rgba(157,61,103,0.3); }
+.dotLocked  { background: rgba(35, 48, 58, 0.15); }
+
+.unitDayCount {
+  margin: 0;
+  font-size: 12px;
+  color: var(--colorSub);
+}
+
 /* ── 모바일 ── */
 @media (max-width: 480px) {
   .unitLeft {

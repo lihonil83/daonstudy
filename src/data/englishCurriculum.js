@@ -190,6 +190,27 @@ const BODY_CARDS = [
   { id: 'neck',   word: 'neck',   emoji: '🧣', korean: '목' },
 ];
 
+// ─── 일일 학습 분할 헬퍼 ──────────────────────────────────────────────
+/**
+ * 카드 배열을 균등하게 targetDays 일수로 나눕니다.
+ * 예) 26장 → 5일: [6, 5, 5, 5, 5]
+ */
+function chunkCards(cards, targetDays) {
+  const base = Math.floor(cards.length / targetDays);
+  const extra = cards.length % targetDays;
+  const result = [];
+  let start = 0;
+  for (let i = 0; i < targetDays; i++) {
+    const size = base + (i < extra ? 1 : 0);
+    result.push({
+      day: i + 1,
+      newCards: cards.slice(start, start + size),
+    });
+    start += size;
+  }
+  return result;
+}
+
 // ─── Stage 1 커리큘럼 ─────────────────────────────────────────────────
 export const ENGLISH_STAGE_1 = {
   id: 'en-stage-1',
@@ -204,11 +225,11 @@ export const ENGLISH_STAGE_1 = {
       title: '알파벳 대문자',
       description: 'A부터 Z까지 대문자를 배워요.',
       icon: '🔠',
-      type: 'flashcard',
+      type: 'daily',
       quizMode: 'pick-letter',
-      quizCount: 10,
       showKorean: true,
       cards: UPPERCASE_CARDS,
+      dailyLessons: chunkCards(UPPERCASE_CARDS, 5), // 26장 → 5일 [6,5,5,5,5]
     },
     {
       id: 'en-s1-u2',
@@ -216,11 +237,11 @@ export const ENGLISH_STAGE_1 = {
       title: '알파벳 소문자',
       description: '대문자와 소문자를 짝지어 봐요.',
       icon: '🔡',
-      type: 'flashcard',
+      type: 'daily',
       quizMode: 'pick-lower',
-      quizCount: 10,
       showKorean: true,
       cards: LOWERCASE_CARDS,
+      dailyLessons: chunkCards(LOWERCASE_CARDS, 5), // 26장 → 5일
     },
     {
       id: 'en-s1-u3',
@@ -228,11 +249,11 @@ export const ENGLISH_STAGE_1 = {
       title: '파닉스 — 단모음',
       description: 'a·e·i·o·u 소리를 익혀요.',
       icon: '🔊',
-      type: 'flashcard',
+      type: 'daily',
       quizMode: 'pick-word',
-      quizCount: 10,
       showKorean: true,
       cards: PHONICS_VOWEL_CARDS,
+      dailyLessons: chunkCards(PHONICS_VOWEL_CARDS, 5), // 25장 → 5일 [5,5,5,5,5]
     },
     {
       id: 'en-s1-u4',
@@ -240,11 +261,11 @@ export const ENGLISH_STAGE_1 = {
       title: '파닉스 — CVC 패밀리',
       description: '-at · -an · -it · -in · -ot · -un 단어 패밀리.',
       icon: '🧩',
-      type: 'flashcard',
+      type: 'daily',
       quizMode: 'pick-word',
-      quizCount: 10,
       showKorean: true,
       cards: PHONICS_CVC_CARDS,
+      dailyLessons: chunkCards(PHONICS_CVC_CARDS, 6), // 30장 → 6일 [5,5,5,5,5,5]
     },
     {
       id: 'en-s1-u5',
@@ -252,11 +273,11 @@ export const ENGLISH_STAGE_1 = {
       title: '숫자 1~20',
       description: '숫자를 영어로 읽어요.',
       icon: '🔢',
-      type: 'flashcard',
+      type: 'daily',
       quizMode: 'pick-word',
-      quizCount: 10,
       showKorean: true,
       cards: NUMBER_CARDS,
+      dailyLessons: chunkCards(NUMBER_CARDS, 4), // 20장 → 4일 [5,5,5,5]
     },
     {
       id: 'en-s1-u6',
@@ -264,11 +285,11 @@ export const ENGLISH_STAGE_1 = {
       title: '색깔',
       description: '12가지 색깔 이름을 배워요.',
       icon: '🎨',
-      type: 'flashcard',
+      type: 'daily',
       quizMode: 'pick-word',
-      quizCount: 10,
       showKorean: true,
       cards: COLOR_CARDS,
+      dailyLessons: chunkCards(COLOR_CARDS, 2), // 12장 → 2일 [6,6]
     },
     {
       id: 'en-s1-u7',
@@ -276,11 +297,11 @@ export const ENGLISH_STAGE_1 = {
       title: '동물',
       description: '20가지 동물 이름을 배워요.',
       icon: '🐾',
-      type: 'flashcard',
+      type: 'daily',
       quizMode: 'pick-word',
-      quizCount: 10,
       showKorean: true,
       cards: ANIMAL_CARDS,
+      dailyLessons: chunkCards(ANIMAL_CARDS, 4), // 20장 → 4일 [5,5,5,5]
     },
     {
       id: 'en-s1-u8',
@@ -288,11 +309,11 @@ export const ENGLISH_STAGE_1 = {
       title: '신체 부위',
       description: '몸의 부위 이름을 배워요.',
       icon: '🙋',
-      type: 'flashcard',
+      type: 'daily',
       quizMode: 'pick-word',
-      quizCount: 10,
       showKorean: true,
       cards: BODY_CARDS,
+      dailyLessons: chunkCards(BODY_CARDS, 2), // 12장 → 2일 [6,6]
     },
     {
       id: 'en-s1-u9',
@@ -301,9 +322,9 @@ export const ENGLISH_STAGE_1 = {
       description: 'I am / This is 문장을 만들어요.',
       icon: '📝',
       type: 'coming-soon',
-      quizCount: 10,
       showKorean: true,
       cards: [],
+      dailyLessons: [],
     },
     {
       id: 'en-s1-u10',
@@ -312,9 +333,9 @@ export const ENGLISH_STAGE_1 = {
       description: 'Hello! My name is ___ 말하기.',
       icon: '👋',
       type: 'coming-soon',
-      quizCount: 10,
       showKorean: true,
       cards: [],
+      dailyLessons: [],
     },
   ],
 };
