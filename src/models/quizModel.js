@@ -14,15 +14,38 @@ export function buildQuestionSet(
   shuffleQuestions = shuffleArray,
   shuffleChoices = shuffleArray,
 ) {
-  const safeQuestionCount = Math.max(0, Math.min(questionCount, sourceQuestions.length));
+  const safeQuestionCount = Math.max(0, questionCount);
 
-  return shuffleQuestions(sourceQuestions)
-    .slice(0, safeQuestionCount)
-    .map((question) => ({
+  if (safeQuestionCount === 0 || sourceQuestions.length === 0) {
+    return [];
+  }
+
+  const selectedQuestions = [];
+  while (selectedQuestions.length < safeQuestionCount) {
+    const remaining = safeQuestionCount - selectedQuestions.length;
+    selectedQuestions.push(
+      ...shuffleQuestions(sourceQuestions).slice(0, Math.min(remaining, sourceQuestions.length)),
+    );
+  }
+
+  const seenCounts = new Map();
+
+  return selectedQuestions.map((question, index) => {
+    const fallbackId = `question-${index}`;
+    const sourceId = question.id ?? fallbackId;
+    const originalQuestionId = question.originalQuestionId ?? sourceId;
+    const seenCount = seenCounts.get(sourceId) ?? 0;
+
+    seenCounts.set(sourceId, seenCount + 1);
+
+    return {
       ...question,
+      id: seenCount === 0 ? sourceId : `${sourceId}__repeat_${seenCount + 1}`,
+      originalQuestionId,
       choices: shuffleChoices(question.choices ?? []),
       hints: [...(question.hints ?? [])],
-    }));
+    };
+  });
 }
 
 export function createQuestionOutcome(question, unit, userAnswer, isCorrect) {
@@ -36,6 +59,7 @@ export function createQuestionOutcome(question, unit, userAnswer, isCorrect) {
     userAnswer,
     correctAnswer: question.answer,
     isCorrect,
+    explanation: question.explanation ?? '',
     subject: question.subject ?? unit.subject,
     unit: question.unit ?? unit.id,
     unitTitle: question.unitTitle ?? unit.title,

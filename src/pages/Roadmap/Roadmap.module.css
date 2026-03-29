@@ -1,0 +1,207 @@
+.page {
+  padding: 1.5rem 1rem 4rem;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+/* ── 헤더 ── */
+.header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.kicker {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--colorPrimary, #2ec4b6);
+  margin: 0 0 0.3rem;
+}
+.heading {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 0;
+  color: var(--colorText, #23303a);
+}
+
+/* ── 요약 카드 ── */
+.summaryGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 2rem;
+}
+
+.summaryCard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  border-radius: 22px;
+  border: 1.5px solid var(--colorBorder);
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.summaryCard:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+
+.summaryMath  { border-color: rgba(79,142,247,0.3); }
+.summaryMath:hover { border-color: #4f8ef7; }
+.summaryEnglish { border-color: rgba(157,61,103,0.25); }
+.summaryEnglish:hover { border-color: #9d3d67; }
+
+.summaryEmoji { font-size: 2.2rem; line-height: 1; }
+.summarySubject { margin: 0; font-size: 1rem; font-weight: 800; color: var(--colorText); }
+.summaryStats  { margin: 0; font-size: 0.78rem; font-weight: 600; color: var(--colorSub, #7a8a99); }
+.summaryPct {
+  margin-left: auto;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--colorText);
+}
+
+/* ── 과목 블록 ── */
+.subjectBlock {
+  margin-bottom: 2rem;
+}
+.subjectTitle {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--colorText);
+  margin: 0 0 1rem;
+}
+
+/* ── 학년 행 ── */
+.gradeRow {
+  margin-bottom: 1.4rem;
+}
+.gradeHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.gradeBadge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #fff;
+  background: var(--colorPrimary, #2ec4b6);
+  padding: 3px 12px;
+  border-radius: 999px;
+}
+.gradeCount {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--colorSub);
+}
+.gradePct {
+  margin-left: auto;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--colorText);
+}
+.gradeBar {
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(35,48,58,0.1);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.gradeBarFill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--colorPrimary, #2ec4b6), var(--colorGold, #ffb800));
+  transition: width 0.5s ease;
+}
+
+/* ── 영어 stage ── */
+.enSection { }
+.stageHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.stageBadge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #fff;
+  background: #9d3d67;
+  padding: 3px 12px;
+  border-radius: 999px;
+}
+.stageName {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--colorText);
+}
+
+/* ── 단원 칩 목록 ── */
+.unitList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.unitChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 14px;
+  border: 1.5px solid rgba(35,48,58,0.12);
+  background: rgba(255,255,255,0.9);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--colorText);
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  cursor: pointer;
+}
+.unitChip:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-color: var(--colorPrimary); }
+
+.unitChipDone {
+  border-color: #22c55e;
+  background: rgba(34,197,94,0.08);
+}
+.unitChipTried {
+  border-color: #f59e0b;
+  background: rgba(245,158,11,0.08);
+}
+.unitChipLocked {
+  opacity: 0.5;
+  cursor: default;
+  pointer-events: none;
+}
+
+.chipTitle { }
+
+.chipBadgeDone {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #166534;
+  background: rgba(34,197,94,0.2);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.chipBadgeTried {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #92400e;
+  background: rgba(245,158,11,0.2);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.chipBadgeLocked {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #6b7280;
+  background: rgba(107,114,128,0.12);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+@media (max-width: 600px) {
+  .summaryGrid { grid-template-columns: 1fr; }
+}

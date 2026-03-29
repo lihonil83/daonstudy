@@ -14,6 +14,7 @@ const markdownFiles = [
   'DESIGN.md',
   'FRONTEND.md',
   'PLANS.md',
+  'RUNBOOK.md',
   'docs/design-docs/core-beliefs.md',
   'docs/exec-plans/active/mvp-plan.md',
   'docs/ops/HANDOVER.md',
@@ -229,6 +230,7 @@ check('entrypoint coverage', () => {
   const readme = read('README.md');
   expect(readme.includes('CONSTITUTION.md'), 'README.md: CONSTITUTION.md entry missing');
   expect(readme.includes('REPOSITORY-HARNESS.md'), 'README.md: REPOSITORY-HARNESS.md entry missing');
+  expect(readme.includes('RUNBOOK.md'), 'README.md: RUNBOOK.md entry missing');
   expect(readme.includes('docs/ops/WORK-UNIT-TEMPLATE.md'), 'README.md: docs/ops/WORK-UNIT-TEMPLATE.md entry missing');
   expect(readme.includes('docs/ops/HANDOVER.md'), 'README.md: docs/ops/HANDOVER.md entry missing');
   expect(readme.includes('docs/product-specs/'), 'README.md: docs/product-specs entry missing');

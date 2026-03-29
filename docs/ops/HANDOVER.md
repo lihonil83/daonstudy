@@ -37,4 +37,14 @@
 
 ## 현재 활성 인수인계
 
-없음.
+### 2026-03-29 08:35 — 퀴즈 생성 복구 및 모바일 레이아웃(Gradio UI) 안정화
+
+- 상태: `resolved`
+- 문제 정의: 
+  1. API 400 Bad Request 요인인 `response_mime_type: 'application/json'` 때문에 `gemini-2.5-flash` 모델 퀴즈 생성이 차단됨.
+  2. 폭이 좁은 디바이스(서피스북 창 모드 등)에서 로드맵 학년(Grade) 탭이 무분별하게 줄바꿈되며 레이아웃 구겨짐 발생.
+- 영향 범위: `src/services/geminiService.js`, `src/pages/Roadmap/Roadmap.module.css`
+- 완료 기준: 모델 API 응답 옵션 걷어내기(생성 정상화), 학년 탭 가로 슬라이더 적용 및 `docs/ops/REGRESSION-TESTS.md` 체크리스트 신설.
+- 시도 1: `geminiService.js` 내 옵션 삭제 및 CSS에 `overflow-x: auto; scroll-snap-type` 연동 적용 완료.
+- 시도 1 검증: 브라우저 단위창 검사 및 Dummy API 키 테스트(정상적 400 에러 모달 발생 확인), 구조 개선 확인.
+- 다음 작업자가 먼저 할 일: (없음)

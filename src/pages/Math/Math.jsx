@@ -1,88 +1,204 @@
 import { Link, useParams } from 'react-router-dom';
 import QuizSession from '../../components/Quiz/QuizSession';
-import { MATH_UNITS } from '../../data/unitRegistry';
+import DailyMathSession from '../../components/Math/DailyMathSession';
+import { CURRICULUM } from '../../data/curriculum';
+import { MATH_CHALLENGE_UNITS, MATH_UNITS as QUICK_MATH_UNITS } from '../../data/unitRegistry';
+import {
+  DAYS_PER_UNIT,
+  getCurrentDay,
+  getUnitProgress,
+  isDayPassed,
+  isUnitComplete,
+} from '../../models/mathDailyProgressModel';
 import styles from './Math.module.css';
 
-export default function Math() {
+const DAILY_MATH_UNITS = CURRICULUM.filter((unit) => unit.subject === 'math');
+const DAILY_MATH_IDS = DAILY_MATH_UNITS.map((unit) => unit.id);
+const GRADE_GROUPS = [1, 2, 3, 4, 5, 6].map((grade) => ({
+  grade,
+  units: DAILY_MATH_UNITS.filter((unit) => unit.grade === grade),
+}));
+
+function isUnitUnlocked(unit) {
+  if (unit.grade === 1) return true;
+
+  const unitIndex = DAILY_MATH_IDS.indexOf(unit.id);
+  if (unitIndex <= 0) return true;
+
+  const previousUnit = DAILY_MATH_UNITS[unitIndex - 1];
+  if (previousUnit.grade === 1) return true;
+
+  return isUnitComplete(previousUnit.id);
+}
+
+function findDailyMathUnit(unitId) {
+  return DAILY_MATH_UNITS.find((unit) => unit.id === unitId || unit.unitId === unitId) ?? null;
+}
+
+function ProgressDots({ unitId }) {
+  return (
+    <div className={styles.dayDots}>
+      {Array.from({ length: DAYS_PER_UNIT }, (_, index) => {
+        const day = index + 1;
+        const passed = isDayPassed(unitId, day);
+        const current = !passed && day === globalThis.Math.min(getCurrentDay(unitId), DAYS_PER_UNIT);
+
+        return (
+          <span
+            key={day}
+            className={`${styles.dot} ${
+              passed ? styles.dotDone : current ? styles.dotCurrent : styles.dotLocked
+            }`}
+            title={`Day ${day}`}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
+function QuickChallengeSection() {
+  return (
+    <div className={styles.gradeSection}>
+      <h3 className={styles.gradeTitle}>빠르게 풀어보는 핵심 퀴즈</h3>
+      <div className={styles.unitList}>
+        {MATH_CHALLENGE_UNITS.map((unit) => (
+          <Link key={unit.id} to={`/math/${unit.id}`} className={styles.unitCard}>
+            <div className={styles.unitMeta}>
+              <div className={styles.unitLeft}>
+                <span className={styles.unitIcon}>⚡</span>
+                <div>
+                  <strong className={styles.unitTitle}>{unit.title}</strong>
+                  <span className={styles.unitDesc}>{unit.description}</span>
+                </div>
+              </div>
+              <div className={styles.unitRight}>
+                <span className={styles.tagNew}>바로 도전</span>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default function MathPage() {
   const { unitId } = useParams();
-  const units = Object.values(MATH_UNITS);
+
+  const quickUnit = unitId ? QUICK_MATH_UNITS[unitId] : null;
+  if (quickUnit) {
+    return <QuizSession unit={quickUnit} accent="math" backTo="/math" />;
+  }
 
   if (unitId) {
-    const unit = MATH_UNITS[unitId];
+    const unit = findDailyMathUnit(unitId);
 
     if (!unit) {
       return (
         <section className={styles.page}>
           <div className={styles.panel}>
-            <span className={`${styles.tag} ${styles.mathTag}`}>수학 단원</span>
+            <span className={`${styles.tag} ${styles.mathTag}`}>수학</span>
             <h2 className={styles.title}>단원을 찾을 수 없어요</h2>
-            <p className={styles.copy}>
-              아직 등록되지 않은 수학 단원 경로예요. 아래 목록에 있는 단원으로 다시 들어가면
-              바로 이어서 학습할 수 있어요.
-            </p>
-            <Link className={styles.linkButton} to="/math">
-              단원 목록으로 돌아가기
-            </Link>
+            <Link className={styles.linkButton} to="/math">단원 목록으로 돌아가기</Link>
           </div>
         </section>
       );
     }
 
-    if (!unit.available) {
+    if (!isUnitUnlocked(unit)) {
       return (
         <section className={styles.page}>
           <div className={styles.panel}>
-            <span className={`${styles.tag} ${styles.mathTag}`}>수학 단원</span>
-            <h2 className={styles.title}>{unit.title}</h2>
-            <p className={styles.copy}>
-              {unit.description} 지금은 잠겨 있지만, 학습 길이 보이도록 자리를 먼저 만들어
-              두었습니다.
-            </p>
-            <Link className={styles.linkButton} to="/math">
-              단원 목록으로 돌아가기
-            </Link>
+            <span className={`${styles.tag} ${styles.mathTag}`}>🔒 잠김</span>
+            <h2 className={styles.title}>{unit.icon} {unit.title}</h2>
+            <p className={styles.copy}>이전 단원을 먼저 완료해야 열려요.</p>
+            <Link className={styles.linkButton} to="/math">단원 목록으로 돌아가기</Link>
           </div>
         </section>
       );
     }
 
-    return <QuizSession unit={unit} accent="math" backTo="/math" />;
+    return <DailyMathSession unit={unit} backTo="/math" />;
   }
 
   return (
     <section className={styles.page}>
       <div className={styles.panel}>
-        <span className={`${styles.tag} ${styles.mathTag}`}>수학</span>
-        <h2 className={styles.title}>수학 단원을 골라보세요</h2>
-        <p className={styles.copy}>
-          이제 2단, 3단, 4단 구구단과 시계 읽기, 길이·무게 단위, 덧셈·뺄셈 생성형 단원을
-          바로 풀 수 있어요. 다음 단원도 미리 보여서 학습 지도가 자연스럽게 이어집니다.
-        </p>
-        <div className={styles.unitList}>
-          {units.map((unit) =>
-            unit.available ? (
-              <Link key={unit.id} to={`/math/${unit.id}`} className={styles.unitCard}>
-                <div className={styles.unitMeta}>
-                  <strong>{unit.title}</strong>
-                  <span className={styles.tag}>시작 가능</span>
-                </div>
-                <span className={styles.unitNote}>{unit.description}</span>
-              </Link>
-            ) : (
-              <div
-                key={unit.id}
-                className={`${styles.unitCard} ${styles.unitCardDisabled}`}
-                aria-disabled="true"
-              >
-                <div className={styles.unitMeta}>
-                  <strong>{unit.title}</strong>
-                  <span className={styles.tag}>잠김</span>
-                </div>
-                <span className={styles.unitNote}>{unit.description}</span>
-              </div>
-            ),
-          )}
+        <div className={styles.pageHeader}>
+          <span className={`${styles.tag} ${styles.mathTag}`}>🔢 수학</span>
+          <h2 className={styles.title}>수학 단원을 골라보세요</h2>
+          <p className={styles.copy}>
+            먼저 핵심 퀴즈로 가볍게 시작하거나, 학년별 일일 학습 단원으로 차근차근 이어갈 수 있어요.
+          </p>
         </div>
+
+        <QuickChallengeSection />
+
+        {GRADE_GROUPS.map(({ grade, units }) => (
+          <div key={grade} className={styles.gradeSection}>
+            <h3 className={styles.gradeTitle}>
+              {grade}학년
+              {grade === 2 ? <span className={styles.gradeBadge}>현재 학년</span> : null}
+            </h3>
+
+            <div className={styles.unitList}>
+              {units.map((unit) => {
+                const unlocked = isUnitUnlocked(unit);
+                const { passedDays, allDone } = getUnitProgress(unit.id, DAYS_PER_UNIT);
+                const currentDay = globalThis.Math.min(getCurrentDay(unit.id), DAYS_PER_UNIT);
+                const hasProgress = passedDays > 0;
+
+                const cardContent = (
+                  <>
+                    <div className={styles.unitMeta}>
+                      <div className={styles.unitLeft}>
+                        <span className={styles.unitIcon}>{unit.icon}</span>
+                        <div>
+                          <strong className={styles.unitTitle}>{unit.title}</strong>
+                          <span className={styles.unitDesc}>{unit.description}</span>
+                        </div>
+                      </div>
+                      <div className={styles.unitRight}>
+                        {!unlocked ? (
+                          <span className={styles.tagLocked}>🔒 잠김</span>
+                        ) : allDone ? (
+                          <span className={styles.tagDone}>✅ 완료</span>
+                        ) : hasProgress ? (
+                          <span className={styles.tagTried}>Day {currentDay} 진행 중</span>
+                        ) : (
+                          <span className={styles.tagNew}>Day 1 시작</span>
+                        )}
+                      </div>
+                    </div>
+
+                    {unlocked ? <ProgressDots unitId={unit.id} /> : null}
+                    {unlocked ? (
+                      <p className={styles.unitDayCount}>
+                        {passedDays} / {DAYS_PER_UNIT}일 완료
+                        {!allDone ? ` · 오늘: Day ${currentDay}` : ''}
+                      </p>
+                    ) : null}
+                  </>
+                );
+
+                return unlocked ? (
+                  <Link key={unit.id} to={`/math/${unit.id}`} className={styles.unitCard}>
+                    {cardContent}
+                  </Link>
+                ) : (
+                  <div
+                    key={unit.id}
+                    className={`${styles.unitCard} ${styles.unitCardDisabled}`}
+                    aria-disabled="true"
+                  >
+                    {cardContent}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );

@@ -57,7 +57,7 @@
   예: 시계 읽기 단원의 `{ "visual": { "type": "clock", "hour": 3, "minute": 30 } }`
   예: 파닉스 단원의 `{ "visual": { "type": "phonics-card", "upper": "A", "lower": "a", "soundLabel": "첫소리 A/a" } }`
   예: 단위 학습 단원의 `{ "visual": { "type": "measurement-card", "category": "length", "title": "120 cm" } }`
-- 단원 문제는 정적 JSON일 수도 있고, 덧셈/뺄셈처럼 `generateQuestions`로 실행 시점에 만들어질 수도 있다.
+- 단원 문제는 정적 JSON일 수도 있고, 필요하면 `generateQuestions`로 실행 시점에 만들어질 수도 있다.
 - 파닉스 카드처럼 소리가 중요한 단원은 브라우저가 지원할 때 `소리 듣기` 액션을 함께 제공할 수 있다.
 
 ### 향후 추가: matching (짝 맞추기)

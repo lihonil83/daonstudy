@@ -27,22 +27,22 @@ test('QuestionVisual renders measurement cards with unit guidance', () => {
   assert.match(html, /길이 단위 생각하기/);
 });
 
-test('QuestionVisual renders equation cards with arithmetic cues', () => {
+test('QuestionVisual renders equation cards with multiplication cues', () => {
   const html = renderToStaticMarkup(
     React.createElement(QuestionVisual, {
       visual: {
         type: 'equation-card',
-        category: 'addition',
-        expression: '7 \+ 5',
-        label: '덧셈 카드',
-        guide: '두 수를 합치면 얼마가 되는지 떠올려보세요.',
+        category: 'multiplication',
+        expression: '3 x 4',
+        label: '곱셈 카드',
+        guide: '같은 수를 여러 번 더한 값을 떠올려보세요.',
       },
     }),
   );
 
-  assert.match(html, /덧셈 카드/);
-  assert.match(html, /7 \+ 5/);
-  assert.match(html, /덧셈 생각하기/);
+  assert.match(html, /곱셈 카드/);
+  assert.match(html, /3 x 4/);
+  assert.match(html, /곱셈 생각하기/);
 });
 
 test('QuestionVisual renders phonics cards with keyword and sound chip', () => {

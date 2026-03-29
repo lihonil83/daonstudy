@@ -12,162 +12,138 @@ import multiplication2 from './math/multiplication-2.json';
 import multiplication3 from './math/multiplication-3.json';
 import multiplication4 from './math/multiplication-4.json';
 import weightUnits from './math/weight-units.json';
-import { buildArithmeticQuestionBank } from '../models/arithmeticModel.js';
 
-export const MATH_UNITS = {
-  'multiplication-2': {
+const MATH_CHALLENGE_QUESTION_COUNT = 120;
+
+export const MATH_CHALLENGE_UNITS = [
+  {
     id: 'multiplication-2',
-    title: '2단 구구단',
-    description: '2단을 주제로 한 10문제 랜덤 퀴즈입니다.',
+    title: multiplication2.title,
+    description: '2단 구구단을 120문제로 충분히 연습해요.',
     subject: 'math',
     available: true,
+    questionCount: MATH_CHALLENGE_QUESTION_COUNT,
     data: multiplication2,
   },
-  'multiplication-3': {
+  {
     id: 'multiplication-3',
-    title: '3단 구구단',
-    description: '3단을 주제로 한 10문제 랜덤 퀴즈입니다.',
+    title: multiplication3.title,
+    description: '3단 구구단을 120문제로 반복 연습해요.',
     subject: 'math',
     available: true,
+    questionCount: MATH_CHALLENGE_QUESTION_COUNT,
     data: multiplication3,
   },
-  'multiplication-4': {
+  {
     id: 'multiplication-4',
-    title: '4단 구구단',
-    description: '4단을 주제로 한 10문제 랜덤 퀴즈입니다.',
+    title: multiplication4.title,
+    description: '4단 구구단까지 120문제로 넓혀서 도전해요.',
     subject: 'math',
     available: true,
+    questionCount: MATH_CHALLENGE_QUESTION_COUNT,
     data: multiplication4,
   },
-  'clock-reading': {
-    id: 'clock-reading',
-    title: '시계 읽기',
-    description: '시계 그림을 보고 몇 시인지 고르는 10문제 랜덤 퀴즈입니다.',
-    subject: 'math',
-    available: true,
-    data: clockReading,
-  },
-  'clock-reading-advanced': {
-    id: 'clock-reading-advanced',
-    title: '시계 읽기 심화',
-    description: '15분과 45분 시각을 읽는 10문제 랜덤 퀴즈입니다.',
-    subject: 'math',
-    available: true,
-    data: clockReadingAdvanced,
-  },
-  'length-units': {
+  {
     id: 'length-units',
-    title: '길이 단위',
-    description: 'm와 cm를 바꾸어 생각하는 10문제 랜덤 퀴즈입니다.',
+    title: lengthUnits.title,
+    description: '길이 단위를 120문제로 충분히 익혀요.',
     subject: 'math',
     available: true,
+    questionCount: MATH_CHALLENGE_QUESTION_COUNT,
     data: lengthUnits,
   },
-  'weight-units': {
+  {
     id: 'weight-units',
-    title: '무게 단위',
-    description: 'kg와 g를 바꾸어 생각하는 10문제 랜덤 퀴즈입니다.',
+    title: weightUnits.title,
+    description: '무게 단위를 120문제로 반복 연습해요.',
     subject: 'math',
     available: true,
+    questionCount: MATH_CHALLENGE_QUESTION_COUNT,
     data: weightUnits,
   },
-  'addition-up-to-20': {
-    id: 'addition-up-to-20',
-    title: '덧셈 20까지',
-    description: '20 안에서 덧셈 문제를 자동으로 만드는 10문제 생성형 퀴즈입니다.',
+  {
+    id: 'clock-reading',
+    title: clockReading.title,
+    description: '시계 읽기를 120문제로 길게 연습해요.',
     subject: 'math',
     available: true,
-    questionCount: 10,
-    data: {
-      generateQuestions: () =>
-        buildArithmeticQuestionBank({
-          operation: 'addition',
-          minLeft: 1,
-          maxLeft: 10,
-          minRight: 1,
-          maxRight: 10,
-          minAnswer: 2,
-          maxAnswer: 20,
-        }),
-    },
+    questionCount: MATH_CHALLENGE_QUESTION_COUNT,
+    data: clockReading,
   },
-  'subtraction-up-to-20': {
-    id: 'subtraction-up-to-20',
-    title: '뺄셈 20까지',
-    description: '20 안에서 뺄셈 문제를 자동으로 만드는 10문제 생성형 퀴즈입니다.',
+  {
+    id: 'clock-reading-advanced',
+    title: clockReadingAdvanced.title,
+    description: '확장 시계 읽기를 120문제로 탄탄히 익혀요.',
     subject: 'math',
     available: true,
-    questionCount: 10,
-    data: {
-      generateQuestions: () =>
-        buildArithmeticQuestionBank({
-          operation: 'subtraction',
-          minLeft: 2,
-          maxLeft: 20,
-          minRight: 1,
-          maxRight: 10,
-          minAnswer: 0,
-          maxAnswer: 20,
-        }),
-    },
+    questionCount: MATH_CHALLENGE_QUESTION_COUNT,
+    data: clockReadingAdvanced,
   },
-};
+];
 
-export const ENGLISH_UNITS = {
-  'alphabet-upper': {
+export const ENGLISH_CHALLENGE_UNITS = [
+  {
     id: 'alphabet-upper',
-    title: '알파벳 대문자',
-    description: '알파벳 대문자 기초를 익히는 10문제 랜덤 퀴즈입니다.',
+    title: alphabetUpper.title,
+    description: '알파벳 대문자를 10문제 퀴즈로 익혀요.',
     subject: 'english',
     available: true,
     data: alphabetUpper,
   },
-  'alphabet-lower': {
+  {
     id: 'alphabet-lower',
-    title: '알파벳 소문자',
-    description: '알파벳 소문자 기초를 익히는 10문제 랜덤 퀴즈입니다.',
+    title: alphabetLower.title,
+    description: '알파벳 소문자를 10문제 퀴즈로 익혀요.',
     subject: 'english',
     available: true,
     data: alphabetLower,
   },
-  'words-colors': {
-    id: 'words-colors',
-    title: '색깔 단어',
-    description: '색깔 기초 단어를 익히는 10문제 랜덤 퀴즈입니다.',
-    subject: 'english',
-    available: true,
-    data: wordsColors,
-  },
-  'words-animals': {
-    id: 'words-animals',
-    title: '동물 단어',
-    description: '동물 기초 단어를 익히는 10문제 랜덤 퀴즈입니다.',
-    subject: 'english',
-    available: true,
-    data: wordsAnimals,
-  },
-  'phonics-a': {
+  {
     id: 'phonics-a',
-    title: '파닉스 A',
-    description: 'A/a 첫소리와 연결되는 낱말을 익히는 10문제 랜덤 퀴즈입니다.',
+    title: phonicsA.title,
+    description: 'A/a 첫소리를 낱말과 연결해보는 퀴즈예요.',
     subject: 'english',
     available: true,
     data: phonicsA,
   },
-  'phonics-b': {
+  {
     id: 'phonics-b',
-    title: '파닉스 B',
-    description: 'B/b 첫소리와 연결되는 낱말을 익히는 10문제 랜덤 퀴즈입니다.',
+    title: phonicsB.title,
+    description: 'B/b 첫소리를 낱말과 연결해보는 퀴즈예요.',
     subject: 'english',
     available: true,
     data: phonicsB,
   },
-  'phonics-c': {
+  {
     id: 'phonics-c',
-    title: '파닉스 C',
-    description: 'C/c 첫소리와 연결되는 낱말을 익히는 10문제 랜덤 퀴즈입니다.',
+    title: phonicsC.title,
+    description: 'C/c 첫소리를 낱말과 연결해보는 퀴즈예요.',
     subject: 'english',
     available: true,
     data: phonicsC,
   },
-};
+  {
+    id: 'words-colors',
+    title: wordsColors.title,
+    description: '색깔 단어를 듣고 고르는 영어 퀴즈예요.',
+    subject: 'english',
+    available: true,
+    data: wordsColors,
+  },
+  {
+    id: 'words-animals',
+    title: wordsAnimals.title,
+    description: '동물 단어를 듣고 고르는 영어 퀴즈예요.',
+    subject: 'english',
+    available: true,
+    data: wordsAnimals,
+  },
+];
+
+export const MATH_UNITS = Object.fromEntries(
+  MATH_CHALLENGE_UNITS.map((unit) => [unit.id, unit]),
+);
+
+export const ENGLISH_UNITS = Object.fromEntries(
+  ENGLISH_CHALLENGE_UNITS.map((unit) => [unit.id, unit]),
+);

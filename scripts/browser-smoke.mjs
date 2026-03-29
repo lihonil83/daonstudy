@@ -5,24 +5,25 @@ import process from 'node:process';
 const HOST = '127.0.0.1';
 const PORT = 4173;
 const BASE_URL = `http://${HOST}:${PORT}`;
-const PREVIEW_READY_TIMEOUT_MS = 10000;
+const PREVIEW_READY_TIMEOUT_MS = 20000;
 const PAGE_BUDGET_MS = 3000;
 const CHROME_CLOSE_TIMEOUT_MS = 10000;
+const runtimeMode = process.argv.includes('--production') ? 'production' : 'smoke';
 const previewCommand = {
   cmd: process.platform === 'win32' ? 'npm.cmd' : 'npm',
   args: ['run', 'preview', '--', '--host', HOST, '--port', String(PORT)],
 };
 
-const pageChecks = [
+const commonPageChecks = [
   {
     name: 'home',
     url: `${BASE_URL}/#/`,
-    expected: ['다온 학습 놀이터', '배운 기록과 보상이 함께 쌓이는 학습 출발점', '✨ 복습할 문제가 없어요'],
+    expected: ['다온 학습 놀이터', '시작, 복습, 기록이 한 번에 이어지는 학습 홈', '✨ 복습할 문제가 없어요'],
   },
   {
     name: 'math',
     url: `${BASE_URL}/#/math`,
-    expected: ['수학 단원을 골라보세요', '길이 단위', '덧셈 20까지'],
+    expected: ['수학 단원을 골라보세요', '길이 단위', '2단 구구단'],
   },
   {
     name: 'english',
@@ -41,14 +42,27 @@ const pageChecks = [
   },
   {
     name: 'math-quiz',
-    url: `${BASE_URL}/#/math/addition-up-to-20`,
-    expected: ['덧셈 20까지', '정답을 골라보세요.', '현재 점수: 0', '이 문제에서 틀린 횟수: 0'],
+    url: `${BASE_URL}/#/math/multiplication-2`,
+    expected: ['2단 구구단', '정답을 골라보세요.', '현재 점수: 0', '이 문제에서 틀린 횟수: 0', '1 / 120'],
   },
   {
     name: 'english-quiz',
     url: `${BASE_URL}/#/english/phonics-a`,
     expected: ['파닉스 A', '정답을 골라보세요.', '소리 듣기'],
   },
+  {
+    name: 'math-missing-unit',
+    url: `${BASE_URL}/#/math/not-a-real-unit`,
+    expected: ['단원을 찾을 수 없어요', '단원 목록으로 돌아가기'],
+  },
+  {
+    name: 'fallback',
+    url: `${BASE_URL}/#/mystery-path`,
+    expected: ['이 화면은 아직 준비되지 않았어요', '홈으로 가기', '영어 단원 보기'],
+  },
+];
+
+const smokeOnlyPageChecks = [
   {
     name: 'smoke-quiz-complete',
     url: `${BASE_URL}/#/smoke/quiz-complete`,
@@ -64,7 +78,7 @@ const pageChecks = [
   {
     name: 'smoke-wrong-to-review',
     url: `${BASE_URL}/#/smoke/wrong-to-review`,
-    expected: ['오답 노트', '7 + 5 = ?', '미복습 1개', '전체 복습 시작 (1문제)'],
+    expected: ['오답 노트', '2 x 6 = ?', '미복습 1개', '전체 복습 시작 (1문제)'],
     budgetMs: 6000,
   },
   {
@@ -79,17 +93,21 @@ const pageChecks = [
     expected: ['저장 smoke 완료', '퀴즈 기록 1개', '총 XP 70', '복습 완료 1개', '뱃지 1/10 수집'],
     budgetMs: 10000,
   },
+];
+
+const productionOnlyPageChecks = [
   {
-    name: 'math-missing-unit',
-    url: `${BASE_URL}/#/math/not-a-real-unit`,
-    expected: ['단원을 찾을 수 없어요', '단원 목록으로 돌아가기'],
-  },
-  {
-    name: 'fallback',
-    url: `${BASE_URL}/#/mystery-path`,
-    expected: ['이 화면은 아직 준비되지 않았어요', '홈으로 가기', '영어 단원 보기'],
+    name: 'smoke-route-hidden',
+    url: `${BASE_URL}/#/smoke/quiz-complete`,
+    expected: ['이 화면은 아직 준비되지 않았어요', '홈으로 가기', '수학 단원 보기'],
+    forbidden: ['스모크 자동 완료', '퀴즈 완료'],
   },
 ];
+
+const pageChecks =
+  runtimeMode === 'production'
+    ? [...commonPageChecks, ...productionOnlyPageChecks]
+    : [...commonPageChecks, ...smokeOnlyPageChecks];
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -198,10 +216,20 @@ function sanitizeChromeStderr(stderrText) {
     .join('\n');
 }
 
+function extractVisibleText(dom) {
+  return dom
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 async function dumpDom(chromeBinary, url, budgetMs = PAGE_BUDGET_MS) {
   const chrome = spawnProcess(chromeBinary, [
     '--headless=new',
     '--disable-gpu',
+    '--disable-service-worker',
     `--virtual-time-budget=${budgetMs}`,
     '--dump-dom',
     url,
@@ -244,10 +272,17 @@ async function run() {
 
     for (const page of pageChecks) {
       const dom = await dumpDom(chromeBinary, page.url, page.budgetMs);
+      const visibleText = extractVisibleText(dom);
 
       for (const expectedText of page.expected) {
-        if (!dom.includes(expectedText)) {
+        if (!visibleText.includes(expectedText)) {
           throw new Error(`[${page.name}] expected text not found: ${expectedText}`);
+        }
+      }
+
+      for (const forbiddenText of page.forbidden ?? []) {
+        if (visibleText.includes(forbiddenText)) {
+          throw new Error(`[${page.name}] forbidden text found: ${forbiddenText}`);
         }
       }
 

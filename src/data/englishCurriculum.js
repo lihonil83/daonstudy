@@ -1,0 +1,396 @@
+/**
+ * 영어 커리큘럼 — Stage 1 (2학년, Pre-A1)
+ * 알파벳 대·소문자, 파닉스, 기초 주제별 단어 200개
+ *
+ * quizMode:
+ *   'pick-letter' → 이모지/단어 보고 첫 글자(대문자) 고르기
+ *   'pick-lower'  → 대문자 보고 소문자 고르기
+ *   'pick-word'   → 이모지 보고 영어 단어 고르기
+ */
+
+// ─── 단원 1: 알파벳 대문자 ───────────────────────────────────────────
+const UPPERCASE_CARDS = [
+  { id: 'A', letter: 'A', word: 'Apple',      emoji: '🍎', korean: '사과' },
+  { id: 'B', letter: 'B', word: 'Ball',       emoji: '🏀', korean: '공' },
+  { id: 'C', letter: 'C', word: 'Cat',        emoji: '🐱', korean: '고양이' },
+  { id: 'D', letter: 'D', word: 'Dog',        emoji: '🐶', korean: '개' },
+  { id: 'E', letter: 'E', word: 'Elephant',   emoji: '🐘', korean: '코끼리' },
+  { id: 'F', letter: 'F', word: 'Fish',       emoji: '🐟', korean: '물고기' },
+  { id: 'G', letter: 'G', word: 'Grape',      emoji: '🍇', korean: '포도' },
+  { id: 'H', letter: 'H', word: 'Hat',        emoji: '🎩', korean: '모자' },
+  { id: 'I', letter: 'I', word: 'Ice cream',  emoji: '🍦', korean: '아이스크림' },
+  { id: 'J', letter: 'J', word: 'Juice',      emoji: '🥤', korean: '주스' },
+  { id: 'K', letter: 'K', word: 'Kite',       emoji: '🪁', korean: '연' },
+  { id: 'L', letter: 'L', word: 'Lion',       emoji: '🦁', korean: '사자' },
+  { id: 'M', letter: 'M', word: 'Moon',       emoji: '🌙', korean: '달' },
+  { id: 'N', letter: 'N', word: 'Nose',       emoji: '👃', korean: '코' },
+  { id: 'O', letter: 'O', word: 'Orange',     emoji: '🍊', korean: '오렌지' },
+  { id: 'P', letter: 'P', word: 'Pizza',      emoji: '🍕', korean: '피자' },
+  { id: 'Q', letter: 'Q', word: 'Queen',      emoji: '👑', korean: '여왕' },
+  { id: 'R', letter: 'R', word: 'Rainbow',    emoji: '🌈', korean: '무지개' },
+  { id: 'S', letter: 'S', word: 'Sun',        emoji: '☀️', korean: '태양' },
+  { id: 'T', letter: 'T', word: 'Tiger',      emoji: '🐯', korean: '호랑이' },
+  { id: 'U', letter: 'U', word: 'Umbrella',   emoji: '☂️', korean: '우산' },
+  { id: 'V', letter: 'V', word: 'Violin',     emoji: '🎻', korean: '바이올린' },
+  { id: 'W', letter: 'W', word: 'Watermelon', emoji: '🍉', korean: '수박' },
+  { id: 'X', letter: 'X', word: 'X-ray',      emoji: '🩻', korean: '엑스레이' },
+  { id: 'Y', letter: 'Y', word: 'Yo-yo',      emoji: '🪀', korean: '요요' },
+  { id: 'Z', letter: 'Z', word: 'Zebra',      emoji: '🦓', korean: '얼룩말' },
+];
+
+// ─── 단원 2: 알파벳 소문자 (같은 단어, 소문자 표시) ─────────────────
+const LOWERCASE_CARDS = UPPERCASE_CARDS.map(c => ({
+  ...c,
+  id: c.letter.toLowerCase(),
+  letter: c.letter.toLowerCase(),
+  word: c.word.toLowerCase(),
+  upperLetter: c.letter, // 대문자 참조용
+}));
+
+// ─── 단원 3: 파닉스 — 단모음 5개 ────────────────────────────────────
+const PHONICS_VOWEL_CARDS = [
+  { id: 'cat',    word: 'cat',    emoji: '🐱', korean: '고양이',  vowel: 'a' },
+  { id: 'bag',    word: 'bag',    emoji: '👜', korean: '가방',    vowel: 'a' },
+  { id: 'hat',    word: 'hat',    emoji: '🎩', korean: '모자',    vowel: 'a' },
+  { id: 'map',    word: 'map',    emoji: '🗺️', korean: '지도',    vowel: 'a' },
+  { id: 'fan',    word: 'fan',    emoji: '🌀', korean: '선풍기',  vowel: 'a' },
+  { id: 'bed',    word: 'bed',    emoji: '🛏️', korean: '침대',    vowel: 'e' },
+  { id: 'red',    word: 'red',    emoji: '🔴', korean: '빨간색',  vowel: 'e' },
+  { id: 'pen',    word: 'pen',    emoji: '🖊️', korean: '펜',      vowel: 'e' },
+  { id: 'hen',    word: 'hen',    emoji: '🐔', korean: '암탉',    vowel: 'e' },
+  { id: 'net',    word: 'net',    emoji: '🪤', korean: '그물',    vowel: 'e' },
+  { id: 'sit',    word: 'sit',    emoji: '🪑', korean: '앉다',    vowel: 'i' },
+  { id: 'pig',    word: 'pig',    emoji: '🐷', korean: '돼지',    vowel: 'i' },
+  { id: 'fish_v', word: 'fish',   emoji: '🐟', korean: '물고기',  vowel: 'i' },
+  { id: 'lips',   word: 'lip',    emoji: '👄', korean: '입술',    vowel: 'i' },
+  { id: 'pin',    word: 'pin',    emoji: '📌', korean: '핀',      vowel: 'i' },
+  { id: 'hot',    word: 'hot',    emoji: '🔥', korean: '뜨거운',  vowel: 'o' },
+  { id: 'dog_v',  word: 'dog',    emoji: '🐶', korean: '개',      vowel: 'o' },
+  { id: 'pot',    word: 'pot',    emoji: '🪴', korean: '화분',    vowel: 'o' },
+  { id: 'box',    word: 'box',    emoji: '📦', korean: '상자',    vowel: 'o' },
+  { id: 'fox',    word: 'fox',    emoji: '🦊', korean: '여우',    vowel: 'o' },
+  { id: 'cup',    word: 'cup',    emoji: '☕', korean: '컵',      vowel: 'u' },
+  { id: 'bus',    word: 'bus',    emoji: '🚌', korean: '버스',    vowel: 'u' },
+  { id: 'sun_v',  word: 'sun',    emoji: '☀️', korean: '태양',    vowel: 'u' },
+  { id: 'run',    word: 'run',    emoji: '🏃', korean: '달리다',  vowel: 'u' },
+  { id: 'bug',    word: 'bug',    emoji: '🐛', korean: '벌레',    vowel: 'u' },
+];
+
+// ─── 단원 4: 파닉스 — CVC 패밀리 ────────────────────────────────────
+const PHONICS_CVC_CARDS = [
+  { id: 'cat2',  word: 'cat',  emoji: '🐱', korean: '고양이',  family: '-at' },
+  { id: 'bat',   word: 'bat',  emoji: '🦇', korean: '박쥐',    family: '-at' },
+  { id: 'hat2',  word: 'hat',  emoji: '🎩', korean: '모자',    family: '-at' },
+  { id: 'rat',   word: 'rat',  emoji: '🐀', korean: '쥐',      family: '-at' },
+  { id: 'mat',   word: 'mat',  emoji: '🟫', korean: '매트',    family: '-at' },
+  { id: 'can',   word: 'can',  emoji: '🥫', korean: '캔',      family: '-an' },
+  { id: 'fan2',  word: 'fan',  emoji: '🌀', korean: '선풍기',  family: '-an' },
+  { id: 'man',   word: 'man',  emoji: '🧔', korean: '남자',    family: '-an' },
+  { id: 'pan',   word: 'pan',  emoji: '🍳', korean: '팬',      family: '-an' },
+  { id: 'van',   word: 'van',  emoji: '🚐', korean: '밴',      family: '-an' },
+  { id: 'bit',   word: 'bit',  emoji: '🔩', korean: '조금',    family: '-it' },
+  { id: 'sit2',  word: 'sit',  emoji: '🪑', korean: '앉다',    family: '-it' },
+  { id: 'hit',   word: 'hit',  emoji: '🥊', korean: '치다',    family: '-it' },
+  { id: 'fit',   word: 'fit',  emoji: '💪', korean: '맞다',    family: '-it' },
+  { id: 'pit',   word: 'pit',  emoji: '🕳️', korean: '구덩이',  family: '-it' },
+  { id: 'bin',   word: 'bin',  emoji: '🗑️', korean: '쓰레기통', family: '-in' },
+  { id: 'fin',   word: 'fin',  emoji: '🐟', korean: '지느러미', family: '-in' },
+  { id: 'pin2',  word: 'pin',  emoji: '📌', korean: '핀',      family: '-in' },
+  { id: 'win',   word: 'win',  emoji: '🏆', korean: '이기다',  family: '-in' },
+  { id: 'tin',   word: 'tin',  emoji: '🪣', korean: '양철통',  family: '-in' },
+  { id: 'dot',   word: 'dot',  emoji: '⚫', korean: '점',      family: '-ot' },
+  { id: 'hot2',  word: 'hot',  emoji: '🔥', korean: '뜨거운',  family: '-ot' },
+  { id: 'pot2',  word: 'pot',  emoji: '🪴', korean: '화분',    family: '-ot' },
+  { id: 'got',   word: 'got',  emoji: '✅', korean: '얻었다',  family: '-ot' },
+  { id: 'lot',   word: 'lot',  emoji: '🌟', korean: '많은',    family: '-ot' },
+  { id: 'bun',   word: 'bun',  emoji: '🍞', korean: '빵',      family: '-un' },
+  { id: 'fun',   word: 'fun',  emoji: '🎉', korean: '재미',    family: '-un' },
+  { id: 'run2',  word: 'run',  emoji: '🏃', korean: '달리다',  family: '-un' },
+  { id: 'sun2',  word: 'sun',  emoji: '☀️', korean: '태양',    family: '-un' },
+  { id: 'gun',   word: 'gun',  emoji: '🔫', korean: '총',      family: '-un' },
+];
+
+// ─── 단원 5: 숫자 1~20 ──────────────────────────────────────────────
+const NUMBER_CARDS = [
+  { id: 'n1',  word: 'one',      emoji: '1️⃣',  korean: '하나 (1)' },
+  { id: 'n2',  word: 'two',      emoji: '2️⃣',  korean: '둘 (2)' },
+  { id: 'n3',  word: 'three',    emoji: '3️⃣',  korean: '셋 (3)' },
+  { id: 'n4',  word: 'four',     emoji: '4️⃣',  korean: '넷 (4)' },
+  { id: 'n5',  word: 'five',     emoji: '5️⃣',  korean: '다섯 (5)' },
+  { id: 'n6',  word: 'six',      emoji: '6️⃣',  korean: '여섯 (6)' },
+  { id: 'n7',  word: 'seven',    emoji: '7️⃣',  korean: '일곱 (7)' },
+  { id: 'n8',  word: 'eight',    emoji: '8️⃣',  korean: '여덟 (8)' },
+  { id: 'n9',  word: 'nine',     emoji: '9️⃣',  korean: '아홉 (9)' },
+  { id: 'n10', word: 'ten',      emoji: '🔟',  korean: '열 (10)' },
+  { id: 'n11', word: 'eleven',   emoji: '1️⃣1️⃣', korean: '열하나 (11)' },
+  { id: 'n12', word: 'twelve',   emoji: '1️⃣2️⃣', korean: '열둘 (12)' },
+  { id: 'n13', word: 'thirteen', emoji: '1️⃣3️⃣', korean: '열셋 (13)' },
+  { id: 'n14', word: 'fourteen', emoji: '1️⃣4️⃣', korean: '열넷 (14)' },
+  { id: 'n15', word: 'fifteen',  emoji: '1️⃣5️⃣', korean: '열다섯 (15)' },
+  { id: 'n16', word: 'sixteen',  emoji: '1️⃣6️⃣', korean: '열여섯 (16)' },
+  { id: 'n17', word: 'seventeen',emoji: '1️⃣7️⃣', korean: '열일곱 (17)' },
+  { id: 'n18', word: 'eighteen', emoji: '1️⃣8️⃣', korean: '열여덟 (18)' },
+  { id: 'n19', word: 'nineteen', emoji: '1️⃣9️⃣', korean: '열아홉 (19)' },
+  { id: 'n20', word: 'twenty',   emoji: '2️⃣0️⃣', korean: '스물 (20)' },
+];
+
+// ─── 단원 6: 색깔 ────────────────────────────────────────────────────
+const COLOR_CARDS = [
+  { id: 'red',    word: 'red',    emoji: '🔴', korean: '빨간색' },
+  { id: 'blue',   word: 'blue',   emoji: '🔵', korean: '파란색' },
+  { id: 'green',  word: 'green',  emoji: '🟢', korean: '초록색' },
+  { id: 'yellow', word: 'yellow', emoji: '🟡', korean: '노란색' },
+  { id: 'orange', word: 'orange', emoji: '🟠', korean: '주황색' },
+  { id: 'purple', word: 'purple', emoji: '🟣', korean: '보라색' },
+  { id: 'pink',   word: 'pink',   emoji: '🩷', korean: '분홍색' },
+  { id: 'white',  word: 'white',  emoji: '⬜', korean: '흰색' },
+  { id: 'black',  word: 'black',  emoji: '⬛', korean: '검은색' },
+  { id: 'brown',  word: 'brown',  emoji: '🟫', korean: '갈색' },
+  { id: 'gray',   word: 'gray',   emoji: '🩶', korean: '회색' },
+  { id: 'gold',   word: 'gold',   emoji: '🌟', korean: '금색' },
+];
+
+// ─── 단원 7: 동물 ────────────────────────────────────────────────────
+const ANIMAL_CARDS = [
+  { id: 'dog',      word: 'dog',      emoji: '🐶', korean: '개' },
+  { id: 'cat',      word: 'cat',      emoji: '🐱', korean: '고양이' },
+  { id: 'bird',     word: 'bird',     emoji: '🐦', korean: '새' },
+  { id: 'fish',     word: 'fish',     emoji: '🐟', korean: '물고기' },
+  { id: 'rabbit',   word: 'rabbit',   emoji: '🐰', korean: '토끼' },
+  { id: 'bear',     word: 'bear',     emoji: '🐻', korean: '곰' },
+  { id: 'tiger',    word: 'tiger',    emoji: '🐯', korean: '호랑이' },
+  { id: 'elephant', word: 'elephant', emoji: '🐘', korean: '코끼리' },
+  { id: 'monkey',   word: 'monkey',   emoji: '🐵', korean: '원숭이' },
+  { id: 'lion',     word: 'lion',     emoji: '🦁', korean: '사자' },
+  { id: 'frog',     word: 'frog',     emoji: '🐸', korean: '개구리' },
+  { id: 'duck',     word: 'duck',     emoji: '🦆', korean: '오리' },
+  { id: 'horse',    word: 'horse',    emoji: '🐴', korean: '말' },
+  { id: 'cow',      word: 'cow',      emoji: '🐮', korean: '소' },
+  { id: 'pig',      word: 'pig',      emoji: '🐷', korean: '돼지' },
+  { id: 'sheep',    word: 'sheep',    emoji: '🐑', korean: '양' },
+  { id: 'penguin',  word: 'penguin',  emoji: '🐧', korean: '펭귄' },
+  { id: 'snake',    word: 'snake',    emoji: '🐍', korean: '뱀' },
+  { id: 'turtle',   word: 'turtle',   emoji: '🐢', korean: '거북이' },
+  { id: 'whale',    word: 'whale',    emoji: '🐳', korean: '고래' },
+];
+
+// ─── 단원 9: 첫 문장 (I am / This is) ───────────────────────────────
+const FIRST_SENTENCE_CARDS = [
+  // I am + 형용사
+  { id: 'fs01', word: 'I am happy.',      emoji: '😊', korean: '나는 행복해요.',       pattern: 'I am + 형용사' },
+  { id: 'fs02', word: 'I am tired.',      emoji: '😴', korean: '나는 피곤해요.',       pattern: 'I am + 형용사' },
+  { id: 'fs03', word: 'I am hungry.',     emoji: '🍽️', korean: '나는 배고파요.',       pattern: 'I am + 형용사' },
+  { id: 'fs04', word: 'I am big.',        emoji: '🦒', korean: '나는 커요.',           pattern: 'I am + 형용사' },
+  { id: 'fs05', word: 'I am small.',      emoji: '🐭', korean: '나는 작아요.',         pattern: 'I am + 형용사' },
+  { id: 'fs06', word: 'I am fast.',       emoji: '🏃', korean: '나는 빨라요.',         pattern: 'I am + 형용사' },
+  // I am + 명사
+  { id: 'fs07', word: 'I am a student.', emoji: '🎒', korean: '나는 학생이에요.',     pattern: 'I am + 명사' },
+  { id: 'fs08', word: 'I am a boy.',     emoji: '👦', korean: '나는 소년이에요.',     pattern: 'I am + 명사' },
+  { id: 'fs09', word: 'I am a girl.',    emoji: '👧', korean: '나는 소녀예요.',       pattern: 'I am + 명사' },
+  { id: 'fs10', word: 'I am a cat.',     emoji: '🐱', korean: '나는 고양이예요.',     pattern: 'I am + 명사' },
+  // This is + 명사
+  { id: 'fs11', word: 'This is a cat.',  emoji: '🐱', korean: '이것은 고양이예요.',   pattern: 'This is + 명사' },
+  { id: 'fs12', word: 'This is a dog.',  emoji: '🐶', korean: '이것은 개예요.',       pattern: 'This is + 명사' },
+  { id: 'fs13', word: 'This is a bird.', emoji: '🐦', korean: '이것은 새예요.',       pattern: 'This is + 명사' },
+  { id: 'fs14', word: 'This is a book.', emoji: '📚', korean: '이것은 책이에요.',     pattern: 'This is + 명사' },
+  { id: 'fs15', word: 'This is a pen.',  emoji: '🖊️', korean: '이것은 펜이에요.',     pattern: 'This is + 명사' },
+  { id: 'fs16', word: 'This is a bag.',  emoji: '👜', korean: '이것은 가방이에요.',   pattern: 'This is + 명사' },
+  // This is + 형용사
+  { id: 'fs17', word: 'This is red.',    emoji: '🔴', korean: '이것은 빨간색이에요.', pattern: 'This is + 형용사' },
+  { id: 'fs18', word: 'This is big.',    emoji: '🐘', korean: '이것은 커요.',         pattern: 'This is + 형용사' },
+  { id: 'fs19', word: 'This is small.',  emoji: '🐭', korean: '이것은 작아요.',       pattern: 'This is + 형용사' },
+  { id: 'fs20', word: 'This is my hand.',emoji: '🖐️', korean: '이것은 내 손이에요.',  pattern: 'This is + 명사' },
+];
+
+// ─── 단원 10: 인사와 소개 ────────────────────────────────────────────
+const GREETING_CARDS = [
+  { id: 'gr01', word: 'Hello!',                    emoji: '👋', korean: '안녕하세요!' },
+  { id: 'gr02', word: 'Hi!',                        emoji: '😊', korean: '안녕!' },
+  { id: 'gr03', word: 'Good morning!',              emoji: '🌅', korean: '좋은 아침이에요!' },
+  { id: 'gr04', word: 'Good afternoon!',            emoji: '☀️', korean: '좋은 오후예요!' },
+  { id: 'gr05', word: 'Good night!',                emoji: '🌙', korean: '잘 자요!' },
+  { id: 'gr06', word: 'Goodbye!',                   emoji: '👋', korean: '안녕히 가세요!' },
+  { id: 'gr07', word: 'My name is ___ .',           emoji: '🙋', korean: '내 이름은 ___이에요.' },
+  { id: 'gr08', word: 'Nice to meet you!',          emoji: '🤝', korean: '만나서 반가워요!' },
+  { id: 'gr09', word: 'How are you?',               emoji: '💬', korean: '어떻게 지내요?' },
+  { id: 'gr10', word: 'I am fine. Thank you.',      emoji: '😊', korean: '잘 지내요. 감사해요.' },
+  { id: 'gr11', word: 'I am happy!',                emoji: '😄', korean: '나는 행복해요!' },
+  { id: 'gr12', word: 'I am sad.',                  emoji: '😢', korean: '나는 슬퍼요.' },
+  { id: 'gr13', word: 'I am sleepy.',               emoji: '😴', korean: '나는 졸려요.' },
+  { id: 'gr14', word: 'I am excited!',              emoji: '🎉', korean: '나는 신나요!' },
+  { id: 'gr15', word: 'See you later!',             emoji: '✌️', korean: '나중에 봐요!' },
+  { id: 'gr16', word: 'Thank you!',                 emoji: '🙏', korean: '감사해요!' },
+];
+
+// ─── 단원 8: 신체 부위 ────────────────────────────────────────────────
+const BODY_CARDS = [
+  { id: 'head',   word: 'head',   emoji: '👤', korean: '머리' },
+  { id: 'eye',    word: 'eye',    emoji: '👁️',  korean: '눈' },
+  { id: 'ear',    word: 'ear',    emoji: '👂', korean: '귀' },
+  { id: 'nose',   word: 'nose',   emoji: '👃', korean: '코' },
+  { id: 'mouth',  word: 'mouth',  emoji: '👄', korean: '입' },
+  { id: 'hand',   word: 'hand',   emoji: '🖐️',  korean: '손' },
+  { id: 'finger', word: 'finger', emoji: '☝️',  korean: '손가락' },
+  { id: 'arm',    word: 'arm',    emoji: '💪', korean: '팔' },
+  { id: 'leg',    word: 'leg',    emoji: '🦵', korean: '다리' },
+  { id: 'foot',   word: 'foot',   emoji: '🦶', korean: '발' },
+  { id: 'back',   word: 'back',   emoji: '🫀', korean: '등' },
+  { id: 'neck',   word: 'neck',   emoji: '🧣', korean: '목' },
+];
+
+// ─── 일일 학습 분할 헬퍼 ──────────────────────────────────────────────
+/**
+ * 카드 배열을 균등하게 targetDays 일수로 나눕니다.
+ * 예) 26장 → 5일: [6, 5, 5, 5, 5]
+ */
+function chunkCards(cards, targetDays) {
+  const base = Math.floor(cards.length / targetDays);
+  const extra = cards.length % targetDays;
+  const result = [];
+  let start = 0;
+  for (let i = 0; i < targetDays; i++) {
+    const size = base + (i < extra ? 1 : 0);
+    result.push({
+      day: i + 1,
+      newCards: cards.slice(start, start + size),
+    });
+    start += size;
+  }
+  return result;
+}
+
+// ─── Stage 1 커리큘럼 ─────────────────────────────────────────────────
+export const ENGLISH_STAGE_1 = {
+  id: 'en-stage-1',
+  stage: 1,
+  title: 'Stage 1 · 알파벳과 기초 단어',
+  subtitle: '2학년 · Pre-A1',
+  icon: '🔠',
+  units: [
+    {
+      id: 'en-s1-u1',
+      unit: 1,
+      title: '알파벳 대문자',
+      description: 'A부터 Z까지 대문자를 배워요.',
+      icon: '🔠',
+      type: 'daily',
+      quizMode: 'pick-letter',
+      showKorean: true,
+      cards: UPPERCASE_CARDS,
+      dailyLessons: chunkCards(UPPERCASE_CARDS, 5), // 26장 → 5일 [6,5,5,5,5]
+    },
+    {
+      id: 'en-s1-u2',
+      unit: 2,
+      title: '알파벳 소문자',
+      description: '대문자와 소문자를 짝지어 봐요.',
+      icon: '🔡',
+      type: 'daily',
+      quizMode: 'pick-lower',
+      showKorean: true,
+      cards: LOWERCASE_CARDS,
+      dailyLessons: chunkCards(LOWERCASE_CARDS, 5), // 26장 → 5일
+    },
+    {
+      id: 'en-s1-u3',
+      unit: 3,
+      title: '파닉스 — 단모음',
+      description: 'a·e·i·o·u 소리를 익혀요.',
+      icon: '🔊',
+      type: 'daily',
+      quizMode: 'pick-word',
+      showKorean: true,
+      cards: PHONICS_VOWEL_CARDS,
+      dailyLessons: chunkCards(PHONICS_VOWEL_CARDS, 5), // 25장 → 5일 [5,5,5,5,5]
+    },
+    {
+      id: 'en-s1-u4',
+      unit: 4,
+      title: '파닉스 — CVC 패밀리',
+      description: '-at · -an · -it · -in · -ot · -un 단어 패밀리.',
+      icon: '🧩',
+      type: 'daily',
+      quizMode: 'pick-word',
+      showKorean: true,
+      cards: PHONICS_CVC_CARDS,
+      dailyLessons: chunkCards(PHONICS_CVC_CARDS, 6), // 30장 → 6일 [5,5,5,5,5,5]
+    },
+    {
+      id: 'en-s1-u5',
+      unit: 5,
+      title: '숫자 1~20',
+      description: '숫자를 영어로 읽어요.',
+      icon: '🔢',
+      type: 'daily',
+      quizMode: 'pick-word',
+      showKorean: true,
+      cards: NUMBER_CARDS,
+      dailyLessons: chunkCards(NUMBER_CARDS, 4), // 20장 → 4일 [5,5,5,5]
+    },
+    {
+      id: 'en-s1-u6',
+      unit: 6,
+      title: '색깔',
+      description: '12가지 색깔 이름을 배워요.',
+      icon: '🎨',
+      type: 'daily',
+      quizMode: 'pick-word',
+      showKorean: true,
+      cards: COLOR_CARDS,
+      dailyLessons: chunkCards(COLOR_CARDS, 2), // 12장 → 2일 [6,6]
+    },
+    {
+      id: 'en-s1-u7',
+      unit: 7,
+      title: '동물',
+      description: '20가지 동물 이름을 배워요.',
+      icon: '🐾',
+      type: 'daily',
+      quizMode: 'pick-word',
+      showKorean: true,
+      cards: ANIMAL_CARDS,
+      dailyLessons: chunkCards(ANIMAL_CARDS, 4), // 20장 → 4일 [5,5,5,5]
+    },
+    {
+      id: 'en-s1-u8',
+      unit: 8,
+      title: '신체 부위',
+      description: '몸의 부위 이름을 배워요.',
+      icon: '🙋',
+      type: 'daily',
+      quizMode: 'pick-word',
+      showKorean: true,
+      cards: BODY_CARDS,
+      dailyLessons: chunkCards(BODY_CARDS, 2), // 12장 → 2일 [6,6]
+    },
+    {
+      id: 'en-s1-u9',
+      unit: 9,
+      title: '첫 문장',
+      description: 'I am / This is 문장을 만들어요.',
+      icon: '📝',
+      type: 'daily',
+      quizMode: 'pick-sentence',
+      showKorean: true,
+      cards: FIRST_SENTENCE_CARDS,
+      dailyLessons: chunkCards(FIRST_SENTENCE_CARDS, 4), // 20장 → 4일 [5,5,5,5]
+    },
+    {
+      id: 'en-s1-u10',
+      unit: 10,
+      title: '인사와 소개',
+      description: 'Hello! My name is ___ 말하기.',
+      icon: '👋',
+      type: 'daily',
+      quizMode: 'pick-sentence',
+      showKorean: true,
+      cards: GREETING_CARDS,
+      dailyLessons: chunkCards(GREETING_CARDS, 4), // 16장 → 4일 [4,4,4,4]
+    },
+  ],
+};
+
+// 단원 ID로 단원 찾기
+export function findEnglishUnit(unitId) {
+  return ENGLISH_STAGE_1.units.find(u => u.id === unitId) ?? null;
+}

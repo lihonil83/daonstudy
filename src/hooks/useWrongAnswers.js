@@ -5,9 +5,8 @@ import {
   splitWrongAnswers,
   upsertWrongAnswer,
 } from '../models/wrongAnswerModel.js';
+import { WRONG_KEY } from '../config/storageKeys.js';
 import { readStorageJSON, subscribeStorageKey, writeStorageJSON } from '../utils/storage';
-
-const WRONG_KEY = 'eduapp_wrong';
 
 function loadWrongAnswers() {
   return readStorageJSON(WRONG_KEY, []);

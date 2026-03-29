@@ -7,10 +7,8 @@ import {
   evaluateRewardUpdate,
   getRewardProgress,
 } from '../models/rewardModel.js';
+import { REWARD_KEY, SCORES_KEY } from '../config/storageKeys.js';
 import { readStorageJSON, subscribeStorageKey, writeStorageJSON } from '../utils/storage';
-
-const REWARD_KEY = 'eduapp_reward';
-const SCORES_KEY = 'eduapp_scores';
 
 function loadRewardState() {
   const stored = readStorageJSON(REWARD_KEY, createRewardState());

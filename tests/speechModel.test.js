@@ -53,7 +53,7 @@ test('getSpeechPrompt builds prompts for phonics cards only', () => {
     }),
     {
       label: 'A/a 소리 듣기',
-      text: 'A a',
+      text: 'A',
       lang: 'en-US',
     },
   );

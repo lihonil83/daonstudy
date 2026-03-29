@@ -142,13 +142,19 @@ function MeasurementCard({ visual }) {
 }
 
 function EquationCard({ visual }) {
+  const chipText =
+    visual.chip ??
+    (visual.category === 'multiplication'
+      ? '곱셈 생각하기'
+      : visual.category === 'division'
+        ? '나눗셈 생각하기'
+        : '식 생각하기');
+
   return (
     <div className={`${styles.frame} ${styles.equationFrame}`}>
       <div className={styles.label}>{visual.label ?? '계산 카드'}</div>
       <div className={styles.equationExpression}>{visual.expression}</div>
-      <div className={styles.equationChip}>
-        {visual.category === 'subtraction' ? '뺄셈 생각하기' : '덧셈 생각하기'}
-      </div>
+      <div className={styles.equationChip}>{chipText}</div>
       <p className={styles.hint}>{visual.guide ?? '식을 보고 머릿속으로 계산해보세요.'}</p>
     </div>
   );

@@ -1,14 +1,69 @@
 import { Link, useParams } from 'react-router-dom';
 import QuizSession from '../../components/Quiz/QuizSession';
-import { ENGLISH_UNITS } from '../../data/unitRegistry';
+import DailyLessonSession from '../../components/English/DailyLessonSession';
+import { ENGLISH_STAGE_1, findEnglishUnit } from '../../data/englishCurriculum';
+import { ENGLISH_CHALLENGE_UNITS, ENGLISH_UNITS as QUICK_ENGLISH_UNITS } from '../../data/unitRegistry';
+import { getCurrentDay, getUnitProgress, isDayPassed } from '../../models/enDailyProgressModel';
 import styles from './English.module.css';
 
-export default function English() {
+function UnitProgressDots({ unitId, totalDays }) {
+  return (
+    <div className={styles.dayDots}>
+      {Array.from({ length: totalDays }, (_, index) => {
+        const day = index + 1;
+        const passed = isDayPassed(unitId, day);
+        const current = !passed && day === getCurrentDay(unitId);
+
+        return (
+          <span
+            key={day}
+            className={`${styles.dot} ${passed ? styles.dotDone : current ? styles.dotCurrent : styles.dotLocked}`}
+            title={`Day ${day}`}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
+function QuickChallengeSection() {
+  return (
+    <div className={styles.stageHeader}>
+      <span className={`${styles.tag} ${styles.englishTag}`}>⚡ 빠른 챌린지</span>
+      <h3 className={styles.title}>알파벳과 파닉스 핵심 퀴즈</h3>
+      <p className={styles.copy}>10문제 퀴즈로 대문자, 소문자, 파닉스 A/B/C를 바로 연습할 수 있어요.</p>
+      <div className={styles.unitList}>
+        {ENGLISH_CHALLENGE_UNITS.map((unit) => (
+          <Link key={unit.id} to={`/english/${unit.id}`} className={styles.unitCard}>
+            <div className={styles.unitMeta}>
+              <div className={styles.unitLeft}>
+                <span className={styles.unitIcon}>🔤</span>
+                <div>
+                  <strong className={styles.unitTitle}>{unit.title}</strong>
+                  <span className={styles.unitDesc}>{unit.description}</span>
+                </div>
+              </div>
+              <div className={styles.unitRight}>
+                <span className={styles.tagNew}>바로 도전</span>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default function EnglishPage() {
   const { unitId } = useParams();
-  const units = Object.values(ENGLISH_UNITS);
+
+  const quickUnit = unitId ? QUICK_ENGLISH_UNITS[unitId] : null;
+  if (quickUnit) {
+    return <QuizSession unit={quickUnit} accent="english" backTo="/english" />;
+  }
 
   if (unitId) {
-    const unit = ENGLISH_UNITS[unitId];
+    const unit = findEnglishUnit(unitId);
 
     if (!unit) {
       return (
@@ -16,72 +71,117 @@ export default function English() {
           <div className={styles.panel}>
             <span className={`${styles.tag} ${styles.englishTag}`}>영어 단원</span>
             <h2 className={styles.title}>단원을 찾을 수 없어요</h2>
-            <p className={styles.copy}>
-              아직 등록되지 않은 영어 단원 경로예요. 아래 목록에 있는 단원으로 다시 들어가면
-              바로 이어서 학습할 수 있어요.
-            </p>
-            <Link className={styles.linkButton} to="/english">
-              단원 목록으로 돌아가기
-            </Link>
+            <Link className={styles.linkButton} to="/english">단원 목록으로 돌아가기</Link>
           </div>
         </section>
       );
     }
 
-    if (!unit.available) {
+    if (unit.type === 'coming-soon') {
       return (
         <section className={styles.page}>
           <div className={styles.panel}>
-            <span className={`${styles.tag} ${styles.englishTag}`}>영어 단원</span>
-            <h2 className={styles.title}>{unit.title}</h2>
-            <p className={styles.copy}>
-              {unit.description} 지금은 잠겨 있지만, 학습 순서가 보이도록 자리를 먼저 만들어
-              두었습니다.
-            </p>
-            <Link className={styles.linkButton} to="/english">
-              단원 목록으로 돌아가기
-            </Link>
+            <span className={`${styles.tag} ${styles.englishTag}`}>준비 중</span>
+            <h2 className={styles.title}>{unit.icon} {unit.title}</h2>
+            <p className={styles.copy}>{unit.description}<br />곧 열릴 예정이에요! 🛠️</p>
+            <Link className={styles.linkButton} to="/english">단원 목록으로 돌아가기</Link>
           </div>
         </section>
       );
     }
 
-    return <QuizSession unit={unit} accent="english" backTo="/english" />;
+    return <DailyLessonSession unit={unit} backTo="/english" />;
   }
+
+  const stage = ENGLISH_STAGE_1;
 
   return (
     <section className={styles.page}>
       <div className={styles.panel}>
-        <span className={`${styles.tag} ${styles.englishTag}`}>영어</span>
-        <h2 className={styles.title}>영어 단원을 골라보세요</h2>
-        <p className={styles.copy}>
-          이제 알파벳, 기초 단어, 파닉스 A·B·C 단원을 바로 풀 수 있어요. 다음 단원도
-          그대로 보여서 앱이 커져도 길을 다시 익힐 필요가 없습니다.
-        </p>
+        <div className={styles.stageHeader}>
+          <span className={`${styles.tag} ${styles.englishTag}`}>{stage.icon} {stage.subtitle}</span>
+          <h2 className={styles.title}>영어 단원을 골라보세요</h2>
+          <p className={styles.copy}>
+            빠른 알파벳·파닉스 퀴즈부터 시작하거나, Stage 1 일일 학습으로 차근차근 이어갈 수 있어요.
+          </p>
+        </div>
+
+        <QuickChallengeSection />
+
+        <div className={styles.stageHeader}>
+          <span className={`${styles.tag} ${styles.englishTag}`}>{stage.icon} {stage.subtitle}</span>
+          <h2 className={styles.title}>{stage.title}</h2>
+          <p className={styles.copy}>
+            매일 정해진 분량을 배우고 테스트를 <strong>80% 이상</strong> 통과하면 다음 날 학습이 열려요.
+          </p>
+        </div>
+
         <div className={styles.unitList}>
-          {units.map((unit) =>
-            unit.available ? (
-              <Link key={unit.id} to={`/english/${unit.id}`} className={styles.unitCard}>
+          {stage.units.map((unit) => {
+            const isComingSoon = unit.type === 'coming-soon';
+            const totalDays = unit.dailyLessons?.length ?? 0;
+            const { passedDays, allDone } = getUnitProgress(unit.id, totalDays);
+            const currentDay = getCurrentDay(unit.id);
+            const unitIndex = stage.units.indexOf(unit);
+            const previousUnit = unitIndex > 0 ? stage.units[unitIndex - 1] : null;
+            const previousDone =
+              !previousUnit ||
+              previousUnit.type === 'coming-soon' ||
+              getUnitProgress(previousUnit.id, previousUnit.dailyLessons.length).allDone;
+            const isUnitLocked = !previousDone && !allDone && passedDays === 0;
+
+            const cardContent = (
+              <>
                 <div className={styles.unitMeta}>
-                  <strong>{unit.title}</strong>
-                  <span className={styles.tag}>시작 가능</span>
+                  <div className={styles.unitLeft}>
+                    <span className={styles.unitIcon}>{unit.icon}</span>
+                    <div>
+                      <strong className={styles.unitTitle}>{unit.unit}. {unit.title}</strong>
+                      <span className={styles.unitDesc}>{unit.description}</span>
+                    </div>
+                  </div>
+                  <div className={styles.unitRight}>
+                    {isComingSoon ? (
+                      <span className={styles.tagLocked}>🔒 준비 중</span>
+                    ) : isUnitLocked ? (
+                      <span className={styles.tagLocked}>🔒 잠김</span>
+                    ) : allDone ? (
+                      <span className={styles.tagDone}>✅ 완료</span>
+                    ) : passedDays > 0 ? (
+                      <span className={styles.tagTried}>Day {currentDay} 진행 중</span>
+                    ) : (
+                      <span className={styles.tagNew}>Day 1 시작</span>
+                    )}
+                  </div>
                 </div>
-                <span className={styles.unitNote}>{unit.description}</span>
-              </Link>
-            ) : (
-              <div
-                key={unit.id}
-                className={`${styles.unitCard} ${styles.unitCardDisabled}`}
-                aria-disabled="true"
-              >
-                <div className={styles.unitMeta}>
-                  <strong>{unit.title}</strong>
-                  <span className={styles.tag}>잠김</span>
-                </div>
-                <span className={styles.unitNote}>{unit.description}</span>
+
+                {!isComingSoon && totalDays > 0 ? (
+                  <UnitProgressDots unitId={unit.id} totalDays={totalDays} />
+                ) : null}
+                {!isComingSoon && totalDays > 0 ? (
+                  <p className={styles.unitDayCount}>
+                    {passedDays} / {totalDays}일 완료
+                    {!allDone ? ` · 오늘: Day ${globalThis.Math.min(currentDay, totalDays)}` : ''}
+                  </p>
+                ) : null}
+              </>
+            );
+
+            const isDisabled = isComingSoon || isUnitLocked;
+            const cardClass = isDisabled
+              ? `${styles.unitCard} ${styles.unitCardDisabled}`
+              : styles.unitCard;
+
+            return isDisabled ? (
+              <div key={unit.id} className={cardClass} aria-disabled="true">
+                {cardContent}
               </div>
-            ),
-          )}
+            ) : (
+              <Link key={unit.id} to={`/english/${unit.id}`} className={cardClass}>
+                {cardContent}
+              </Link>
+            );
+          })}
         </div>
       </div>
     </section>

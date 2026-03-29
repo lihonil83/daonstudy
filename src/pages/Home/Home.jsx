@@ -1,103 +1,178 @@
 import { Link } from 'react-router-dom';
+import { CURRICULUM } from '../../data/curriculum';
+import { ENGLISH_STAGE_1 } from '../../data/englishCurriculum';
+import { ENGLISH_CHALLENGE_UNITS, MATH_CHALLENGE_UNITS } from '../../data/unitRegistry';
+import { useProgress } from '../../hooks/useProgress';
 import { useReward } from '../../hooks/useReward';
 import { useWrongAnswers } from '../../hooks/useWrongAnswers';
+import { getUnitProgress as getEnProgress } from '../../models/enDailyProgressModel';
+import { getRecommendedMission } from '../../models/homeModel';
+import { DAYS_PER_UNIT, getUnitProgress as getMathProgress } from '../../models/mathDailyProgressModel';
+import { getVisibleProgressPercent } from '../../models/progressDisplayModel';
 import styles from './Home.module.css';
 
-const cards = [
-  {
-    to: '/math',
-    badge: '수학',
-    title: '수학 미션',
-    description: '숫자 놀이터로 들어가서 구구단, 시계 읽기, 길이·무게 단위, 덧셈·뺄셈을 골라 시작해보세요.',
-  },
-  {
-    to: '/english',
-    badge: '영어',
-    title: '영어 퀘스트',
-    description: '알파벳, 기초 단어, 파닉스 A·B·C 단원으로 들어가서 영어 퀴즈를 풀어보세요.',
-  },
-  {
-    to: '/review',
-    badge: '복습',
-    title: '복습 노트',
-    description: '3단계에서 오답 복습 흐름이 연결될 준비가 되어 있어요.',
-  },
-  {
-    to: '/progress',
-    badge: '기록',
-    title: '학습 기록판',
-    description: '연속 학습, 점수, 레벨 기록이 들어올 자리를 미리 준비해두었어요.',
-  },
-];
+const DAILY_MATH_UNITS = CURRICULUM.filter((unit) => unit.subject === 'math');
+
+function useMathSummary() {
+  const total = DAILY_MATH_UNITS.length * DAYS_PER_UNIT;
+  const done = DAILY_MATH_UNITS.reduce((sum, unit) => {
+    return sum + getMathProgress(unit.id, DAYS_PER_UNIT).passedDays;
+  }, 0);
+
+  return {
+    done,
+    total,
+    pct: getVisibleProgressPercent(done, total),
+  };
+}
+
+function useEnglishSummary() {
+  const units = ENGLISH_STAGE_1.units.filter((unit) => unit.type === 'daily');
+  const total = units.reduce((sum, unit) => sum + unit.dailyLessons.length, 0);
+  const done = units.reduce((sum, unit) => {
+    return sum + getEnProgress(unit.id, unit.dailyLessons.length).passedDays;
+  }, 0);
+
+  return {
+    done,
+    total,
+    pct: getVisibleProgressPercent(done, total),
+  };
+}
 
 export default function Home() {
-  const { allBadges, badgeProgress, icon, level, title, totalXp, xpForNextLevel, xpProgress, xpToNext } =
-    useReward();
-  const { unreviewedCount } = useWrongAnswers();
-  const badgePreview = allBadges.slice(0, 6);
+  const reward = useReward();
+  const progress = useProgress();
+  const wrongAnswers = useWrongAnswers();
+
+  const icon = reward.icon ?? '🌱';
+  const level = reward.level ?? 1;
+  const title = reward.title ?? '새싹 학습자';
+  const totalXp = reward.totalXp ?? 0;
+  const xpProgress = reward.xpProgress ?? 0;
+  const xpToNext = reward.xpToNext ?? 0;
+  const badgeProgress = reward.badgeProgress ?? '0/0 수집';
+  const currentStreak = progress.currentStreak ?? 0;
+  const totalQuizCount = progress.totalQuizCount ?? 0;
+  const unreviewedCount = wrongAnswers.unreviewedCount ?? 0;
+
+  const math = useMathSummary();
+  const english = useEnglishSummary();
+  const xpPercent = Math.max(0, Math.min(1, xpProgress)) * 100;
+  const recommendation = getRecommendedMission({
+    unreviewedCount,
+    totalQuizCount,
+    getUnitProgress: progress.getUnitProgress ?? (() => ({ attempts: 0 })),
+    mathUnits: MATH_CHALLENGE_UNITS,
+    englishUnits: ENGLISH_CHALLENGE_UNITS,
+  });
 
   return (
-    <section className={styles.page}>
-      <div className={styles.hero}>
-        <div>
-          <p className={styles.kicker}>3단계 MVP 흐름</p>
-          <h2 className={styles.heading}>배운 기록과 보상이 함께 쌓이는 학습 출발점</h2>
-        </div>
-        <p className={styles.copy}>
-          퀴즈를 끝까지 풀면 점수, XP, 뱃지, 오답 복습 흐름이 함께 이어집니다. 잘한 점을
-          모으면서 다음 학습으로 자연스럽게 넘어가게 만들고 있어요.
-        </p>
-        <div className={styles.overviewGrid}>
-          <div className={styles.rewardCard}>
-            <div className={styles.rewardTop}>
-              <div>
-                <p className={styles.rewardLabel}>현재 레벨</p>
-                <h3 className={styles.rewardTitle}>
-                  {icon} 레벨 {level} · {title}
-                </h3>
-              </div>
-              <span className={styles.rewardHint}>다음까지 {xpToNext} XP</span>
+    <div className={styles.page}>
+      <aside className={styles.sidebar}>
+        <div className={styles.avatarCard}>
+          <div className={styles.avatarEmoji}>{icon}</div>
+          <div className={styles.avatarInfo}>
+            <p className={styles.levelLine}>레벨 {level} · {title}</p>
+            <div className={styles.levelBadge}>Lv.{level}</div>
+            <h2 className={styles.levelTitle}>{title}</h2>
+            <div className={styles.xpBar}>
+              <div className={styles.xpFill} style={{ width: `${xpPercent}%` }} />
             </div>
-            <div className={styles.progressTrack}>
-              <div className={styles.progressFill} style={{ width: `${Math.max(0, Math.min(1, xpProgress)) * 100}%` }} />
-            </div>
-            <div className={styles.rewardMeta}>
-              <span>{totalXp} XP</span>
-              <span>{xpForNextLevel} XP 목표</span>
-            </div>
-            <div className={styles.badgeRow}>
-              {badgePreview.map((badge) => (
-                <span key={badge.id} className={badge.earned ? styles.badgeChip : styles.badgeChipMuted}>
-                  {badge.earned ? badge.icon : badge.hidden ? '❔' : '◻️'}
-                </span>
-              ))}
-            </div>
-            <p className={styles.rewardCopy}>뱃지 {badgeProgress}</p>
+            <p className={styles.xpText}>{totalXp} XP · 다음까지 {xpToNext} XP</p>
+            <p className={styles.badgeText}>뱃지 {badgeProgress}</p>
           </div>
+        </div>
 
-          <Link className={styles.reviewCard} to="/review">
-            <p className={styles.reviewKicker}>복습 알림</p>
-            <h3 className={styles.reviewTitle}>
-              {unreviewedCount > 0 ? `📖 복습할 문제가 ${unreviewedCount}개 있어요` : '✨ 복습할 문제가 없어요'}
-            </h3>
-            <p className={styles.reviewCopy}>
+        <div className={styles.streakCard}>
+          <span className={styles.streakIcon}>🔥</span>
+          <div>
+            <p className={styles.streakLabel}>연속 학습</p>
+            <p className={styles.streakValue}>{currentStreak}일째</p>
+          </div>
+        </div>
+
+        <div className={styles.statRow}>
+          <div className={styles.statItem}>
+            <span className={styles.statNum}>{totalQuizCount}</span>
+            <span className={styles.statLabel}>퀴즈 완료</span>
+          </div>
+          <div className={styles.statItem}>
+            <span className={styles.statNum}>{unreviewedCount}</span>
+            <span className={styles.statLabel}>오답 대기</span>
+          </div>
+        </div>
+      </aside>
+
+      <main className={styles.mainArea}>
+        <div className={styles.greeting}>
+          <h1 className={styles.greetingTitle}>다온 학습 놀이터 👋</h1>
+          <p className={styles.greetingKicker}>시작, 복습, 기록이 한 번에 이어지는 학습 홈</p>
+          <p className={styles.greetingSub}>오늘도 조금씩, 꾸준히!</p>
+        </div>
+
+        <section className={styles.missionCard}>
+          <div className={styles.missionHeader}>
+            <span className={styles.missionBadge}>{recommendation.badge}</span>
+            <p className={styles.reviewStatus}>
               {unreviewedCount > 0
-                ? '가볍게 다시 풀어보면 XP도 받고 더 또렷하게 기억할 수 있어요.'
-                : '지금까지 나온 문제는 잘 정리되고 있어요. 필요하면 언제든 다시 볼 수 있어요.'}
+                ? `📖 복습할 문제가 ${unreviewedCount}개 있어요`
+                : '✨ 복습할 문제가 없어요'}
             </p>
+          </div>
+          <h2 className={styles.missionTitle}>{recommendation.title}</h2>
+          <p className={styles.missionCopy}>
+            {unreviewedCount > 0
+              ? recommendation.description
+              : '필요하면 언제든 다시 볼 수 있어요.'}
+          </p>
+          <Link to={recommendation.to} className={styles.missionButton}>
+            {recommendation.cta}
+          </Link>
+        </section>
+
+        <div className={styles.subjectGrid}>
+          <Link to="/math" className={`${styles.subjectCard} ${styles.subjectMath}`}>
+            <span className={styles.subjectEmoji}>🔢</span>
+            <div className={styles.subjectInfo}>
+              <h3 className={styles.subjectName}>수학</h3>
+              <p className={styles.subjectSub}>1~6학년 · {math.done}/{math.total}일 완료</p>
+            </div>
+            <div className={styles.subjectBar}>
+              <div className={styles.subjectFill} style={{ width: `${math.pct}%` }} />
+            </div>
+            <span className={styles.subjectPct}>{math.pct}%</span>
+          </Link>
+
+          <Link to="/english" className={`${styles.subjectCard} ${styles.subjectEnglish}`}>
+            <span className={styles.subjectEmoji}>🔤</span>
+            <div className={styles.subjectInfo}>
+              <h3 className={styles.subjectName}>영어</h3>
+              <p className={styles.subjectSub}>Stage 1 · {english.done}/{english.total}일 완료</p>
+            </div>
+            <div className={styles.subjectBar}>
+              <div className={styles.subjectFill} style={{ width: `${english.pct}%` }} />
+            </div>
+            <span className={styles.subjectPct}>{english.pct}%</span>
           </Link>
         </div>
-      </div>
 
-      <div className={styles.grid}>
-        {cards.map((card) => (
-          <Link key={card.to} to={card.to} className={styles.card}>
-            <span className={styles.badge}>{card.badge}</span>
-            <h3 className={styles.cardTitle}>{card.title}</h3>
-            <p className={styles.cardCopy}>{card.description}</p>
+        <div className={styles.quickMenu}>
+          <Link to="/roadmap" className={`${styles.menuCard} ${styles.menuRoadmap}`}>
+            <span className={styles.menuIcon}>🗺️</span>
+            <span className={styles.menuLabel}>전체 현황</span>
           </Link>
-        ))}
-      </div>
-    </section>
+          <Link to="/review" className={`${styles.menuCard} ${styles.menuReview}`}>
+            <span className={styles.menuIcon}>📖</span>
+            <span className={styles.menuLabel}>오답 노트</span>
+            {unreviewedCount > 0 ? <span className={styles.menuBadge}>{unreviewedCount}</span> : null}
+          </Link>
+          <Link to="/progress" className={`${styles.menuCard} ${styles.menuProgress}`}>
+            <span className={styles.menuIcon}>📊</span>
+            <span className={styles.menuLabel}>학습 기록</span>
+          </Link>
+        </div>
+      </main>
+    </div>
   );
 }

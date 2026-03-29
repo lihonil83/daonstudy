@@ -37,6 +37,7 @@
 ### 6. 검증 방법
 
 - `npm run smoke:browser`
+- `npm run build:smoke`
 
 ### 7. 선행 조건 / 의존성
 
@@ -52,6 +53,7 @@
 ### 9. 작업 메모
 
 - `smoke:browser`는 `build -> preview -> headless Chrome dump-dom` 순서로 동작한다.
+- smoke 전용 경로는 `VITE_ENABLE_SMOKE_ROUTES=true`가 들어간 smoke 빌드에서만 열린다.
 - home, math, english, review, progress, quiz route, fallback 경로를 baseline으로 삼아 HashRouter 번들 로딩 여부를 확인한다.
 - 각 브라우저 호출에는 종료 타임아웃을 두어 headless Chrome이 비정상적으로 멈출 때 smoke가 무한 대기하지 않도록 했다.
 - Chrome stderr에 섞이는 일부 GPU 경고는 결과 해석에 필요 없는 항목이라 필터링했다.

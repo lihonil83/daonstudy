@@ -1,0 +1,384 @@
+.shell {
+  display: grid;
+  place-items: start center;
+  padding: 20px 16px;
+}
+
+.card {
+  display: grid;
+  gap: 18px;
+  width: 100%;
+  max-width: 480px;
+  padding: 28px 24px;
+  border-radius: 28px;
+  background:
+    linear-gradient(145deg, rgba(247, 143, 179, 0.12), rgba(255, 255, 255, 0.96)),
+    rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(247, 143, 179, 0.22);
+  box-shadow: 0 4px 24px rgba(157, 61, 103, 0.08);
+  transition: background 0.3s;
+}
+
+/* 통과 / 실패 색상 */
+.cardPass {
+  background:
+    linear-gradient(145deg, rgba(34, 197, 94, 0.1), rgba(255, 255, 255, 0.96)),
+    rgba(255, 255, 255, 0.92);
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+.cardFail {
+  background:
+    linear-gradient(145deg, rgba(251, 146, 60, 0.1), rgba(255, 255, 255, 0.96)),
+    rgba(255, 255, 255, 0.92);
+  border-color: rgba(251, 146, 60, 0.3);
+}
+
+/* ── 헤더 ── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dayBadge {
+  font-size: 13px;
+  font-weight: 800;
+  color: #fff;
+  background: #9d3d67;
+  padding: 5px 14px;
+  border-radius: 999px;
+}
+
+.counter {
+  font-size: 13px;
+  font-weight: 700;
+  color: #9d3d67;
+  background: rgba(247, 143, 179, 0.16);
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
+/* ── 진행 바 ── */
+.progressTrack {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(247, 143, 179, 0.18);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 999px;
+  background: #f78fb3;
+  transition: width 0.3s ease;
+}
+
+.progressTest {
+  background: #9d4edd;
+}
+
+/* ── 오늘 안내 ── */
+.todayHint {
+  margin: 0;
+  font-size: 13px;
+  color: #7a8a99;
+  background: rgba(247, 143, 179, 0.08);
+  padding: 10px 14px;
+  border-radius: 12px;
+  line-height: 1.5;
+}
+
+/* ── 카드 본문 ── */
+.cardBody {
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+  padding: 12px 0 6px;
+  text-align: center;
+}
+
+.cardEmoji {
+  font-size: 5rem;
+  line-height: 1.1;
+  user-select: none;
+}
+
+.cardWord {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.cardKorean {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #9d3d67;
+  background: rgba(247, 143, 179, 0.14);
+  padding: 6px 18px;
+  border-radius: 999px;
+}
+
+.cardHint {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #7a8a99;
+}
+
+/* ── TTS ── */
+.ttsButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 10px 20px;
+  border: 2px solid rgba(247, 143, 179, 0.4);
+  border-radius: 16px;
+  background: rgba(247, 143, 179, 0.1);
+  color: #9d3d67;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.ttsButton:hover:not(:disabled) { background: rgba(247, 143, 179, 0.2); }
+.ttsButton:disabled { opacity: 0.4; cursor: not-allowed; }
+.ttsActive { background: rgba(247, 143, 179, 0.25); border-color: #f78fb3; }
+
+/* ── 네비 ── */
+.navRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.navBtn {
+  min-height: 52px;
+  border: none;
+  border-radius: 16px;
+  background: rgba(35, 48, 58, 0.08);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.navBtn:hover:not(:disabled) { background: rgba(35, 48, 58, 0.13); }
+.navBtn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+.startTestBtn {
+  min-height: 52px;
+  border: none;
+  border-radius: 16px;
+  background: #9d3d67;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  animation: pulse 1.6s infinite;
+}
+
+.startTestBtn:hover { opacity: 0.88; }
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(157, 61, 103, 0.35); }
+  50%       { box-shadow: 0 0 0 8px rgba(157, 61, 103, 0); }
+}
+
+/* ── 테스트: 통과 기준 안내 ── */
+.passInfo {
+  margin: 0;
+  font-size: 12px;
+  color: #7a8a99;
+  text-align: center;
+}
+
+/* ── 테스트: 문제 ── */
+.questionBox {
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(247, 143, 179, 0.08);
+  border: 1px solid rgba(247, 143, 179, 0.18);
+  text-align: center;
+}
+
+.questionText {
+  margin: 0;
+  font-size: 1.45rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+/* ── 테스트: 보기 ── */
+.choiceGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* pick-sentence 모드: 문장이 길어서 1열로 */
+.choiceGridSingle {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.choiceBtn {
+  min-height: 60px;
+  padding: 10px;
+  border-radius: 16px;
+  border: 2px solid rgba(35, 48, 58, 0.1);
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.1s, background 0.12s;
+  word-break: break-all;
+}
+
+.choiceBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: rgba(247, 143, 179, 0.1);
+}
+
+.choiceBtn:disabled { cursor: default; }
+
+.choice_correct { background: #d4f4e2 !important; border-color: #22c55e !important; color: #166534; }
+.choice_wrong   { background: #fde8e8 !important; border-color: #ef4444 !important; color: #991b1b; }
+
+/* ── 테스트: 피드백 & 점수 ── */
+.feedbackMsg {
+  margin: 0;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 10px 14px;
+  border-radius: 12px;
+}
+
+.feedback_correct { background: #d4f4e2; color: #166534; }
+.feedback_wrong   { background: #fde8e8; color: #991b1b; }
+
+.scoreRow {
+  font-size: 13px;
+  color: #7a8a99;
+  text-align: right;
+}
+
+/* ── 결과 화면 ── */
+.bigEmoji {
+  font-size: 4.5rem;
+  text-align: center;
+}
+
+.resultTitle {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.resultSub {
+  margin: 0;
+  text-align: center;
+  color: #7a8a99;
+}
+
+.resultGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.resultItem {
+  display: grid;
+  gap: 6px;
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(35, 48, 58, 0.08);
+  text-align: center;
+}
+
+.resultLabel {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7a8a99;
+}
+
+.resultValue {
+  font-size: 1.7rem;
+  color: #23303a;
+}
+
+.passMessage {
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  text-align: center;
+}
+
+.passMessage p { margin: 0; font-weight: 700; color: #166534; line-height: 1.6; }
+
+.failMessage {
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(251, 146, 60, 0.1);
+  border: 1px solid rgba(251, 146, 60, 0.3);
+  text-align: center;
+}
+
+.failMessage p { margin: 0; font-weight: 600; color: #92400e; line-height: 1.6; }
+
+.resultActions {
+  display: grid;
+  gap: 10px;
+}
+
+.retryBtn {
+  min-height: 52px;
+  border: none;
+  border-radius: 16px;
+  background: #fb923c;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.retryBtn:hover { opacity: 0.88; }
+
+.primaryBtn,
+.backBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  border-radius: 16px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+}
+
+.primaryBtn { background: #9d3d67; color: #fff; }
+.primaryBtn:hover { opacity: 0.88; }
+
+.backBtn { background: rgba(35, 48, 58, 0.08); color: inherit; }
+.backBtn:hover { background: rgba(35, 48, 58, 0.13); }
+
+/* ── 모바일 ── */
+@media (max-width: 520px) {
+  .card { padding: 22px 16px; }
+  .cardEmoji { font-size: 4rem; }
+  .cardWord { font-size: 1.7rem; }
+  .questionText { font-size: 1.2rem; }
+  .choiceBtn { font-size: 0.95rem; min-height: 54px; }
+}
